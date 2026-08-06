@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>James Velásquez — Portafolio</title>
+<meta name="description" content="Portafolio de James Steven Velásquez Vásquez — Informática Administrativa, Ciberseguridad & Desarrollo de Sistemas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bp-bg:#0a3050;
+    --bp-bg-2:#0d3c62;
+    --bp-panel:#0f4570;
+    --bp-line:rgba(255,255,255,.13);
+    --bp-line-strong:rgba(255,255,255,.30);
+    --ink:#eef4f8;
+    --ink-dim:#9fc0d9;
+    --amber:#e3a63e;
+    --rust:#cf5240;
+    --green:#5cb984;
+    --mono:'IBM Plex Mono',monospace;
+    --display:'Space Grotesk',sans-serif;
+    --body:'IBM Plex Sans',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      repeating-linear-gradient(0deg, var(--bp-line) 0 1px, transparent 1px 8px),
+      repeating-linear-gradient(90deg, var(--bp-line) 0 1px, transparent 1px 8px),
+      repeating-linear-gradient(0deg, var(--bp-line-strong) 0 1.5px, transparent 1.5px 40px),
+      repeating-linear-gradient(90deg, var(--bp-line-strong) 0 1.5px, transparent 1.5px 40px),
+      var(--bp-bg);
+    color:var(--ink);
+    font-family:var(--body);
+    min-height:100vh;
+    padding:18px;
+  }
+  .sheet{
+    max-width:1180px;
+    margin:0 auto;
+    border:2px solid var(--bp-line-strong);
+    background:linear-gradient(180deg, rgba(15,69,112,.55), rgba(10,48,80,.35));
+    position:relative;
+    padding-bottom:80px;
+  }
+  .sheet::before, .sheet::after{
+    content:"";
+    position:absolute; width:14px; height:14px;
+    border:2px solid var(--amber);
+    top:-2px; left:-2px; border-right:none; border-bottom:none;
+  }
+  .sheet::after{ left:auto; right:-2px; top:auto; bottom:-2px; border:2px solid var(--amber); border-left:none; border-top:none;}
+
+  header.top{ padding:28px 32px 18px; border-bottom:1px solid var(--bp-line-strong); display:flex; gap:26px; align-items:center; flex-wrap:wrap;}
+  .head-text{ flex:1; min-width:260px; position:relative;}
+  .eyebrow{ font-family:var(--mono); letter-spacing:.14em; font-size:11px; color:var(--amber); text-transform:uppercase;}
+  h1{ font-family:var(--display); font-weight:700; font-size:clamp(24px,3.6vw,38px); margin:6px 0 4px; letter-spacing:-.01em;}
+  .sub{ color:var(--ink-dim); font-size:13.5px; margin:0 0 4px; font-family:var(--mono); line-height:1.7;}
+  .sub a{ color:var(--ink-dim); text-decoration:none; border-bottom:1px dotted var(--bp-line-strong);}
+  .sub a:hover{ color:var(--amber); border-color:var(--amber);}
+
+  .stamp{ font-family:var(--mono); font-size:9.5px; border:2px solid var(--rust); color:var(--rust); border-radius:50%; width:70px; height:70px; display:flex; align-items:center; justify-content:center; text-align:center; transform:rotate(-14deg); opacity:.85; line-height:1.15; position:absolute; top:-6px; right:0;}
+
+  .photo-frame{
+    width:132px; height:132px; flex:0 0 132px; border:2px solid var(--bp-line-strong); border-radius:6px;
+    position:relative; overflow:hidden; background:#062338;
+  }
+  .photo-frame::before{ content:""; position:absolute; inset:0; border:1px solid var(--amber); opacity:.4; margin:5px; pointer-events:none; border-radius:3px;}
+  .photo-frame img{ width:100%; height:100%; object-fit:cover; display:block;}
+  .photo-fallback{ width:100%; height:100%; display:none; align-items:center; justify-content:center; flex-direction:column; gap:4px;}
+  .photo-fallback .ini{ font-family:var(--display); font-size:34px; font-weight:700; color:var(--amber);}
+  .photo-fallback .lbl{ font-family:var(--mono); font-size:8.5px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.08em; text-align:center; padding:0 6px;}
+  .photo-upload{
+    position:absolute; bottom:0; left:0; right:0; background:rgba(6,35,56,.85);
+    font-family:var(--mono); font-size:9px; text-align:center; color:var(--ink-dim); padding:3px 2px;
+    cursor:pointer; letter-spacing:.03em; border-top:1px solid var(--bp-line-strong);
+  }
+  .photo-upload:hover{ color:var(--amber);}
+
+  nav.tabbar{
+    display:flex; flex-wrap:wrap; gap:2px; padding:14px 32px 0; border-bottom:1px solid var(--bp-line-strong);
+  }
+  .tab{
+    font-family:var(--mono); font-size:12px; letter-spacing:.05em; color:var(--ink-dim);
+    background:transparent; border:1px solid var(--bp-line-strong); border-bottom:none;
+    padding:9px 13px; cursor:pointer; border-radius:4px 4px 0 0; transition:.15s;
+  }
+  .tab:hover{ color:var(--ink); background:rgba(255,255,255,.05);}
+  .tab.active{ color:var(--bp-bg); background:var(--amber); border-color:var(--amber); font-weight:600;}
+
+  main{ padding:26px 32px 10px; }
+  .panel{ display:none; animation:fade .25s ease; }
+  .panel.active{ display:block; }
+  @keyframes fade{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+
+  .panel-head{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px;}
+  .sheet-no{ font-family:var(--mono); font-size:11px; color:var(--amber); border:1px solid var(--amber); padding:2px 7px; border-radius:3px;}
+  .panel-head h2{ font-family:var(--display); font-size:23px; margin:0;}
+  .def{ color:var(--ink-dim); font-size:14.5px; line-height:1.6; max-width:900px; margin:10px 0 24px;}
+  .def b{ color:var(--ink); }
+
+  .resumen-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin-bottom:10px;}
+  .area-card{ border:1px solid var(--bp-line-strong); border-radius:6px; padding:15px; cursor:pointer; transition:.15s; background:rgba(255,255,255,.03);}
+  .area-card:hover{ border-color:var(--amber); transform:translateY(-2px); }
+  .area-card .num{ font-family:var(--mono); color:var(--amber); font-size:11px;}
+  .area-card h4{ font-family:var(--display); margin:5px 0 6px; font-size:16px;}
+  .area-card p{ font-size:12.3px; color:var(--ink-dim); line-height:1.5; margin:0;}
+
+  .card{ border:1px solid var(--bp-line-strong); border-radius:6px; background:rgba(255,255,255,.035); padding:16px 18px; margin-bottom:16px; }
+  .card h3{ font-family:var(--display); font-size:16.5px; margin:0 0 3px;}
+  .card .meta{ font-family:var(--mono); font-size:11.5px; color:var(--amber); margin:0 0 10px; font-style:normal;}
+  .card ul{ margin:8px 0 0; padding-left:18px; color:var(--ink-dim); font-size:13.5px; line-height:1.65;}
+  .card ul li{ margin-bottom:3px;}
+  .card ul li::marker{ color:var(--amber);}
+
+  table.ref{ width:100%; border-collapse:collapse; font-family:var(--mono); font-size:12.5px; margin-top:2px;}
+  table.ref th, table.ref td{ border:1px solid var(--bp-line-strong); padding:8px 10px; text-align:left;}
+  table.ref th{ background:rgba(255,255,255,.06); color:var(--amber); font-weight:600;}
+  table.ref td.small{ color:var(--ink-dim);}
+
+  .chip-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px;}
+  .chip-card{ border:1px solid var(--bp-line-strong); border-radius:6px; padding:14px 16px; background:rgba(255,255,255,.03);}
+  .chip-card h4{ font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.09em; color:var(--amber); margin:0 0 8px;}
+  .chip-card p{ margin:0; font-size:13px; color:var(--ink); line-height:1.5;}
+
+  .chk-item{ display:flex; align-items:flex-start; gap:10px; padding:7px 0; font-size:13.5px; border-bottom:1px dotted var(--bp-line);}
+  .chk-item .box{ width:18px; height:18px; border:2px solid var(--green); background:var(--green); border-radius:3px; flex:0 0 18px; margin-top:1px; position:relative;}
+  .chk-item .box::after{ content:"✓"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:12px; color:#04321c; font-weight:700;}
+
+  /* ---- Galería de proyectos ---- */
+  .upload-zone{
+    border:2px dashed var(--bp-line-strong); border-radius:8px; padding:22px; text-align:center;
+    margin-bottom:18px; background:rgba(255,255,255,.02); transition:.15s;
+  }
+  .upload-zone.drag{ border-color:var(--amber); background:rgba(227,166,62,.06);}
+  .upload-zone p{ margin:0 0 12px; color:var(--ink-dim); font-size:13px; font-family:var(--mono);}
+  button.btn{
+    font-family:var(--mono); font-size:12px; letter-spacing:.04em; cursor:pointer;
+    background:var(--amber); color:var(--bp-bg); border:none; padding:9px 16px; border-radius:4px; font-weight:600;
+  }
+  button.btn:hover{ background:#f0b654; }
+  button.btn.ghost{ background:transparent; color:var(--ink-dim); border:1px solid var(--bp-line-strong); font-weight:500; padding:8px 14px; margin-left:8px;}
+  button.btn.ghost:hover{ color:var(--ink); border-color:var(--ink-dim);}
+  input[type=file]{ display:none; }
+
+  .gallery-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px;}
+  .gallery-item{ position:relative; border:1px solid var(--bp-line-strong); border-radius:6px; overflow:hidden; aspect-ratio:4/3; background:#062338;}
+  .gallery-item img{ width:100%; height:100%; object-fit:cover; display:block;}
+  .gallery-item .del{
+    position:absolute; top:6px; right:6px; width:22px; height:22px; border-radius:50%;
+    background:rgba(6,35,56,.85); color:var(--rust); border:1px solid var(--rust); cursor:pointer;
+    font-family:var(--mono); font-size:12px; line-height:1; display:flex; align-items:center; justify-content:center;
+    opacity:0; transition:.15s;
+  }
+  .gallery-item:hover .del{ opacity:1; }
+  .gallery-empty{ font-family:var(--mono); font-size:12.5px; color:var(--ink-dim); padding:14px 0;}
+  .gallery-note{ font-family:var(--mono); font-size:11px; color:var(--ink-dim); line-height:1.7; margin-top:16px; padding-top:14px; border-top:1px solid var(--bp-line-strong);}
+  .gallery-note b{ color:var(--amber); }
+
+  .titleblock{
+    position:absolute; right:14px; bottom:14px; width:270px;
+    border:1px solid var(--bp-line-strong); background:rgba(6,35,56,.75); font-family:var(--mono); font-size:10px; color:var(--ink-dim);
+  }
+  .titleblock .tb-row{ display:flex; border-bottom:1px solid var(--bp-line-strong);}
+  .titleblock .tb-row:last-child{ border-bottom:none;}
+  .titleblock .tb-cell{ padding:5px 8px; flex:1; border-right:1px solid var(--bp-line-strong);}
+  .titleblock .tb-cell:last-child{ border-right:none;}
+  .titleblock .tb-label{ color:var(--amber); display:block; font-size:8.5px; text-transform:uppercase; letter-spacing:.06em;}
+
+  @media (max-width:860px){
+    .titleblock{ position:static; width:auto; margin:20px 32px 0;}
+    .sheet{ padding-bottom:20px;}
+    header.top{ padding:22px 18px 16px;}
+    main{ padding:20px 18px 10px;}
+    nav.tabbar{ padding:12px 18px 0;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="top">
+    <div class="photo-frame">
+      <img id="foto-img" src="assets/foto.jpg" alt="Foto de James Velásquez" onerror="this.style.display='none'; document.getElementById('foto-fallback').style.display='flex';">
+      <div class="photo-fallback" id="foto-fallback">
+        <div class="ini">JV</div>
+        <div class="lbl">Sin foto aún</div>
+      </div>
+      <label class="photo-upload" for="input-foto">cambiar foto</label>
+      <input type="file" id="input-foto" accept="image/*">
+    </div>
+    <div class="head-text">
+      <div class="stamp">EN CURSO<br>UNAH</div>
+      <div class="eyebrow">Informática Administrativa · Ciberseguridad &amp; Desarrollo de Sistemas</div>
+      <h1>James Steven Velásquez Vásquez</h1>
+      <p class="sub">
+        <a href="mailto:james.svelasquez@gmail.com">james.svelasquez@gmail.com</a> ·
+        +504 9666-6914 ·
+        <a href="https://linkedin.com/in/james-velasquez-8150b6383" target="_blank" rel="noopener">linkedin.com/in/james-velasquez-8150b6383</a> ·
+        Honduras
+      </p>
+    </div>
+  </header>
+
+  <nav class="tabbar" id="tabbar">
+    <button class="tab active" data-tab="perfil">00 · Perfil</button>
+    <button class="tab" data-tab="formacion">01 · Formación</button>
+    <button class="tab" data-tab="experiencia">02 · Experiencia</button>
+    <button class="tab" data-tab="liderazgo">03 · Liderazgo</button>
+    <button class="tab" data-tab="certificaciones">04 · Certificaciones</button>
+    <button class="tab" data-tab="competencias">05 · Competencias</button>
+    <button class="tab" data-tab="galeria">06 · Galería</button>
+  </nav>
+
+  <main>
+
+    <!-- ============ PERFIL ============ -->
+    <section class="panel active" id="panel-perfil">
+      <div class="panel-head"><span class="sheet-no">HOJA 00/06</span><h2>Perfil profesional</h2></div>
+      <p class="def">Estudiante de Informática Administrativa en la UNAH con formación en desarrollo de software, <b>ciberseguridad</b> y sistemas de gestión. Con certificaciones vigentes de Cisco en redes, ciberseguridad y hacking ético, complementadas por formación especializada en inteligencia artificial, blockchain y metodologías ágiles. Experiencia práctica en proyectos reales de sistemas administrativos y financieros, así como en implementaciones de seguridad informática con hardware embebido (Raspberry Pi, ESP32 y Cowrie Honeypot). Comunicador efectivo, analítico y proactivo, con trayectoria en liderazgo estudiantil y trabajo colaborativo en equipos multidisciplinarios.</p>
+
+      <div class="resumen-grid" id="resumen-grid">
+        <div class="area-card" data-tab="formacion">
+          <div class="num">01</div>
+          <h4>Formación</h4>
+          <p>Licenciatura en Informática Administrativa, UNAH — en curso.</p>
+        </div>
+        <div class="area-card" data-tab="experiencia">
+          <div class="num">02</div>
+          <h4>Experiencia</h4>
+          <p>4 proyectos: seguridad embebida, facturación, investigación y gestión veterinaria.</p>
+        </div>
+        <div class="area-card" data-tab="liderazgo">
+          <div class="num">03</div>
+          <h4>Liderazgo</h4>
+          <p>Secretario de Acción Social y cofundador de la Cinemateca UNAH.</p>
+        </div>
+        <div class="area-card" data-tab="certificaciones">
+          <div class="num">04</div>
+          <h4>Certificaciones</h4>
+          <p>10 certificaciones vigentes: Cisco, IA, blockchain, ágiles y más.</p>
+        </div>
+        <div class="area-card" data-tab="competencias">
+          <div class="num">05</div>
+          <h4>Competencias</h4>
+          <p>Ciberseguridad, redes, sistemas embebidos, desarrollo e idiomas.</p>
+        </div>
+        <div class="area-card" data-tab="galeria">
+          <div class="num">06</div>
+          <h4>Galería</h4>
+          <p>Capturas y fotos de proyectos realizados.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FORMACIÓN ============ -->
+    <section class="panel" id="panel-formacion">
+      <div class="panel-head"><span class="sheet-no">HOJA 01/06</span><h2>Formación académica</h2></div>
+      <div class="card">
+        <h3>Licenciatura en Informática Administrativa</h3>
+        <p class="meta">Universidad Nacional Autónoma de Honduras (UNAH) — En curso</p>
+        <ul>
+          <li>Formación en desarrollo de software, sistemas de gestión, bases de datos y seguridad informática.</li>
+          <li>Participación en investigación académica y proyectos tecnológicos aplicados.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ EXPERIENCIA ============ -->
+    <section class="panel" id="panel-experiencia">
+      <div class="panel-head"><span class="sheet-no">HOJA 02/06</span><h2>Experiencia y proyectos</h2></div>
+
+      <div class="card">
+        <h3>Proyectos de Seguridad con Hardware Embebido</h3>
+        <p class="meta">Proyectos Personales — 2023 - Presente</p>
+        <ul>
+          <li>Implementación de Cowrie (honeypot SSH/Telnet) sobre Raspberry Pi para captura y análisis de ataques reales en red.</li>
+          <li>Desarrollo de sistemas embebidos con ESP32 orientados a monitoreo de red.</li>
+          <li>Configuración y administración de entornos Linux.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Sistema de Facturación — Lucas Pet Shop</h3>
+        <p class="meta">Proyecto Académico, UNAH — 2024 - 2025</p>
+        <ul>
+          <li>Análisis, diseño, desarrollo e implementación de un sistema de facturación para negocio tipo pet shop.</li>
+          <li>Responsable del módulo de gestión y lógica de negocio. Rol: analista y desarrollador.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Macroproyecto Marketing &amp; TICs en MIPYMES en LATAM</h3>
+        <p class="meta">Investigación Académica, UNAH — 2025 - Presente</p>
+        <ul>
+          <li>Investigación sobre el impacto de las TICs en estrategias de marketing para MIPYMES en Latinoamérica.</li>
+          <li>Rol: investigador junior y participante académico. Proyecto actualmente en curso.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Sistema de Gestión para Tienda Veterinaria</h3>
+        <p class="meta">Proyecto Freelance — 2024</p>
+        <ul>
+          <li>Desarrollo de módulos de gestión administrativa y control financiero para tienda veterinaria.</li>
+          <li>Implementación y mejora de procesos digitales orientados a administración y manejo de datos.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ LIDERAZGO ============ -->
+    <section class="panel" id="panel-liderazgo">
+      <div class="panel-head"><span class="sheet-no">HOJA 03/06</span><h2>Liderazgo y actividades estudiantiles</h2></div>
+
+      <div class="card">
+        <h3>Secretario de Acción Social</h3>
+        <p class="meta">Asociación de Estudiantes de Informática Administrativa, UNAH — 2023 - 2025</p>
+        <ul>
+          <li>Organización y coordinación de actividades académicas y sociales para la comunidad estudiantil.</li>
+          <li>Liderazgo de equipos estudiantiles en planificación y ejecución de eventos y charlas profesionales.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Cofundador — Cinemateca UNAH</h3>
+        <p class="meta">Iniciativa Cultural, UNAH — 2024</p>
+        <ul>
+          <li>Participación en la fundación y estructuración de la Cinemateca UNAH.</li>
+          <li>Desarrollo de habilidades de gestión de proyectos culturales, oratoria y comunicación institucional.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ CERTIFICACIONES ============ -->
+    <section class="panel" id="panel-certificaciones">
+      <div class="panel-head"><span class="sheet-no">HOJA 04/06</span><h2>Certificaciones</h2></div>
+      <div class="card">
+        <table class="ref">
+          <tr><th>Certificación</th><th>Institución</th><th>Fecha</th></tr>
+          <tr><td>Ethical Hacker</td><td class="small">Cisco Networking Academy</td><td class="small">Jun. 2026</td></tr>
+          <tr><td>Introduction to Cybersecurity</td><td class="small">Cisco Networking Academy</td><td class="small">May. 2026</td></tr>
+          <tr><td>CCNA: Introduction to Networks</td><td class="small">Cisco Networking Academy</td><td class="small">Ago. 2025</td></tr>
+          <tr><td>IT Essentials</td><td class="small">Cisco Networking Academy</td><td class="small">Ago. 2025</td></tr>
+          <tr><td>Fundamentos de Inteligencia Artificial</td><td class="small">Curso Especializado</td><td class="small">2025</td></tr>
+          <tr><td>Fundamentos de Machine Learning</td><td class="small">Curso Especializado</td><td class="small">2025</td></tr>
+          <tr><td>Fundamentos de Blockchain</td><td class="small">Curso Especializado</td><td class="small">2025</td></tr>
+          <tr><td>Base de Datos SQLite</td><td class="small">Curso Especializado</td><td class="small">2025</td></tr>
+          <tr><td>Detección y Defensa contra Phishing</td><td class="small">Seguridad Informática</td><td class="small">2025</td></tr>
+          <tr><td>Introducción a la Agilidad y Scrum</td><td class="small">Metodologías Ágiles</td><td class="small">2025</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ COMPETENCIAS ============ -->
+    <section class="panel" id="panel-competencias">
+      <div class="panel-head"><span class="sheet-no">HOJA 05/06</span><h2>Competencias técnicas y blandas</h2></div>
+
+      <div class="chip-grid">
+        <div class="chip-card"><h4>Ciberseguridad</h4><p>Ethical Hacking, Cowrie, Phishing</p></div>
+        <div class="chip-card"><h4>Redes</h4><p>CCNA, TCP/IP, infraestructura</p></div>
+        <div class="chip-card"><h4>Sistemas embebidos</h4><p>Raspberry Pi, ESP32, Linux</p></div>
+        <div class="chip-card"><h4>Desarrollo</h4><p>Programación, bases de datos, sistemas de gestión</p></div>
+        <div class="chip-card"><h4>IA / Datos</h4><p>Machine Learning, Blockchain, SQLite</p></div>
+        <div class="chip-card"><h4>Metodologías</h4><p>Scrum, Agilidad, análisis de sistemas</p></div>
+        <div class="chip-card"><h4>Competencias blandas</h4><p>Trabajo en equipo, comunicación, oratoria y servicial</p></div>
+        <div class="chip-card"><h4>Otras</h4><p>Publicidad, trabajo en equipo</p></div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>Idiomas</h3>
+        <div class="chk-item"><div class="box"></div><span>Español — Nativo</span></div>
+        <div class="chk-item"><div class="box"></div><span>Inglés — Avanzado</span></div>
+        <div class="chk-item" style="border-bottom:none;"><div class="box"></div><span>Francés — Básico</span></div>
+      </div>
+    </section>
+
+    <!-- ============ GALERÍA ============ -->
+    <section class="panel" id="panel-galeria">
+      <div class="panel-head"><span class="sheet-no">HOJA 06/06</span><h2>Galería de proyectos</h2></div>
+      <p class="def">Imágenes de proyectos realizados — sin descripciones, solo el resultado visual.</p>
+
+      <div class="upload-zone" id="drop-zone">
+        <p>Arrastra imágenes aquí o súbelas manualmente</p>
+        <button class="btn" id="btn-subir">Subir imágenes</button>
+        <input type="file" id="input-galeria" accept="image/*" multiple>
+      </div>
+
+      <div class="gallery-grid" id="gallery-grid">
+        <p class="gallery-empty" id="gallery-empty">— Aún no hay imágenes. Súbelas con el botón de arriba —</p>
+      </div>
+
+      <div class="gallery-note">
+        <b>Nota:</b> las imágenes que subas aquí se guardan solo en este navegador (localStorage), para que puedas previsualizar cómo se vería tu galería.
+        Para que se vean en tu página <b>pública</b> en GitHub Pages (visibles para cualquiera que la visite), copia los archivos reales dentro de la carpeta
+        <b>assets/proyectos/</b> del proyecto y súbelos a GitHub junto con el resto de archivos — el navegador de cada visitante no comparte su localStorage con el tuyo.
+      </div>
+    </section>
+
+  </main>
+
+  <div class="titleblock">
+    <div class="tb-row">
+      <div class="tb-cell"><span class="tb-label">Nombre</span>James Velásquez</div>
+      <div class="tb-cell"><span class="tb-label">Ubicación</span>Honduras</div>
+    </div>
+    <div class="tb-row">
+      <div class="tb-cell"><span class="tb-label">Hoja</span><span id="tb-hoja">00/06</span></div>
+      <div class="tb-cell"><span class="tb-label">Contacto</span>+504 9666-6914</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ============================================================
+  //  NAVEGACIÓN entre hojas (tabs)
+  // ============================================================
+  const NUMEROS = { perfil:'00', formacion:'01', experiencia:'02', liderazgo:'03', certificaciones:'04', competencias:'05', galeria:'06' };
+
+  function activarTab(id){
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === id));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + id));
+    document.getElementById('tb-hoja').textContent = NUMEROS[id] + '/06';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  document.getElementById('tabbar').addEventListener('click', (e) => {
+    const btn = e.target.closest('.tab');
+    if (btn) activarTab(btn.dataset.tab);
+  });
+  document.getElementById('resumen-grid').addEventListener('click', (e) => {
+    const card = e.target.closest('.area-card');
+    if (card) activarTab(card.dataset.tab);
+  });
+
+  // ============================================================
+  //  FOTO DE PERFIL — guardada localmente (localStorage) como
+  //  vista previa. Para publicarla de forma permanente, reemplaza
+  //  el archivo assets/foto.jpg por tu foto real antes de subir
+  //  el proyecto a GitHub.
+  // ============================================================
+  const fotoImg = document.getElementById('foto-img');
+  const fotoFallback = document.getElementById('foto-fallback');
+  const inputFoto = document.getElementById('input-foto');
+
+  function cargarFotoGuardada(){
+    const guardada = localStorage.getItem('foto-perfil');
+    if (guardada){
+      fotoImg.src = guardada;
+      fotoImg.style.display = 'block';
+      fotoFallback.style.display = 'none';
+    }
+  }
+  inputFoto.addEventListener('change', () => {
+    const file = inputFoto.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      localStorage.setItem('foto-perfil', e.target.result);
+      fotoImg.src = e.target.result;
+      fotoImg.style.display = 'block';
+      fotoFallback.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  });
+  cargarFotoGuardada();
+
+  // ============================================================
+  //  GALERÍA DE PROYECTOS — solo imágenes, sin texto.
+  //  1) IMAGENES_ESTATICAS: edita este arreglo con rutas dentro de
+  //     assets/proyectos/ para que las imágenes se vean SIEMPRE,
+  //     para cualquier visitante de tu página publicada.
+  //  2) Además, el botón "Subir imágenes" guarda una vista previa
+  //     en este navegador (localStorage) mientras armas tu galería.
+  // ============================================================
+  const IMAGENES_ESTATICAS = [
+    // Ejemplo: 'assets/proyectos/proyecto-1.jpg',
+    // 'assets/proyectos/proyecto-2.jpg',
+  ];
+
+  const grid = document.getElementById('gallery-grid');
+  const emptyMsg = document.getElementById('gallery-empty');
+
+  function getGaleriaLocal(){
+    try { return JSON.parse(localStorage.getItem('galeria-proyectos') || '[]'); }
+    catch (e) { return []; }
+  }
+  function guardarGaleriaLocal(arr){
+    localStorage.setItem('galeria-proyectos', JSON.stringify(arr));
+  }
+
+  function renderGaleria(){
+    const local = getGaleriaLocal();
+    grid.querySelectorAll('.gallery-item').forEach(n => n.remove());
+
+    const total = IMAGENES_ESTATICAS.length + local.length;
+    emptyMsg.style.display = total === 0 ? 'block' : 'none';
+
+    IMAGENES_ESTATICAS.forEach((src) => {
+      const item = document.createElement('div');
+      item.className = 'gallery-item';
+      item.innerHTML = `<img src="${src}" alt="Proyecto" loading="lazy">`;
+      grid.appendChild(item);
+    });
+
+    local.forEach((src, i) => {
+      const item = document.createElement('div');
+      item.className = 'gallery-item';
+      item.innerHTML = `<img src="${src}" alt="Proyecto"><button class="del" title="Quitar">×</button>`;
+      item.querySelector('.del').addEventListener('click', () => {
+        const arr = getGaleriaLocal();
+        arr.splice(i, 1);
+        guardarGaleriaLocal(arr);
+        renderGaleria();
+      });
+      grid.appendChild(item);
+    });
+  }
+
+  function agregarImagenes(files){
+    const arr = getGaleriaLocal();
+    let pendientes = files.length;
+    Array.from(files).forEach((file) => {
+      if (!file.type.startsWith('image/')) { pendientes--; return; }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        arr.push(e.target.result);
+        pendientes--;
+        if (pendientes <= 0){ guardarGaleriaLocal(arr); renderGaleria(); }
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const inputGaleria = document.getElementById('input-galeria');
+  document.getElementById('btn-subir').addEventListener('click', () => inputGaleria.click());
+  inputGaleria.addEventListener('change', () => {
+    if (inputGaleria.files.length) agregarImagenes(inputGaleria.files);
+    inputGaleria.value = '';
+  });
+
+  const dropZone = document.getElementById('drop-zone');
+  ['dragover','dragenter'].forEach(ev => dropZone.addEventListener(ev, (e) => { e.preventDefault(); dropZone.classList.add('drag'); }));
+  ['dragleave','drop'].forEach(ev => dropZone.addEventListener(ev, (e) => { e.preventDefault(); dropZone.classList.remove('drag'); }));
+  dropZone.addEventListener('drop', (e) => {
+    if (e.dataTransfer.files.length) agregarImagenes(e.dataTransfer.files);
+  });
+
+  renderGaleria();
+</script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+Aquí van las imágenes reales de tus proyectos (ej. proyecto-1.jpg). Luego agrega sus rutas al arreglo IMAGENES_ESTATICAS dentro de index.html.
