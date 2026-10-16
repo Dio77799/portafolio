@@ -36,11 +36,11 @@
   /* ===== Escritorio con ciclo día/noche pixel (1 minuto) ===== */
   .desktop{ position:fixed; inset:0 0 44px 0; overflow:hidden; background:#0b1020; }
   .sky-layer{ position:absolute; inset:0; pointer-events:none; }
-  /* Cielo: color que recorre amanecer → día → atardecer → noche en 60s */
-  .sky{ animation:skyCycle 60s linear infinite; }
+  /* Cielo base (el color/animación se define por modo más abajo) */
+  .sky{ background:linear-gradient(180deg,#2f74d0 0%,#69a8e6 45%,#bfe0ff 72%); }
   /* Estrellas (solo visibles de noche) */
   .stars{
-    opacity:0; animation:starsCycle 60s linear infinite;
+    opacity:0;
     background-image:
       radial-gradient(1.5px 1.5px at 12% 18%, #fff, transparent),
       radial-gradient(1.5px 1.5px at 28% 32%, #fff, transparent),
@@ -55,11 +55,59 @@
     background-repeat:no-repeat; image-rendering:pixelated;
   }
   /* Astros */
-  .astro{ position:absolute; width:52px; height:52px; margin:-26px 0 0 -26px; image-rendering:pixelated; filter:drop-shadow(0 0 10px rgba(255,220,120,.0)); }
-  .sun{ animation:sunPath 60s linear infinite; filter:drop-shadow(0 0 14px rgba(255,210,80,.55)); }
-  .moon{ width:46px; height:46px; margin:-23px 0 0 -23px; animation:moonPath 60s linear infinite; filter:drop-shadow(0 0 10px rgba(200,220,255,.5)); }
+  .astro{ position:absolute; width:52px; height:52px; margin:-26px 0 0 -26px; left:50%; top:14%; opacity:0; image-rendering:pixelated; }
+  .sun{ filter:drop-shadow(0 0 14px rgba(255,210,80,.55)); }
+  .moon{ width:46px; height:46px; margin:-23px 0 0 -23px; filter:drop-shadow(0 0 10px rgba(200,220,255,.5)); }
   /* Tinte nocturno que oscurece todo el escritorio */
-  .night-tint{ background:#0a1430; opacity:0; animation:nightTint 60s linear infinite; }
+  .night-tint{ background:#0a1430; opacity:0; }
+
+  /* ===== Fondo estilo Windows (Bliss), recreado con CSS — PREDETERMINADO ===== */
+  .bliss{ display:none;
+    background:linear-gradient(180deg,#2a6fd6 0%,#3f8ae0 28%,#74b4ec 52%,#b7ddf6 70%,#e4f2fb 80%);
+  }
+  .bliss-hill{ display:none; position:absolute; left:-12%; right:-12%; bottom:0; height:44%;
+    background:linear-gradient(180deg,#9ad63f 0%,#7cc02f 26%,#5aa022 52%,#3f7d17 100%);
+    border-radius:52% 48% 0 0 / 100% 100% 0 0;
+    box-shadow:inset 0 10px 30px rgba(255,255,255,.35);
+  }
+  .bliss-hill::after{ content:""; position:absolute; inset:0; border-radius:inherit; image-rendering:pixelated; opacity:.25;
+    background-image:repeating-linear-gradient(95deg, rgba(0,0,0,.05) 0 10px, rgba(255,255,255,.05) 10px 20px); }
+  .bliss-clouds{ display:none; opacity:.92;
+    background-repeat:no-repeat;
+    background-image:
+      radial-gradient(38% 15% at 22% 20%, #fff 0%, rgba(255,255,255,.75) 45%, transparent 72%),
+      radial-gradient(26% 11% at 33% 26%, #fff 0%, rgba(255,255,255,.7) 50%, transparent 75%),
+      radial-gradient(44% 16% at 70% 16%, #fff 0%, rgba(255,255,255,.7) 48%, transparent 74%),
+      radial-gradient(30% 12% at 83% 24%, #fff 0%, rgba(255,255,255,.7) 50%, transparent 76%),
+      radial-gradient(34% 12% at 52% 34%, rgba(255,255,255,.85) 0%, transparent 72%),
+      radial-gradient(22% 9% at 12% 38%, rgba(255,255,255,.8) 0%, transparent 74%);
+  }
+
+  /* ===== Visibilidad por modo (data-bg en #desktop) ===== */
+  /* Predeterminado: Windows (bliss) */
+  #desktop[data-bg="bliss"] .bliss, #desktop[data-bg="bliss"] .bliss-clouds, #desktop[data-bg="bliss"] .bliss-hill{ display:block; }
+  #desktop[data-bg="bliss"] .sky, #desktop[data-bg="bliss"] .stars,
+  #desktop[data-bg="bliss"] .astro, #desktop[data-bg="bliss"] .night-tint,
+  #desktop[data-bg="bliss"] .ground{ display:none; }
+
+  /* Pixel — cielo dinámico (ciclo día/noche de 60s) */
+  #desktop[data-bg="dyn"] .sky{ animation:skyCycle 60s linear infinite; }
+  #desktop[data-bg="dyn"] .stars{ animation:starsCycle 60s linear infinite; }
+  #desktop[data-bg="dyn"] .sun{ animation:sunPath 60s linear infinite; }
+  #desktop[data-bg="dyn"] .moon{ animation:moonPath 60s linear infinite; }
+  #desktop[data-bg="dyn"] .night-tint{ animation:nightTint 60s linear infinite; }
+
+  /* Pixel — cielo diurno (fijo) */
+  #desktop[data-bg="day"] .sky{ background:linear-gradient(180deg,#2f74d0 0%,#69a8e6 45%,#bfe0ff 72%); }
+  #desktop[data-bg="day"] .sun{ opacity:1; left:50%; top:14%; }
+  #desktop[data-bg="day"] .moon, #desktop[data-bg="day"] .stars, #desktop[data-bg="day"] .night-tint{ display:none; }
+
+  /* Pixel — cielo nocturno (fijo) */
+  #desktop[data-bg="night"] .sky{ background:linear-gradient(180deg,#0b1130 0%,#141a3e 55%,#20264c 85%); }
+  #desktop[data-bg="night"] .moon{ opacity:1; left:50%; top:16%; }
+  #desktop[data-bg="night"] .stars{ opacity:.9; }
+  #desktop[data-bg="night"] .night-tint{ opacity:.45; }
+  #desktop[data-bg="night"] .sun{ display:none; }
 
   /* Montañas pixeladas */
   .ground{ position:absolute; left:0; right:0; bottom:0; height:46%; }
@@ -112,8 +160,10 @@
     100% { left:106%; top:90%; opacity:1; }
   }
   @media (prefers-reduced-motion: reduce){
-    .sky,.stars,.sun,.moon,.night-tint{ animation:none; }
-    .stars{ opacity:.9; } .sky{ background:linear-gradient(180deg,#2f74d0,#bfe0ff 72%); }
+    #desktop[data-bg="dyn"] .sky,#desktop[data-bg="dyn"] .stars,#desktop[data-bg="dyn"] .sun,
+    #desktop[data-bg="dyn"] .moon,#desktop[data-bg="dyn"] .night-tint{ animation:none; }
+    #desktop[data-bg="dyn"] .sun{ opacity:1; left:50%; top:14%; }
+    #desktop[data-bg="dyn"] .sky{ background:linear-gradient(180deg,#2f74d0 0%,#69a8e6 45%,#bfe0ff 72%); }
   }
 
   /* ---------- Iconos del escritorio ---------- */
@@ -257,6 +307,22 @@
   .cred b{ display:block; font-family:var(--pixel); font-weight:600; font-size:13.5px; margin-top:6px; }
   .cred small{ display:block; color:var(--ink-dim); font-size:11px; }
 
+  /* Personalización */
+  .bg-opts{ display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:10px; }
+  .bg-opt{ padding:0; cursor:pointer; text-align:left; font:inherit; color:inherit; overflow:hidden;
+    background:var(--chrome); border:2px solid; border-color:var(--hi) var(--lo) var(--lo) var(--hi); }
+  .bg-opt:hover{ background:#e2e8e1; }
+  .bg-opt.sel{ border-color:var(--accent) var(--accent) var(--accent) var(--accent); box-shadow:0 0 0 1px var(--accent) inset; }
+  .bg-opt .prev{ display:block; height:68px; border-bottom:1px solid var(--lo); }
+  .bg-opt b{ display:block; font-family:var(--pixel); font-weight:600; font-size:13.5px; padding:5px 8px 0; }
+  .bg-opt small{ display:block; color:var(--ink-dim); font-size:10.5px; padding:0 8px 7px; }
+  .pv-bliss{ background:
+      radial-gradient(120% 70% at 42% 150%, #8fce3a 0%, #4c8f1d 48%, transparent 52%),
+      linear-gradient(180deg,#2a6fd6,#9fd0f5 75%); }
+  .pv-dyn{ background:linear-gradient(90deg,#15214a 0 33%,#2f74d0 33% 66%,#e8894a 66% 100%); }
+  .pv-day{ background:linear-gradient(180deg,#2f74d0,#bfe0ff 72%); position:relative; }
+  .pv-night{ background:linear-gradient(180deg,#0b1130,#20264c 85%); }
+
   /* Asistente IA (próximamente) */
   .chat{ display:flex; flex-direction:column; gap:6px; }
   .msg{ max-width:85%; padding:6px 9px; font-size:12.5px; line-height:1.45; border:1px solid #8a948b; background:#fff; }
@@ -311,7 +377,10 @@
 </head>
 <body>
 
-<div class="desktop" id="desktop">
+<div class="desktop" id="desktop" data-bg="bliss">
+  <div class="sky-layer bliss" aria-hidden="true"></div>
+  <div class="bliss-hill" aria-hidden="true"></div>
+  <div class="sky-layer bliss-clouds" aria-hidden="true"></div>
   <div class="sky-layer sky" aria-hidden="true"></div>
   <div class="sky-layer stars" aria-hidden="true"></div>
   <svg class="astro sun" viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true">
@@ -358,6 +427,7 @@
     <button class="dicon" data-id="galeria" data-open="galeria"><div class="ic">🖼️</div><span>Galería</span></button>
     <button class="dicon" data-id="comunidad" data-open="comunidad"><div class="ic">👥</div><span>Comunidad</span></button>
     <button class="dicon" data-id="ia" data-open="ia"><div class="ic">🤖</div><span>Asistente IA</span></button>
+    <button class="dicon" data-id="personalizar" data-open="personalizar"><div class="ic">🎨</div><span>Personalizar</span></button>
     <a class="dicon" data-id="linkedin" href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/" target="_blank" rel="noopener"><div class="ic in">in</div><span>LinkedIn</span></a>
     <a class="dicon" data-id="github" href="https://github.com/Dio77799" target="_blank" rel="noopener"><div class="ic">💻</div><span>GitHub</span></a>
   </nav>
@@ -560,6 +630,20 @@
     </div>
   </section>
 
+  <!-- ============ PERSONALIZACIÓN ============ -->
+  <section class="win" id="w-personalizar" data-x="360" data-y="90" data-w="430" hidden aria-label="Personalizar">
+    <div class="titlebar"><span class="tico">🎨</span><h2>Personalización — Fondo</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody">
+      <p style="margin:0 0 10px; font-size:12.5px;">Elige el fondo del escritorio. Tu elección se guarda en este navegador.</p>
+      <div class="bg-opts" id="bg-opts">
+        <button class="bg-opt" data-set="bliss"><span class="prev pv-bliss"></span><b>Windows</b><small>Clásico (predeterminado)</small></button>
+        <button class="bg-opt" data-set="dyn"><span class="prev pv-dyn"></span><b>Pixel · Dinámico</b><small>Ciclo día/noche (1 min)</small></button>
+        <button class="bg-opt" data-set="day"><span class="prev pv-day"></span><b>Pixel · Diurno</b><small>Cielo de día fijo</small></button>
+        <button class="bg-opt" data-set="night"><span class="prev pv-night"></span><b>Pixel · Nocturno</b><small>Cielo de noche fijo</small></button>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ VISOR DE IMAGEN ============ -->
   <section class="win" id="w-visor" data-x="200" data-y="30" data-w="760" hidden aria-label="Visor de imágenes">
     <div class="titlebar"><span class="tico">🔍</span><h2>Visor de imágenes</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
@@ -581,6 +665,7 @@
     <li><button data-open="credenciales"><span class="em">🪪</span>Credenciales</button></li>
     <li><button data-open="comunidad"><span class="em">👥</span>Comunidad</button></li>
     <li><button data-open="ia"><span class="em">🤖</span>Asistente IA</button></li>
+    <li><button data-open="personalizar"><span class="em">🎨</span>Personalizar</button></li>
     <li><hr></li>
     <li><a href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/" target="_blank" rel="noopener"><span class="em">🔗</span>LinkedIn</a></li>
     <li><a href="https://github.com/Dio77799" target="_blank" rel="noopener"><span class="em">💻</span>GitHub</a></li>
@@ -810,6 +895,25 @@
     const d = e.target.closest('[data-doc]');
     if (d) { e.preventDefault(); verDoc(d.dataset.doc, d.dataset.docTitle); }
   });
+
+  // ============================================================
+  //  PERSONALIZACIÓN DE FONDO (guardado en localStorage)
+  // ============================================================
+  const FONDOS = ['bliss','dyn','day','night'];
+  const desktopEl = document.getElementById('desktop');
+  const bgOpts = document.getElementById('bg-opts');
+  function aplicarFondo(id){
+    if (!FONDOS.includes(id)) id = 'bliss';
+    desktopEl.dataset.bg = id;
+    bgOpts.querySelectorAll('.bg-opt').forEach(b => b.classList.toggle('sel', b.dataset.set === id));
+    try { localStorage.setItem('fondo', id); } catch (e) {}
+  }
+  bgOpts.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-set]'); if (b) aplicarFondo(b.dataset.set);
+  });
+  let fondoGuardado = 'bliss';
+  try { fondoGuardado = localStorage.getItem('fondo') || 'bliss'; } catch (e) {}
+  aplicarFondo(fondoGuardado);
 
   // ============================================================
   //  GESTOR DE VENTANAS — abrir, cerrar, minimizar, arrastrar
