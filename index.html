@@ -4,577 +4,431 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>James Velásquez — Portafolio</title>
-<meta name="description" content="Portafolio de James Steven Velásquez Vásquez — Informático , Ciberseguridad & Desarrollo de Sistemas.">
+<meta name="description" content="Portafolio de James Steven Velásquez Vásquez — Informático, Ciberseguridad & Desarrollo de Sistemas.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bp-bg:#0a3050;
-    --bp-bg-2:#0d3c62;
-    --bp-panel:#0f4570;
-    --bp-line:rgba(255,255,255,.13);
-    --bp-line-strong:rgba(255,255,255,.30);
-    --ink:#eef4f8;
-    --ink-dim:#9fc0d9;
-    --amber:#e3a63e;
-    --rust:#cf5240;
-    --green:#5cb984;
-    --mono:'IBM Plex Mono',monospace;
-    --display:'Space Grotesk',sans-serif;
-    --body:'IBM Plex Sans',sans-serif;
+    --chrome:#d4dbd3;        /* cuerpo de ventana */
+    --chrome-2:#c3ccc2;
+    --title-1:#9fb3a3;       /* barra de título */
+    --title-2:#7f978a;
+    --title-off:#b9c2b8;
+    --hi:#ffffff;            /* bisel claro */
+    --lo:#6f7a70;            /* bisel oscuro */
+    --ink:#1d241f;
+    --ink-dim:#55605a;
+    --accent:#2f6fd6;
+    --accent-2:#e9b23a;
+    --red:#c8432f;
+    --green:#3c9a55;
+    --task:#9ebfb3;
+    --pixel:'Pixelify Sans', 'Tahoma', sans-serif;
+    --ui:Tahoma, 'Segoe UI', Verdana, sans-serif;
+    --mono:'VT323', 'Courier New', monospace;
   }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  html,body{ margin:0; height:100%; }
+  body{ font-family:var(--ui); color:var(--ink); background:#5b9be6; overflow:hidden; font-size:13px; }
+
+  /* ---------- Fondo: cielo + nubes + pradera ---------- */
+  .desktop{
+    position:fixed; inset:0 0 44px 0; overflow:hidden;
     background:
-      repeating-linear-gradient(0deg, var(--bp-line) 0 1px, transparent 1px 8px),
-      repeating-linear-gradient(90deg, var(--bp-line) 0 1px, transparent 1px 8px),
-      repeating-linear-gradient(0deg, var(--bp-line-strong) 0 1.5px, transparent 1.5px 40px),
-      repeating-linear-gradient(90deg, var(--bp-line-strong) 0 1.5px, transparent 1.5px 40px),
-      var(--bp-bg);
-    color:var(--ink);
-    font-family:var(--body);
-    min-height:100vh;
-    padding:18px;
+      radial-gradient(ellipse 18% 7% at 22% 20%, rgba(255,255,255,.95), rgba(255,255,255,0) 70%),
+      radial-gradient(ellipse 12% 5% at 30% 17%, rgba(255,255,255,.9), rgba(255,255,255,0) 70%),
+      radial-gradient(ellipse 22% 8% at 72% 28%, rgba(255,255,255,.85), rgba(255,255,255,0) 70%),
+      radial-gradient(ellipse 14% 5% at 83% 24%, rgba(255,255,255,.9), rgba(255,255,255,0) 70%),
+      radial-gradient(ellipse 30% 10% at 55% 48%, rgba(255,236,246,.75), rgba(255,255,255,0) 70%),
+      radial-gradient(ellipse 25% 18% at 40% 40%, rgba(255,255,255,.55), rgba(255,255,255,0) 70%),
+      linear-gradient(180deg, #2f6fd0 0%, #5b9be6 28%, #9cc9f2 52%, #dcefff 66%);
   }
-  .sheet{
-    max-width:1180px;
-    margin:0 auto;
-    border:2px solid var(--bp-line-strong);
-    background:linear-gradient(180deg, rgba(15,69,112,.55), rgba(10,48,80,.35));
-    position:relative;
-    padding-bottom:80px;
+  .hills{ position:absolute; left:0; right:0; bottom:0; width:100%; height:48%; display:block; }
+  .flowers{ position:absolute; inset:auto 0 0 0; height:30%; pointer-events:none;
+    background:
+      radial-gradient(circle 2px at 12% 70%, #b79be8 98%, transparent),
+      radial-gradient(circle 2px at 18% 82%, #fff3a6 98%, transparent),
+      radial-gradient(circle 2px at 64% 76%, #b79be8 98%, transparent),
+      radial-gradient(circle 2px at 71% 88%, #fff3a6 98%, transparent),
+      radial-gradient(circle 2px at 86% 72%, #c7a6f0 98%, transparent),
+      radial-gradient(circle 2px at 40% 90%, #fff3a6 98%, transparent);
+    background-size:260px 120px; opacity:.85; }
+
+  /* ---------- Iconos del escritorio ---------- */
+  .icons{ position:absolute; top:14px; right:14px; display:grid; grid-template-columns:repeat(2, 86px); gap:6px; z-index:1; }
+  .dicon{ width:86px; padding:6px 4px; text-align:center; cursor:pointer; border:1px dotted transparent; background:none; font:inherit; color:#fff; }
+  .dicon:hover, .dicon:focus-visible{ border-color:rgba(255,255,255,.8); background:rgba(47,111,214,.35); outline:none; }
+  .dicon .ic{ width:42px; height:42px; margin:0 auto 4px; display:flex; align-items:center; justify-content:center; font-size:24px;
+    background:var(--chrome); border:2px solid; border-color:var(--hi) var(--lo) var(--lo) var(--hi); box-shadow:2px 2px 0 rgba(0,0,0,.25); }
+  .dicon .ic.in{ font-family:var(--ui); font-weight:700; font-size:20px; color:#fff; background:#0a66c2; }
+  .dicon span{ font-size:11.5px; line-height:1.2; text-shadow:1px 1px 0 #000, 0 0 3px #000; display:block; }
+
+  /* ---------- Ventanas ---------- */
+  .win{
+    position:absolute; background:var(--chrome); min-width:260px;
+    border:2px solid; border-color:var(--hi) var(--lo) var(--lo) var(--hi);
+    box-shadow:0 0 0 1px #3d463f, 6px 8px 0 rgba(0,0,0,.22);
+    display:flex; flex-direction:column; max-height:calc(100% - 20px);
   }
-  .sheet::before, .sheet::after{
-    content:"";
-    position:absolute; width:14px; height:14px;
-    border:2px solid var(--amber);
-    top:-2px; left:-2px; border-right:none; border-bottom:none;
+  .win[hidden]{ display:none !important; }
+  .titlebar{
+    display:flex; align-items:center; gap:6px; padding:3px 4px 3px 6px; cursor:grab; user-select:none; touch-action:none;
+    background:linear-gradient(180deg, var(--title-off), #a7b1a6); color:#3a443d;
   }
-  .sheet::after{ left:auto; right:-2px; top:auto; bottom:-2px; border:2px solid var(--amber); border-left:none; border-top:none;}
+  .win.active .titlebar{ background:linear-gradient(180deg, var(--title-1), var(--title-2)); color:#fff; text-shadow:1px 1px 0 rgba(0,0,0,.35); }
+  .titlebar .tico{ font-size:14px; }
+  .titlebar h2{ font-family:var(--pixel); font-weight:400; font-size:15px; margin:0; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .tbtn{ width:20px; height:18px; display:flex; align-items:center; justify-content:center; padding:0; cursor:pointer;
+    font:700 12px/1 var(--ui); color:#3a2a10; background:#e7c46a; border:2px solid; border-color:#fff3c7 #8a6a1f #8a6a1f #fff3c7; }
+  .tbtn.min{ background:var(--chrome); color:var(--ink); border-color:var(--hi) var(--lo) var(--lo) var(--hi); }
+  .tbtn:active{ border-color:#8a6a1f #fff3c7 #fff3c7 #8a6a1f; }
+  .wbody{ padding:10px; overflow:auto; flex:1; }
 
-  header.top{ padding:28px 32px 18px; border-bottom:1px solid var(--bp-line-strong); display:flex; gap:26px; align-items:center; flex-wrap:wrap;}
-  .head-text{ flex:1; min-width:260px; position:relative;}
-  .eyebrow{ font-family:var(--mono); letter-spacing:.14em; font-size:11px; color:var(--amber); text-transform:uppercase;}
-  h1{ font-family:var(--display); font-weight:700; font-size:clamp(24px,3.6vw,38px); margin:6px 0 4px; letter-spacing:-.01em;}
-  .sub{ color:var(--ink-dim); font-size:13.5px; margin:0 0 4px; font-family:var(--mono); line-height:1.7;}
-  .sub a{ color:var(--ink-dim); text-decoration:none; border-bottom:1px dotted var(--bp-line-strong);}
-  .sub a:hover{ color:var(--amber); border-color:var(--amber);}
+  /* paneles hundidos */
+  .sunk{ background:#eef1ed; border:2px solid; border-color:var(--lo) var(--hi) var(--hi) var(--lo); padding:8px 10px; }
+  .raised{ background:var(--chrome); border:2px solid; border-color:var(--hi) var(--lo) var(--lo) var(--hi); }
+  .label{ font-family:var(--pixel); font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:#3a443d; margin:10px 0 4px; display:flex; align-items:center; gap:6px; }
+  .label::after{ content:""; flex:1; height:2px; background:linear-gradient(var(--lo),var(--hi)); }
 
-  .stamp{ font-family:var(--mono); font-size:9.5px; border:2px solid var(--rust); color:var(--rust); border-radius:50%; width:70px; height:70px; display:flex; align-items:center; justify-content:center; text-align:center; transform:rotate(-14deg); opacity:.85; line-height:1.15; position:absolute; top:-6px; right:0;}
+  /* botones */
+  .btn{ display:inline-flex; align-items:center; gap:6px; cursor:pointer; text-decoration:none; color:var(--ink);
+    font:12px var(--ui); padding:5px 12px; background:var(--chrome);
+    border:2px solid; border-color:var(--hi) var(--lo) var(--lo) var(--hi); box-shadow:1px 1px 0 #3d463f; }
+  .btn:hover{ background:#e2e8e1; }
+  .btn:active{ border-color:var(--lo) var(--hi) var(--hi) var(--lo); box-shadow:none; }
+  .btn.primary{ background:#e7c46a; border-color:#fff3c7 #8a6a1f #8a6a1f #fff3c7; font-weight:700; }
+  .btn.blue{ background:#0a66c2; color:#fff; border-color:#6fb0f0 #053a70 #053a70 #6fb0f0; font-weight:700; }
+  .btn-row{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
 
-  .photo-frame{
-    width:132px; height:132px; flex:0 0 132px; border:2px solid var(--bp-line-strong); border-radius:6px;
-    position:relative; overflow:hidden; background:#062338;
-  }
-  .photo-frame::before{ content:""; position:absolute; inset:0; border:1px solid var(--amber); opacity:.4; margin:5px; pointer-events:none; border-radius:3px;}
-  .photo-frame img{ width:100%; height:100%; object-fit:cover; display:block;}
-  .photo-fallback{ width:100%; height:100%; display:none; align-items:center; justify-content:center; flex-direction:column; gap:4px;}
-  .photo-fallback .ini{ font-family:var(--display); font-size:34px; font-weight:700; color:var(--amber);}
-  .photo-fallback .lbl{ font-family:var(--mono); font-size:8.5px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.08em; text-align:center; padding:0 6px;}
-  .photo-upload{
-    position:absolute; bottom:0; left:0; right:0; background:rgba(6,35,56,.85);
-    font-family:var(--mono); font-size:9px; text-align:center; color:var(--ink-dim); padding:3px 2px;
-    cursor:pointer; letter-spacing:.03em; border-top:1px solid var(--bp-line-strong);
-  }
-  .photo-upload:hover{ color:var(--amber);}
+  /* Perfil (estilo "Welcome") */
+  .who{ display:flex; gap:12px; align-items:center; }
+  .avatar{ width:96px; height:96px; flex:0 0 96px; object-fit:cover; border:2px solid; border-color:var(--lo) var(--hi) var(--hi) var(--lo); background:#3b5f7d; }
+  .who h1{ font-family:var(--pixel); font-weight:700; font-size:22px; margin:0 0 2px; line-height:1.1; }
+  .who .meta{ font-size:12.5px; color:var(--ink-dim); line-height:1.6; }
+  .who .meta div::before{ content:"▸ "; color:var(--accent); }
+  .notes{ margin:0; padding:0; list-style:none; font-size:12.5px; line-height:1.5; }
+  .notes li{ padding:2px 0 2px 14px; position:relative; }
+  .notes li::before{ content:"◆"; position:absolute; left:0; font-size:9px; top:5px; color:var(--ink); }
 
-  nav.tabbar{
-    display:flex; flex-wrap:wrap; gap:2px; padding:14px 32px 0; border-bottom:1px solid var(--bp-line-strong);
-  }
-  .tab{
-    font-family:var(--mono); font-size:12px; letter-spacing:.05em; color:var(--ink-dim);
-    background:transparent; border:1px solid var(--bp-line-strong); border-bottom:none;
-    padding:9px 13px; cursor:pointer; border-radius:4px 4px 0 0; transition:.15s;
-  }
-  .tab:hover{ color:var(--ink); background:rgba(255,255,255,.05);}
-  .tab.active{ color:var(--bp-bg); background:var(--amber); border-color:var(--amber); font-weight:600;}
+  /* Lista estilo buddy list */
+  .buddy{ display:flex; flex-direction:column; gap:4px; }
+  .bitem{ display:flex; gap:9px; align-items:center; padding:5px; cursor:pointer; text-align:left; font:inherit; color:inherit;
+    background:#e4e9e3; border:2px solid; border-color:var(--hi) var(--lo) var(--lo) var(--hi); width:100%; }
+  .bitem:hover{ background:#eef2ed; }
+  .bitem.sel{ background:#cfdcf2; border-color:var(--lo) var(--hi) var(--hi) var(--lo); }
+  .bthumb{ width:46px; height:46px; flex:0 0 46px; object-fit:cover; object-position:top left; border:1px solid #3d463f;
+    display:flex; align-items:center; justify-content:center; font-family:var(--pixel); font-weight:700; color:#fff; font-size:14px; }
+  .bname{ font-family:var(--pixel); font-size:15px; line-height:1.1; }
+  .bstatus{ font-size:11.5px; color:var(--ink-dim); display:flex; align-items:center; gap:5px; margin-top:2px; }
+  .dot{ width:9px; height:9px; border-radius:50%; border:1px solid rgba(0,0,0,.4); display:inline-block; }
+  .dot.on{ background:#4fcf6a; } .dot.lock{ background:#e7c46a; } .dot.off{ background:#a9b1a9; }
 
-  main{ padding:26px 32px 10px; }
-  .panel{ display:none; animation:fade .25s ease; }
-  .panel.active{ display:block; }
-  @keyframes fade{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+  .proj-layout{ display:grid; grid-template-columns:230px 1fr; gap:10px; min-height:100%; }
+  .proj-detail .shot{ width:100%; aspect-ratio:16/9; object-fit:cover; object-position:top; display:block; border:2px solid; border-color:var(--lo) var(--hi) var(--hi) var(--lo); background:#16324a; }
+  .proj-detail .shot.ph{ display:flex; align-items:center; justify-content:center; font-family:var(--pixel); font-size:40px; color:#e7c46a; }
+  .proj-detail h3{ font-family:var(--pixel); font-size:19px; margin:8px 0 2px; }
+  .proj-detail .sub{ font-size:11.5px; color:var(--ink-dim); margin-bottom:6px; }
+  .proj-detail p{ margin:0 0 8px; line-height:1.55; }
+  .tags{ display:flex; flex-wrap:wrap; gap:4px; }
+  .tags span{ font-family:var(--mono); font-size:16px; line-height:1; padding:2px 6px; background:#fff; border:1px solid #8a948b; }
+  .lockmsg{ font-size:12px; padding:6px 8px; background:#fff6d9; border:1px dashed #b58f2a; margin-top:8px; }
 
-  .panel-head{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px;}
-  .sheet-no{ font-family:var(--mono); font-size:11px; color:var(--amber); border:1px solid var(--amber); padding:2px 7px; border-radius:3px;}
-  .panel-head h2{ font-family:var(--display); font-size:23px; margin:0;}
-  .def{ color:var(--ink-dim); font-size:14.5px; line-height:1.6; max-width:900px; margin:10px 0 24px;}
-  .def b{ color:var(--ink); }
+  /* Certificados */
+  .cert-group{ margin-bottom:8px; }
+  .cert{ display:flex; gap:8px; align-items:flex-start; padding:5px 2px; border-bottom:1px dotted #a7b1a6; }
+  .cert:last-child{ border-bottom:none; }
+  .cert .seal{ font-size:18px; line-height:1; }
+  .cert b{ display:block; font-weight:600; }
+  .cert small{ color:var(--ink-dim); font-size:11px; word-break:break-all; }
+  .counter{ font-family:var(--mono); font-size:22px; color:var(--accent); }
 
-  .resumen-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin-bottom:10px;}
-  .area-card{ border:1px solid var(--bp-line-strong); border-radius:6px; padding:15px; cursor:pointer; transition:.15s; background:rgba(255,255,255,.03);}
-  .area-card:hover{ border-color:var(--amber); transform:translateY(-2px); }
-  .area-card .num{ font-family:var(--mono); color:var(--amber); font-size:11px;}
-  .area-card h4{ font-family:var(--display); margin:5px 0 6px; font-size:16px;}
-  .area-card p{ font-size:12.3px; color:var(--ink-dim); line-height:1.5; margin:0;}
+  /* Historial */
+  .entry{ padding:6px 0 8px; border-bottom:1px dotted #a7b1a6; }
+  .entry:last-child{ border-bottom:none; }
+  .entry b{ font-family:var(--pixel); font-weight:600; font-size:14.5px; display:block; }
+  .entry .when{ font-family:var(--mono); font-size:17px; color:var(--accent); }
+  .entry p{ margin:3px 0 0; line-height:1.5; color:#333b35; }
 
-  .card{ border:1px solid var(--bp-line-strong); border-radius:6px; background:rgba(255,255,255,.035); padding:16px 18px; margin-bottom:16px; }
-  .card h3{ font-family:var(--display); font-size:16.5px; margin:0 0 3px;}
-  .card .meta{ font-family:var(--mono); font-size:11.5px; color:var(--amber); margin:0 0 10px; font-style:normal;}
-  .card ul{ margin:8px 0 0; padding-left:18px; color:var(--ink-dim); font-size:13.5px; line-height:1.65;}
-  .card ul li{ margin-bottom:3px;}
-  .card ul li::marker{ color:var(--amber);}
+  .skills{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:6px; }
+  .skill{ padding:7px 8px; }
+  .skill h4{ font-family:var(--pixel); font-weight:600; margin:0 0 3px; font-size:13.5px; color:#2f4a3a; }
+  .skill p{ margin:0; font-size:12px; line-height:1.4; }
+  .bar{ height:12px; border:2px solid; border-color:var(--lo) var(--hi) var(--hi) var(--lo); background:#fff; margin:3px 0 8px; }
+  .bar i{ display:block; height:100%; background:repeating-linear-gradient(90deg, var(--accent) 0 8px, transparent 8px 10px); }
 
-  table.ref{ width:100%; border-collapse:collapse; font-family:var(--mono); font-size:12.5px; margin-top:2px;}
-  table.ref th, table.ref td{ border:1px solid var(--bp-line-strong); padding:8px 10px; text-align:left;}
-  table.ref th{ background:rgba(255,255,255,.06); color:var(--amber); font-weight:600;}
-  table.ref td.small{ color:var(--ink-dim);}
+  .gallery{ display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:8px; }
+  .gallery button{ padding:0; border:2px solid; border-color:var(--lo) var(--hi) var(--hi) var(--lo); cursor:pointer; aspect-ratio:4/3; overflow:hidden; background:#16324a; }
+  .gallery img{ width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+  #viewer-img{ max-width:100%; display:block; margin:0 auto; border:2px solid; border-color:var(--lo) var(--hi) var(--hi) var(--lo); }
 
-  .chip-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px;}
-  .chip-card{ border:1px solid var(--bp-line-strong); border-radius:6px; padding:14px 16px; background:rgba(255,255,255,.03);}
-  .chip-card h4{ font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.09em; color:var(--amber); margin:0 0 8px;}
-  .chip-card p{ margin:0; font-size:13px; color:var(--ink); line-height:1.5;}
+  /* ---------- Barra de tareas ---------- */
+  .taskbar{ position:fixed; left:0; right:0; bottom:0; height:44px; display:flex; align-items:center; gap:6px; padding:4px 6px calc(4px + env(safe-area-inset-bottom,0px));
+    background:linear-gradient(180deg, #b7d3c9, var(--task)); border-top:2px solid #e9f3ef; z-index:9000; }
+  .start{ display:flex; align-items:center; gap:6px; height:34px; padding:0 10px; cursor:pointer; font-family:var(--pixel); font-size:16px; font-weight:700;
+    background:var(--chrome); border:2px solid; border-color:var(--hi) var(--lo) var(--lo) var(--hi); color:var(--ink); }
+  .start.open{ border-color:var(--lo) var(--hi) var(--hi) var(--lo); }
+  .mission{ display:flex; align-items:center; gap:7px; padding:0 8px; min-width:0; }
+  .mission .clip{ font-size:22px; }
+  .mission b{ display:block; font-family:var(--pixel); color:#e8a92a; font-size:12.5px; text-shadow:1px 1px 0 #4d3a10; letter-spacing:.03em; white-space:nowrap; }
+  .mission span{ display:block; font-size:11.5px; color:#203029; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .tasks{ flex:1; display:flex; gap:4px; overflow:hidden; min-width:0; }
+  .task{ height:32px; padding:0 9px; max-width:160px; display:flex; align-items:center; gap:5px; cursor:pointer; font:12px var(--ui); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    background:var(--chrome); border:2px solid; border-color:var(--hi) var(--lo) var(--lo) var(--hi); color:var(--ink); }
+  .task.active{ border-color:var(--lo) var(--hi) var(--hi) var(--lo); background:#e7ece6; font-weight:700; }
+  .tray{ height:32px; display:flex; align-items:center; gap:8px; padding:0 10px; font-family:var(--mono); font-size:19px;
+    border:2px solid; border-color:var(--lo) var(--hi) var(--hi) var(--lo); background:#c8dcd4; }
+  .tray a{ text-decoration:none; font-size:15px; }
 
-  .chk-item{ display:flex; align-items:flex-start; gap:10px; padding:7px 0; font-size:13.5px; border-bottom:1px dotted var(--bp-line);}
-  .chk-item .box{ width:18px; height:18px; border:2px solid var(--green); background:var(--green); border-radius:3px; flex:0 0 18px; margin-top:1px; position:relative;}
-  .chk-item .box::after{ content:"✓"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:12px; color:#04321c; font-weight:700;}
+  .startmenu{ position:fixed; left:6px; bottom:46px; width:250px; z-index:9500; display:flex;
+    background:var(--chrome); border:2px solid; border-color:var(--hi) var(--lo) var(--lo) var(--hi); box-shadow:0 0 0 1px #3d463f, 4px 4px 0 rgba(0,0,0,.25); }
+  .startmenu .side{ width:30px; background:linear-gradient(0deg, var(--title-2), var(--accent)); color:#fff; writing-mode:vertical-rl; transform:rotate(180deg);
+    font-family:var(--pixel); font-size:16px; font-weight:700; padding:8px 0; text-align:right; letter-spacing:.06em; }
+  .startmenu ul{ list-style:none; margin:0; padding:3px; flex:1; }
+  .startmenu li button, .startmenu li a{ display:flex; width:100%; align-items:center; gap:10px; padding:7px 8px; border:none; background:none; font:13px var(--ui); color:var(--ink); cursor:pointer; text-decoration:none; text-align:left; }
+  .startmenu li button:hover, .startmenu li a:hover{ background:var(--accent); color:#fff; }
+  .startmenu hr{ border:none; border-top:1px solid var(--lo); border-bottom:1px solid var(--hi); margin:3px 4px; }
+  .startmenu .em{ font-size:18px; width:22px; text-align:center; }
 
-  /* ---- Galería de proyectos ---- */
-  .upload-zone{
-    border:2px dashed var(--bp-line-strong); border-radius:8px; padding:22px; text-align:center;
-    margin-bottom:18px; background:rgba(255,255,255,.02); transition:.15s;
-  }
-  .upload-zone.drag{ border-color:var(--amber); background:rgba(227,166,62,.06);}
-  .upload-zone p{ margin:0 0 12px; color:var(--ink-dim); font-size:13px; font-family:var(--mono);}
-  button.btn{
-    font-family:var(--mono); font-size:12px; letter-spacing:.04em; cursor:pointer;
-    background:var(--amber); color:var(--bp-bg); border:none; padding:9px 16px; border-radius:4px; font-weight:600;
-  }
-  button.btn:hover{ background:#f0b654; }
-  button.btn.ghost{ background:transparent; color:var(--ink-dim); border:1px solid var(--bp-line-strong); font-weight:500; padding:8px 14px; margin-left:8px;}
-  button.btn.ghost:hover{ color:var(--ink); border-color:var(--ink-dim);}
-  input[type=file]{ display:none; }
-
-  .gallery-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px;}
-  .gallery-item{ position:relative; border:1px solid var(--bp-line-strong); border-radius:6px; overflow:hidden; aspect-ratio:4/3; background:#062338;}
-  .gallery-item img{ width:100%; height:100%; object-fit:cover; display:block;}
-  .gallery-item .del{
-    position:absolute; top:6px; right:6px; width:22px; height:22px; border-radius:50%;
-    background:rgba(6,35,56,.85); color:var(--rust); border:1px solid var(--rust); cursor:pointer;
-    font-family:var(--mono); font-size:12px; line-height:1; display:flex; align-items:center; justify-content:center;
-    opacity:0; transition:.15s;
-  }
-  .gallery-item:hover .del{ opacity:1; }
-  .gallery-empty{ font-family:var(--mono); font-size:12.5px; color:var(--ink-dim); padding:14px 0;}
-  .gallery-note{ font-family:var(--mono); font-size:11px; color:var(--ink-dim); line-height:1.7; margin-top:16px; padding-top:14px; border-top:1px solid var(--bp-line-strong);}
-  .gallery-note b{ color:var(--amber); }
-
-  /* ---- Proyectos ---- */
-  .proj-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr)); gap:16px;}
-  .proj{ border:1px solid var(--bp-line-strong); border-radius:6px; background:rgba(255,255,255,.035); overflow:hidden; display:flex; flex-direction:column; transition:.15s;}
-  .proj:hover{ border-color:var(--amber); transform:translateY(-2px);}
-  .proj .shot{ aspect-ratio:16/9; background:#062338; border-bottom:1px solid var(--bp-line-strong); overflow:hidden; display:flex; align-items:center; justify-content:center;}
-  .proj .shot img{ width:100%; height:100%; object-fit:cover; object-position:top; display:block;}
-  .proj .shot .ph{ font-family:var(--display); font-size:30px; font-weight:700; color:var(--amber); opacity:.8;}
-  .proj .body{ padding:14px 16px 16px; display:flex; flex-direction:column; flex:1;}
-  .proj h3{ font-family:var(--display); font-size:16.5px; margin:0 0 3px;}
-  .proj .meta{ font-family:var(--mono); font-size:11px; color:var(--amber); margin:0 0 8px;}
-  .proj p{ font-size:13px; color:var(--ink-dim); line-height:1.55; margin:0 0 10px;}
-  .tags{ display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px;}
-  .tags span{ font-family:var(--mono); font-size:10.5px; border:1px solid var(--bp-line-strong); padding:2px 7px; border-radius:3px; color:var(--ink);}
-  .proj .links{ margin-top:auto; display:flex; flex-wrap:wrap; gap:8px; align-items:center;}
-  a.lnk{ font-family:var(--mono); font-size:11.5px; text-decoration:none; color:var(--bp-bg); background:var(--amber); padding:6px 11px; border-radius:4px; font-weight:600;}
-  a.lnk:hover{ background:#f0b654;}
-  a.lnk.ghost{ background:transparent; color:var(--ink); border:1px solid var(--bp-line-strong); font-weight:500;}
-  a.lnk.ghost:hover{ border-color:var(--amber); color:var(--amber);}
-  .priv{ font-family:var(--mono); font-size:10.5px; color:var(--ink-dim); border:1px dashed var(--bp-line-strong); padding:5px 9px; border-radius:4px;}
-  .priv b{ color:var(--rust);}
-  .cta-row{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:0 0 18px;}
-  table.ref a{ color:var(--ink); text-decoration:none; border-bottom:1px dotted var(--bp-line-strong);}
-  table.ref a:hover{ color:var(--amber); border-color:var(--amber);}
-
-  .titleblock{
-    position:absolute; right:14px; bottom:14px; width:270px;
-    border:1px solid var(--bp-line-strong); background:rgba(6,35,56,.75); font-family:var(--mono); font-size:10px; color:var(--ink-dim);
-  }
-  .titleblock .tb-row{ display:flex; border-bottom:1px solid var(--bp-line-strong);}
-  .titleblock .tb-row:last-child{ border-bottom:none;}
-  .titleblock .tb-cell{ padding:5px 8px; flex:1; border-right:1px solid var(--bp-line-strong);}
-  .titleblock .tb-cell:last-child{ border-right:none;}
-  .titleblock .tb-label{ color:var(--amber); display:block; font-size:8.5px; text-transform:uppercase; letter-spacing:.06em;}
-
-  @media (max-width:860px){
-    .titleblock{ position:static; width:auto; margin:20px 32px 0;}
-    .sheet{ padding-bottom:20px;}
-    header.top{ padding:22px 18px 16px;}
-    main{ padding:20px 18px 10px;}
-    nav.tabbar{ padding:12px 18px 0;}
-  }
-  @media (max-width:520px){
-    body{ padding:8px;}
-    .stamp{ display:none;}
-    .sub{ word-break:break-word;}
+  /* ---------- Móvil: ventanas apiladas ---------- */
+  @media (max-width:760px){
+    body{ overflow:auto; }
+    .desktop{ position:relative; inset:auto; min-height:100vh; padding:12px 12px 70px; overflow:visible; }
+    .hills{ position:fixed; height:40%; }
+    .flowers{ position:fixed; }
+    .icons{ position:relative; top:auto; right:auto; grid-template-columns:repeat(4, 1fr); margin-bottom:12px; }
+    .dicon{ width:auto; }
+    .win{ position:relative !important; left:auto !important; top:auto !important; width:auto !important; height:auto !important; max-height:none; margin-bottom:14px; }
+    .titlebar{ cursor:default; }
+    .proj-layout{ grid-template-columns:1fr; }
+    .mission, .tasks{ display:none; }
+    .taskbar{ justify-content:space-between; }
   }
 </style>
 </head>
 <body>
-<div class="sheet">
 
-  <header class="top">
-    <div class="photo-frame">
-      <img id="foto-img" src="imagenes/james.png" alt="Foto de James Velásquez" onerror="this.style.display='none'; document.getElementById('foto-fallback').style.display='flex';">
-      <div class="photo-fallback" id="foto-fallback">
-        <div class="ini">JV</div>
-      </div>
-    </div>
-    <div class="head-text">
-      <div class="stamp">EN CURSO<br>UNAH</div>
-      <div class="eyebrow">Informática · Ciberseguridad &amp; Desarrollo de Sistemas</div>
-      <h1>James Steven Velásquez Vásquez</h1>
-      <p class="sub">
-        <a href="mailto:james.svelasquez@gmail.com">james.svelasquez@gmail.com</a> ·
-        +504 9666-6914 ·
-        <a href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/" target="_blank" rel="noopener">LinkedIn</a> ·
-        <a href="https://github.com/Dio77799" target="_blank" rel="noopener">GitHub</a> ·
-        Honduras
-      </p>
-    </div>
-  </header>
+<div class="desktop" id="desktop">
+  <svg class="hills" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd06a"/><stop offset="1" stop-color="#4f8f2f"/></linearGradient>
+      <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7cbd4b"/><stop offset="1" stop-color="#2f6a22"/></linearGradient>
+    </defs>
+    <path d="M0,170 C220,90 420,120 640,150 C860,180 1020,110 1200,130 L1200,400 L0,400 Z" fill="url(#g1)" opacity=".9"/>
+    <path d="M0,250 C260,170 560,210 760,240 C960,270 1100,220 1200,230 L1200,400 L0,400 Z" fill="url(#g2)"/>
+  </svg>
+  <div class="flowers"></div>
 
-  <nav class="tabbar" id="tabbar">
-    <button class="tab active" data-tab="perfil">00 · Perfil</button>
-    <button class="tab" data-tab="proyectos">01 · Proyectos</button>
-    <button class="tab" data-tab="formacion">02 · Formación</button>
-    <button class="tab" data-tab="experiencia">03 · Experiencia</button>
-    <button class="tab" data-tab="liderazgo">04 · Liderazgo</button>
-    <button class="tab" data-tab="certificaciones">05 · Certificaciones</button>
-    <button class="tab" data-tab="competencias">06 · Competencias</button>
-    <button class="tab" data-tab="galeria">07 · Galería</button>
+  <nav class="icons" aria-label="Accesos del escritorio">
+    <button class="dicon" data-open="perfil"><div class="ic">🙂</div><span>Mi perfil</span></button>
+    <button class="dicon" data-open="proyectos"><div class="ic">📁</div><span>Proyectos</span></button>
+    <button class="dicon" data-open="certs"><div class="ic">🏆</div><span>Certificados</span></button>
+    <button class="dicon" data-open="historial"><div class="ic">📜</div><span>Historial</span></button>
+    <button class="dicon" data-open="skills"><div class="ic">🛠️</div><span>Habilidades</span></button>
+    <button class="dicon" data-open="galeria"><div class="ic">🖼️</div><span>Galería</span></button>
+    <a class="dicon" href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/" target="_blank" rel="noopener" style="text-decoration:none"><div class="ic in">in</div><span>LinkedIn</span></a>
+    <a class="dicon" href="https://github.com/Dio77799" target="_blank" rel="noopener" style="text-decoration:none"><div class="ic">💻</div><span>GitHub</span></a>
   </nav>
 
-  <main>
-
-    <!-- ============ PERFIL ============ -->
-    <section class="panel active" id="panel-perfil">
-      <div class="panel-head"><span class="sheet-no">HOJA 00/07</span><h2>Perfil profesional</h2></div>
-      <p class="def">Estudiante de Informática en la UNAH con formación en desarrollo de software, <b>ciberseguridad</b> y sistemas de gestión. Con certificaciones vigentes de Cisco en redes, ciberseguridad y hacking ético, complementadas por formación en inteligencia artificial, LLMs locales, Python, la norma ISO/IEC 42001, blockchain y metodologías ágiles. Experiencia práctica en proyectos reales de sistemas administrativos y financieros, así como en implementaciones de seguridad informática con hardware embebido (Raspberry Pi, ESP32 y Cowrie Honeypot). Comunicador efectivo, analítico y proactivo, con trayectoria en liderazgo estudiantil y trabajo colaborativo en equipos multidisciplinarios.</p>
-
-      <div class="resumen-grid" id="resumen-grid">
-        <div class="area-card" data-tab="proyectos">
-          <div class="num">01</div>
-          <h4>Proyectos</h4>
-          <p>ERP multi-tenant en .NET, sistema Lucas Pet Shop, auditoría de redes, apps Flutter y más.</p>
-        </div>
-        <div class="area-card" data-tab="formacion">
-          <div class="num">02</div>
-          <h4>Formación</h4>
-          <p>Informática, UNAH — en curso.</p>
-        </div>
-        <div class="area-card" data-tab="experiencia">
-          <div class="num">03</div>
-          <h4>Experiencia</h4>
-          <p>Seguridad embebida, sistemas de facturación, investigación y gestión veterinaria.</p>
-        </div>
-        <div class="area-card" data-tab="liderazgo">
-          <div class="num">04</div>
-          <h4>Liderazgo</h4>
-          <p>Secretario de Acción Social y cofundador de la Cinemateca UNAH.</p>
-        </div>
-        <div class="area-card" data-tab="certificaciones">
-          <div class="num">05</div>
-          <h4>Certificaciones</h4>
-          <p>17 certificaciones: Cisco, Udemy, INFOP, IA, Python, ISO 42001 y más — verificables en LinkedIn.</p>
-        </div>
-        <div class="area-card" data-tab="competencias">
-          <div class="num">06</div>
-          <h4>Competencias</h4>
-          <p>Ciberseguridad, redes, sistemas embebidos, desarrollo e idiomas.</p>
-        </div>
-        <div class="area-card" data-tab="galeria">
-          <div class="num">07</div>
-          <h4>Galería</h4>
-          <p>Capturas de los sistemas desarrollados.</p>
+  <!-- ============ PERFIL ============ -->
+  <section class="win" id="w-perfil" data-x="24" data-y="20" data-w="400" aria-label="Mi perfil">
+    <div class="titlebar"><span class="tico">💬</span><h2>Bienvenido a mi portafolio</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody">
+      <div class="who">
+        <img class="avatar" src="imagenes/james.png" alt="Foto de James Velásquez">
+        <div>
+          <h1>James Steven Velásquez Vásquez</h1>
+          <div class="meta">
+            <div>Informática · UNAH (en curso)</div>
+            <div>Ciberseguridad &amp; Desarrollo</div>
+            <div>Honduras</div>
+          </div>
         </div>
       </div>
-    </section>
-
-    <!-- ============ PROYECTOS ============ -->
-    <section class="panel" id="panel-proyectos">
-      <div class="panel-head"><span class="sheet-no">HOJA 01/07</span><h2>Proyectos</h2></div>
-      <p class="def">Selección de sistemas que he desarrollado. Varios repositorios son <b>privados</b> por pertenecer a clientes o proyectos académicos en equipo: el código está disponible bajo solicitud y puedo hacer una demostración en vivo.</p>
-      <div class="cta-row">
-        <a class="lnk" href="https://github.com/Dio77799" target="_blank" rel="noopener">Ver mi GitHub</a>
-        <a class="lnk ghost" href="mailto:james.svelasquez@gmail.com?subject=Solicitud%20de%20acceso%20a%20repositorio">Solicitar acceso a un repo privado</a>
-      </div>
-
-      <div class="proj-grid">
-
-        <article class="proj">
-          <div class="shot"><span class="ph">ERP</span></div>
-          <div class="body">
-            <h3>ERP Multi-tenant — Azisto</h3>
-            <p class="meta">Full-stack · 2026 · En desarrollo</p>
-            <p>Plataforma ERP multiempresa con módulos de Organización, Contabilidad, Facturación e Inventario. API REST con Clean Architecture, cliente PWA y app híbrida de escritorio/móvil que comparten componentes.</p>
-            <div class="tags"><span>.NET 8</span><span>C#</span><span>Clean Architecture</span><span>PostgreSQL / Neon</span><span>Blazor WASM</span><span>MAUI</span><span>JWT</span><span>EF Core</span></div>
-            <div class="links"><span class="priv"><b>●</b> Repo privado · código bajo solicitud</span></div>
-          </div>
-        </article>
-
-        <article class="proj">
-          <div class="shot"><img src="sistemas/petshop/Lucaspet.png" alt="Sistema Lucas Pet Shop" loading="lazy"></div>
-          <div class="body">
-            <h3>Lucas Pet Shop — Sistema de gestión y facturación</h3>
-            <p class="meta">Full-stack · UNAH · 2024 - 2025</p>
-            <p>Sistema administrativo para pet shop: facturación con PDF, inventario, clientes, reportes con gráficas, notificaciones por correo y WhatsApp, y tareas programadas. Rol: analista y desarrollador del módulo de gestión.</p>
-            <div class="tags"><span>React 19</span><span>Vite</span><span>Node.js</span><span>Express 5</span><span>MySQL</span><span>JWT / Argon2</span><span>PrimeReact</span><span>Chart.js</span></div>
-            <div class="links"><span class="priv"><b>●</b> Repo privado (equipo) · demo bajo solicitud</span></div>
-          </div>
-        </article>
-
-        <article class="proj">
-          <div class="shot"><img src="sistemas/redes_wifi/wifi-1.png" alt="WiFi Audit Lab" loading="lazy"></div>
-          <div class="body">
-            <h3>WiFi Audit Lab</h3>
-            <p class="meta">Ciberseguridad · 2026</p>
-            <p>Sistema de auditoría de red y seguridad de endpoints: escaneo de puertos y servicios expuestos, detección de dispositivos y reportes. Diseñado para uso ético y autorizado.</p>
-            <div class="tags"><span>Python</span><span>nmap</span><span>Raspberry Pi</span><span>Linux</span><span>Bash</span><span>Redes</span></div>
-            <div class="links"><span class="priv"><b>●</b> Repo privado · código bajo solicitud</span></div>
-          </div>
-        </article>
-
-        <article class="proj">
-          <div class="shot"><img src="sistemas/gestion/sistemaGestion.png" alt="Sistema de gestión de productos" loading="lazy"></div>
-          <div class="body">
-            <h3>Product Management System</h3>
-            <p class="meta">Full-stack · 2025</p>
-            <p>Gestor de producción y productos con panel administrativo, CRUD completo y API propia.</p>
-            <div class="tags"><span>React</span><span>TypeScript</span><span>Tailwind</span><span>shadcn/ui</span><span>Python Flask</span><span>MySQL</span></div>
-            <div class="links"><span class="priv"><b>●</b> Repo privado · código bajo solicitud</span></div>
-          </div>
-        </article>
-
-        <article class="proj">
-          <div class="shot"><img src="sistemas/kanban/sistemaKanban.png" alt="Sistema Kanban" loading="lazy"></div>
-          <div class="body">
-            <h3>Kanban — Gestión de tareas</h3>
-            <p class="meta">Full-stack · 2025</p>
-            <p>Tablero kanban con autenticación, columnas y tarjetas arrastrables, persistencia en la nube.</p>
-            <div class="tags"><span>React</span><span>Node.js</span><span>Express</span><span>MongoDB Atlas</span></div>
-            <div class="links"><span class="priv"><b>●</b> Código bajo solicitud</span></div>
-          </div>
-        </article>
-
-        <article class="proj">
-          <div class="shot"><img src="sistemas/belleza/webBelleza.png" alt="Sitio y app para salón de belleza" loading="lazy"></div>
-          <div class="body">
-            <h3>Salón de Belleza — Web y App</h3>
-            <p class="meta">Freelance · Web + Móvil</p>
-            <p>Sitio web y aplicación móvil para un salón de belleza: catálogo de servicios, información de contacto y reservas.</p>
-            <div class="tags"><span>Flutter</span><span>Dart</span><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-            <div class="links"><span class="priv"><b>●</b> Proyecto de cliente</span></div>
-          </div>
-        </article>
-
-        <article class="proj">
-          <div class="shot"><span class="ph">INV</span></div>
-          <div class="body">
-            <h3>Inventario Personal</h3>
-            <p class="meta">App móvil · Flutter</p>
-            <p>App multiplataforma para controlar inventario personal con almacenamiento local offline y gestión de estado.</p>
-            <div class="tags"><span>Flutter</span><span>Dart</span><span>Hive</span><span>Provider</span></div>
-            <div class="links"><span class="priv"><b>●</b> Código bajo solicitud</span></div>
-          </div>
-        </article>
-
-        <article class="proj">
-          <div class="shot"><span class="ph">MP3</span></div>
-          <div class="body">
-            <h3>Reproductor MP3</h3>
-            <p class="meta">Web + Móvil · 2026</p>
-            <p>Reproductor de música con lista de reproducción y controles personalizados, en versión web y versión Android con Flutter.</p>
-            <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Flutter</span></div>
-            <div class="links"><a class="lnk" href="https://github.com/Dio77799/MP3" target="_blank" rel="noopener">Ver código</a></div>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- ============ FORMACIÓN ============ -->
-    <section class="panel" id="panel-formacion">
-      <div class="panel-head"><span class="sheet-no">HOJA 02/07</span><h2>Formación académica</h2></div>
-      <div class="card">
-        <h3> Informática </h3>
-        <p class="meta">Universidad Nacional Autónoma de Honduras (UNAH) — En curso</p>
-        <ul>
-          <li>Formación en desarrollo de software, sistemas de gestión, bases de datos y seguridad informática.</li>
-          <li>Participación en investigación académica y proyectos tecnológicos aplicados.</li>
+      <div class="label">📝 Notas</div>
+      <div class="sunk">
+        <ul class="notes">
+          <li>Desarrollo sistemas de gestión full-stack: .NET, React, Node.js y Flutter.</li>
+          <li>4 certificaciones Cisco: Ethical Hacker, Cybersecurity, CCNA ITN e IT Essentials.</li>
+          <li>Seguridad con hardware embebido: honeypot Cowrie en Raspberry Pi y ESP32.</li>
+          <li>Formación en IA, LLMs locales (Ollama) e ISO/IEC 42001.</li>
+          <li>Líder estudiantil, cofundador de la Cinemateca UNAH. Español nativo, inglés avanzado.</li>
         </ul>
       </div>
-    </section>
-
-    <!-- ============ EXPERIENCIA ============ -->
-    <section class="panel" id="panel-experiencia">
-      <div class="panel-head"><span class="sheet-no">HOJA 03/07</span><h2>Experiencia y proyectos</h2></div>
-
-      <div class="card">
-        <h3>Proyectos de Seguridad con Hardware Embebido</h3>
-        <p class="meta">Proyectos Personales — 2023 - Presente</p>
-        <ul>
-          <li>Implementación de Cowrie (honeypot SSH/Telnet) sobre Raspberry Pi para captura y análisis de ataques reales en red.</li>
-          <li>Desarrollo de sistemas embebidos con ESP32 orientados a monitoreo de red.</li>
-          <li>Configuración y administración de entornos Linux.</li>
-        </ul>
+      <div class="btn-row">
+        <a class="btn blue" href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/" target="_blank" rel="noopener">in · LinkedIn</a>
+        <a class="btn" href="https://github.com/Dio77799" target="_blank" rel="noopener">💻 GitHub</a>
+        <a class="btn" href="mailto:james.svelasquez@gmail.com">✉️ Correo</a>
       </div>
-
-      <div class="card">
-        <h3>Sistema de Facturación — Lucas Pet Shop</h3>
-        <p class="meta">Proyecto Académico, UNAH — 2024 - 2025</p>
-        <ul>
-          <li>Análisis, diseño, desarrollo e implementación de un sistema de facturación para negocio tipo pet shop.</li>
-          <li>Responsable del módulo de gestión y lógica de negocio. Rol: analista y desarrollador.</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Macroproyecto Marketing &amp; TICs en MIPYMES en LATAM</h3>
-        <p class="meta">Investigación Académica, UNAH — 2025 - Presente</p>
-        <ul>
-          <li>Investigación sobre el impacto de las TICs en estrategias de marketing para MIPYMES en Latinoamérica.</li>
-          <li>Rol: investigador junior y participante académico. Proyecto actualmente en curso.</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Sistema de Gestión para Tienda Veterinaria</h3>
-        <p class="meta">Proyecto Freelance — 2024</p>
-        <ul>
-          <li>Desarrollo de módulos de gestión administrativa y control financiero para tienda veterinaria.</li>
-          <li>Implementación y mejora de procesos digitales orientados a administración y manejo de datos.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ============ LIDERAZGO ============ -->
-    <section class="panel" id="panel-liderazgo">
-      <div class="panel-head"><span class="sheet-no">HOJA 04/07</span><h2>Liderazgo y actividades estudiantiles</h2></div>
-
-      <div class="card">
-        <h3>Secretario de Acción Social</h3>
-        <p class="meta">Asociación de Estudiantes, UNAH — 2023 - 2025</p>
-        <ul>
-          <li>Organización y coordinación de actividades académicas y sociales para la comunidad estudiantil.</li>
-          <li>Liderazgo de equipos estudiantiles en planificación y ejecución de eventos y charlas profesionales.</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Cofundador — Cinemateca UNAH</h3>
-        <p class="meta">Iniciativa Cultural, UNAH — 2024</p>
-        <ul>
-          <li>Participación en la fundación y estructuración de la Cinemateca UNAH.</li>
-          <li>Desarrollo de habilidades de gestión de proyectos culturales, oratoria y comunicación institucional.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ============ CERTIFICACIONES ============ -->
-    <section class="panel" id="panel-certificaciones">
-      <div class="panel-head"><span class="sheet-no">HOJA 05/07</span><h2>Certificaciones</h2></div>
-      <p class="def">Todas las credenciales están publicadas y son verificables en mi perfil de LinkedIn.</p>
-      <div class="cta-row">
-        <a class="lnk" href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/details/certifications/" target="_blank" rel="noopener">Ver certificados en LinkedIn →</a>
-        <a class="lnk ghost" href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/" target="_blank" rel="noopener">Perfil completo</a>
-      </div>
-      <div class="card" style="overflow-x:auto;">
-        <table class="ref" id="tabla-certs">
-          <tr><th>Certificación</th><th>Institución</th><th>Fecha</th><th>ID de credencial</th></tr>
-          <tr><td>Ethical Hacker</td><td class="small">Cisco Networking Academy</td><td class="small">Jun. 2026</td><td class="small" style="font-size:10.5px;word-break:break-all;">—</td></tr>
-          <tr><td>Introduction to Cybersecurity</td><td class="small">Cisco Networking Academy</td><td class="small">May. 2026</td><td class="small" style="font-size:10.5px;word-break:break-all;">—</td></tr>
-          <tr><td>CCNA: Introduction to Networks</td><td class="small">Cisco Networking Academy</td><td class="small">Ago. 2025</td><td class="small" style="font-size:10.5px;word-break:break-all;">—</td></tr>
-          <tr><td>IT Essentials</td><td class="small">Cisco Networking Academy</td><td class="small">Ago. 2025</td><td class="small" style="font-size:10.5px;word-break:break-all;">—</td></tr>
-          <tr><td>Mastering ISO/IEC 42001: Cybersecurity Business Essentials</td><td class="small">Udemy</td><td class="small">Sep. 2026</td><td class="small" style="font-size:10.5px;word-break:break-all;">UC-f0703fb6-29a6-42cb-b792-251e83e05391</td></tr>
-          <tr><td>Zero to Hero in Ollama: Create Local LLM Applications</td><td class="small">Udemy</td><td class="small">Oct. 2026</td><td class="small" style="font-size:10.5px;word-break:break-all;">UC-3ad3f0a3-08bf-4562-982f-f4738077455e</td></tr>
-          <tr><td>Base de Datos SQLite</td><td class="small">Udemy</td><td class="small">—</td><td class="small" style="font-size:10.5px;word-break:break-all;">UC-b13cee2c-cf2d-4786-8b54-9c411f884f9e</td></tr>
-          <tr><td>Aprende a detectar y defenderte del Phishing</td><td class="small">Udemy</td><td class="small">—</td><td class="small" style="font-size:10.5px;word-break:break-all;">UC-e2a35338-4d30-4756-87f2-dab124fd434e</td></tr>
-          <tr><td>Fundamentos de Inteligencia Artificial</td><td class="small">Capacítate para el empleo</td><td class="small">Mar. 2026</td><td class="small" style="font-size:10.5px;word-break:break-all;">25204712-f3d1-4584-9402-cfad4f6d0f8c</td></tr>
-          <tr><td>Fundamentos de Machine Learning</td><td class="small">Capacítate para el empleo</td><td class="small">Mar. 2026</td><td class="small" style="font-size:10.5px;word-break:break-all;">d71e706e-ce1c-41c5-b926-3f9a24f1f863</td></tr>
-          <tr><td>Fundamentos de Blockchain</td><td class="small">Capacítate para el empleo</td><td class="small">Feb. 2026</td><td class="small" style="font-size:10.5px;word-break:break-all;">4cb2aa96-9c60-437b-87b3-e36745dc4c1a</td></tr>
-          <tr><td>Programar en Python</td><td class="small">INFOP Virtual</td><td class="small">Sep. 2026</td><td class="small" style="font-size:10.5px;word-break:break-all;">06a1a5f1-ef7f-4b65-ac9b-fc98d01a3261</td></tr>
-          <tr><td>Trabajo en Equipo</td><td class="small">INFOP Virtual</td><td class="small">Sep. 2026</td><td class="small" style="font-size:10.5px;word-break:break-all;">2449763</td></tr>
-          <tr><td>Oratoria</td><td class="small">INFOP Virtual</td><td class="small">Jul. 2024</td><td class="small" style="font-size:10.5px;word-break:break-all;">2448247</td></tr>
-          <tr><td>Liderazgo</td><td class="small">INFOP Virtual</td><td class="small">Jul. 2024</td><td class="small" style="font-size:10.5px;word-break:break-all;">2444684</td></tr>
-          <tr><td>Digital Immersion</td><td class="small">Smart Campus AI</td><td class="small">—</td><td class="small" style="font-size:10.5px;word-break:break-all;">201250404-910</td></tr>
-          <tr><td>Introducción a la Agilidad y Scrum</td><td class="small">Metodologías Ágiles</td><td class="small">2025</td><td class="small" style="font-size:10.5px;word-break:break-all;">—</td></tr>
-        </table>
-      </div>
-    </section>
-
-    <!-- ============ COMPETENCIAS ============ -->
-    <section class="panel" id="panel-competencias">
-      <div class="panel-head"><span class="sheet-no">HOJA 06/07</span><h2>Competencias técnicas y blandas</h2></div>
-
-      <div class="chip-grid">
-        <div class="chip-card"><h4>Ciberseguridad</h4><p>Ethical Hacking, Cowrie, Phishing</p></div>
-        <div class="chip-card"><h4>Redes</h4><p>CCNA, TCP/IP, infraestructura</p></div>
-        <div class="chip-card"><h4>Sistemas embebidos</h4><p>Raspberry Pi, ESP32, Linux</p></div>
-        <div class="chip-card"><h4>Desarrollo</h4><p>Python, C#/.NET, JavaScript/React, Flutter, bases de datos SQL</p></div>
-        <div class="chip-card"><h4>IA / Datos</h4><p>Machine Learning, LLMs locales (Ollama), ISO/IEC 42001, Blockchain</p></div>
-        <div class="chip-card"><h4>Metodologías</h4><p>Scrum, Agilidad, análisis de sistemas</p></div>
-        <div class="chip-card"><h4>Competencias blandas</h4><p>Liderazgo, trabajo en equipo, oratoria y comunicación (certificadas INFOP)</p></div>
-        <div class="chip-card"><h4>Otras</h4><p>Publicidad, trabajo en equipo</p></div>
-      </div>
-
-      <div class="card" style="margin-top:16px;">
-        <h3>Idiomas</h3>
-        <div class="chk-item"><div class="box"></div><span>Español — Nativo</span></div>
-        <div class="chk-item"><div class="box"></div><span>Inglés — Avanzado</span></div>
-        <div class="chk-item" style="border-bottom:none;"><div class="box"></div><span>Francés — Básico</span></div>
-      </div>
-    </section>
-
-    <!-- ============ GALERÍA ============ -->
-    <section class="panel" id="panel-galeria">
-      <div class="panel-head"><span class="sheet-no">HOJA 07/07</span><h2>Galería de proyectos</h2></div>
-      <p class="def">Capturas de los sistemas desarrollados. Haz clic en una imagen para verla en tamaño completo.</p>
-
-      <div class="gallery-grid" id="gallery-grid"></div>
-    </section>
-
-  </main>
-
-  <div class="titleblock">
-    <div class="tb-row">
-      <div class="tb-cell"><span class="tb-label">Nombre</span>James Velásquez</div>
-      <div class="tb-cell"><span class="tb-label">Ubicación</span>Honduras</div>
+      <div class="label">☎ Contacto</div>
+      <div style="font-size:12.5px; line-height:1.7;">james.svelasquez@gmail.com<br>+504 9666-6914</div>
     </div>
-    <div class="tb-row">
-      <div class="tb-cell"><span class="tb-label">Hoja</span><span id="tb-hoja">00/07</span></div>
-      <div class="tb-cell"><span class="tb-label">Contacto</span>+504 9666-6914</div>
-    </div>
-  </div>
+  </section>
 
+  <!-- ============ PROYECTOS ============ -->
+  <section class="win" id="w-proyectos" data-x="440" data-y="20" data-w="640" data-h="520" aria-label="Proyectos">
+    <div class="titlebar"><span class="tico">📁</span><h2>Proyectos — Lista de contactos</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody">
+      <div class="proj-layout">
+        <div class="buddy" id="buddy"></div>
+        <div class="proj-detail raised" style="padding:8px;" id="proj-detail"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CERTIFICADOS ============ -->
+  <section class="win" id="w-certs" data-x="120" data-y="70" data-w="520" data-h="500" hidden aria-label="Certificados">
+    <div class="titlebar"><span class="tico">🏆</span><h2>Certificados</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;">
+        <div><span class="counter" id="cert-count">0</span> certificaciones · verificables en LinkedIn</div>
+        <a class="btn blue" href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/details/certifications/" target="_blank" rel="noopener">Ver en LinkedIn →</a>
+      </div>
+      <div id="cert-list"></div>
+    </div>
+  </section>
+
+  <!-- ============ HISTORIAL ============ -->
+  <section class="win" id="w-historial" data-x="180" data-y="50" data-w="480" data-h="480" hidden aria-label="Historial">
+    <div class="titlebar"><span class="tico">📜</span><h2>Historial — Formación y experiencia</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody">
+      <div class="label">🎓 Formación</div>
+      <div class="sunk">
+        <div class="entry"><span class="when">En curso</span><b>Informática — UNAH</b><p>Desarrollo de software, sistemas de gestión, bases de datos y seguridad informática.</p></div>
+      </div>
+      <div class="label">💼 Experiencia</div>
+      <div class="sunk">
+        <div class="entry"><span class="when">2023 – hoy</span><b>Seguridad con hardware embebido</b><p>Honeypot Cowrie (SSH/Telnet) en Raspberry Pi para capturar y analizar ataques reales; monitoreo de red con ESP32; administración de entornos Linux.</p></div>
+        <div class="entry"><span class="when">2024 – 2025</span><b>Sistema de facturación — Lucas Pet Shop (UNAH)</b><p>Análisis, diseño y desarrollo. Responsable del módulo de gestión y la lógica de negocio.</p></div>
+        <div class="entry"><span class="when">2025 – hoy</span><b>Macroproyecto Marketing &amp; TICs en MIPYMES LATAM</b><p>Investigador junior sobre el impacto de las TICs en el marketing de MIPYMES.</p></div>
+        <div class="entry"><span class="when">2024</span><b>Sistema de gestión — Tienda veterinaria (freelance)</b><p>Módulos de gestión administrativa y control financiero.</p></div>
+      </div>
+      <div class="label">⭐ Liderazgo</div>
+      <div class="sunk">
+        <div class="entry"><span class="when">2023 – 2025</span><b>Secretario de Acción Social — Asociación de Estudiantes UNAH</b><p>Organización de actividades académicas y sociales; liderazgo de equipos.</p></div>
+        <div class="entry"><span class="when">2024</span><b>Cofundador — Cinemateca UNAH</b><p>Gestión de proyectos culturales, oratoria y comunicación institucional.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HABILIDADES ============ -->
+  <section class="win" id="w-skills" data-x="240" data-y="90" data-w="500" hidden aria-label="Habilidades">
+    <div class="titlebar"><span class="tico">🛠️</span><h2>Habilidades</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody">
+      <div class="skills">
+        <div class="skill sunk"><h4>Ciberseguridad</h4><p>Ethical Hacking, Cowrie, Phishing, ISO/IEC 42001</p></div>
+        <div class="skill sunk"><h4>Redes</h4><p>CCNA, TCP/IP, nmap, infraestructura</p></div>
+        <div class="skill sunk"><h4>Desarrollo</h4><p>C#/.NET, Python, JavaScript/React, Node.js, Flutter</p></div>
+        <div class="skill sunk"><h4>Datos</h4><p>PostgreSQL, MySQL, SQLite, MongoDB</p></div>
+        <div class="skill sunk"><h4>IA</h4><p>Machine Learning, LLMs locales (Ollama), agentes</p></div>
+        <div class="skill sunk"><h4>Embebidos</h4><p>Raspberry Pi, ESP32, Linux</p></div>
+        <div class="skill sunk"><h4>Metodologías</h4><p>Scrum, agilidad, análisis de sistemas</p></div>
+        <div class="skill sunk"><h4>Blandas</h4><p>Liderazgo, oratoria, trabajo en equipo</p></div>
+      </div>
+      <div class="label">🌐 Idiomas</div>
+      <div>Español — Nativo<div class="bar"><i style="width:100%"></i></div></div>
+      <div>Inglés — Avanzado<div class="bar"><i style="width:80%"></i></div></div>
+      <div>Francés — Básico<div class="bar"><i style="width:25%"></i></div></div>
+    </div>
+  </section>
+
+  <!-- ============ GALERÍA ============ -->
+  <section class="win" id="w-galeria" data-x="300" data-y="60" data-w="520" hidden aria-label="Galería">
+    <div class="titlebar"><span class="tico">🖼️</span><h2>Galería</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody"><div class="gallery" id="gallery"></div></div>
+  </section>
+
+  <!-- ============ VISOR DE IMAGEN ============ -->
+  <section class="win" id="w-visor" data-x="200" data-y="30" data-w="760" hidden aria-label="Visor de imágenes">
+    <div class="titlebar"><span class="tico">🔍</span><h2>Visor de imágenes</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody"><img id="viewer-img" alt="Captura de proyecto"></div>
+  </section>
 </div>
+
+<div class="startmenu" id="startmenu" hidden>
+  <div class="side">James OS 98</div>
+  <ul>
+    <li><button data-open="perfil"><span class="em">🙂</span>Mi perfil</button></li>
+    <li><button data-open="proyectos"><span class="em">📁</span>Proyectos</button></li>
+    <li><button data-open="certs"><span class="em">🏆</span>Certificados</button></li>
+    <li><button data-open="historial"><span class="em">📜</span>Historial</button></li>
+    <li><button data-open="skills"><span class="em">🛠️</span>Habilidades</button></li>
+    <li><button data-open="galeria"><span class="em">🖼️</span>Galería</button></li>
+    <li><hr></li>
+    <li><a href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/" target="_blank" rel="noopener"><span class="em">🔗</span>LinkedIn</a></li>
+    <li><a href="https://github.com/Dio77799" target="_blank" rel="noopener"><span class="em">💻</span>GitHub</a></li>
+    <li><a href="mailto:james.svelasquez@gmail.com"><span class="em">✉️</span>Enviar correo</a></li>
+  </ul>
+</div>
+
+<footer class="taskbar">
+  <button class="start" id="start-btn" aria-haspopup="true">🪟 Inicio</button>
+  <div class="mission" title="Misión actual">
+    <span class="clip">📋</span>
+    <div><b>MISIÓN ACTUAL</b><span>Buscar mi próximo rol en desarrollo / ciberseguridad</span></div>
+  </div>
+  <div class="tasks" id="tasks"></div>
+  <div class="tray"><a href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/" target="_blank" rel="noopener" title="LinkedIn">🔗</a><span id="clock">--:--</span></div>
+</footer>
 
 <script>
   // ============================================================
-  //  NAVEGACIÓN entre hojas (tabs)
+  //  DATOS — edita aquí proyectos y certificaciones
   // ============================================================
-  const NUMEROS = { perfil:'00', proyectos:'01', formacion:'02', experiencia:'03', liderazgo:'04', certificaciones:'05', competencias:'06', galeria:'07' };
+  const PROYECTOS = [
+    { nombre:'ERP Azisto', titulo:'ERP Multi-tenant — Azisto', img:null, color:'#2f4f7d', sub:'Full-stack · 2026 · En desarrollo', estado:'lock',
+      desc:'Plataforma ERP multiempresa con módulos de Organización, Contabilidad, Facturación e Inventario. API REST con Clean Architecture, cliente PWA y app híbrida de escritorio/móvil que comparten componentes.',
+      tags:['.NET 8','C#','Clean Architecture','PostgreSQL / Neon','Blazor WASM','MAUI','JWT','EF Core'] },
+    { nombre:'Lucas Pet Shop', titulo:'Lucas Pet Shop — Gestión y facturación', img:'sistemas/petshop/Lucaspet.png', sub:'Full-stack · UNAH · 2024 – 2025', estado:'lock',
+      desc:'Sistema administrativo para pet shop: facturación con PDF, inventario, clientes, reportes con gráficas, notificaciones por correo y WhatsApp, y tareas programadas. Rol: analista y desarrollador del módulo de gestión.',
+      tags:['React 19','Vite','Node.js','Express 5','MySQL','JWT / Argon2','PrimeReact','Chart.js'] },
+    { nombre:'WiFi Audit Lab', titulo:'WiFi Audit Lab', img:'sistemas/redes_wifi/wifi-1.png', sub:'Ciberseguridad · 2026', estado:'lock',
+      desc:'Sistema de auditoría de red y seguridad de endpoints: escaneo de puertos y servicios expuestos, detección de dispositivos y reportes, con agente en Raspberry Pi. Diseñado para uso ético y autorizado.',
+      tags:['Python','nmap','Raspberry Pi','Linux','Bash','Redes'] },
+    { nombre:'Product Manager', titulo:'Product Management System', img:'sistemas/gestion/sistemaGestion.png', sub:'Full-stack · 2025', estado:'lock',
+      desc:'Gestor de producción y productos con panel administrativo, CRUD completo y API propia.',
+      tags:['React','TypeScript','Tailwind','shadcn/ui','Python Flask','MySQL'] },
+    { nombre:'Kanban', titulo:'Kanban — Gestión de tareas', img:'sistemas/kanban/sistemaKanban.png', sub:'Full-stack · 2025', estado:'lock',
+      desc:'Tablero kanban con autenticación, columnas y tarjetas arrastrables y persistencia en la nube.',
+      tags:['React','Node.js','Express','MongoDB Atlas'] },
+    { nombre:'Salón de Belleza', titulo:'Salón de Belleza — Web y App', img:'sistemas/belleza/webBelleza.png', sub:'Freelance · Web + Móvil', estado:'lock', nota:'Proyecto de cliente.',
+      desc:'Sitio web y aplicación móvil para un salón de belleza: catálogo de servicios, información de contacto y reservas.',
+      tags:['Flutter','Dart','HTML','CSS','JavaScript'] },
+    { nombre:'Inventario Personal', titulo:'Inventario Personal', img:null, color:'#6b4f8f', sub:'App móvil · Flutter', estado:'lock',
+      desc:'App multiplataforma para controlar inventario personal, con almacenamiento local offline y gestión de estado.',
+      tags:['Flutter','Dart','Hive','Provider'] },
+    { nombre:'Reproductor MP3', titulo:'Reproductor MP3', img:null, color:'#8f4f3a', sub:'Web + Móvil · 2026', estado:'on', repo:'https://github.com/Dio77799/MP3',
+      desc:'Reproductor de música con lista de reproducción y controles personalizados, en versión web y versión Android con Flutter.',
+      tags:['HTML','CSS','JavaScript','Flutter'] },
+  ];
 
-  function activarTab(id){
-    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === id));
-    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + id));
-    document.getElementById('tb-hoja').textContent = NUMEROS[id] + '/07';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-  document.getElementById('tabbar').addEventListener('click', (e) => {
-    const btn = e.target.closest('.tab');
-    if (btn) activarTab(btn.dataset.tab);
-  });
-  document.getElementById('resumen-grid').addEventListener('click', (e) => {
-    const card = e.target.closest('.area-card');
-    if (card) activarTab(card.dataset.tab);
-  });
-  // Enlace directo a una hoja: index.html#proyectos, #certificaciones, ...
-  const hashInicial = location.hash.slice(1);
-  if (NUMEROS[hashInicial]) activarTab(hashInicial);
+  const CERTIFICADOS = [
+    { inst:'Cisco Networking Academy', icono:'🛡️', items:[
+      ['Ethical Hacker','Jun. 2026',''],
+      ['Introduction to Cybersecurity','May. 2026',''],
+      ['CCNA: Introduction to Networks','Ago. 2025',''],
+      ['IT Essentials','Ago. 2025',''] ]},
+    { inst:'Udemy', icono:'🎓', items:[
+      ['Mastering ISO/IEC 42001: Cybersecurity Business Essentials','Sep. 2026','UC-f0703fb6-29a6-42cb-b792-251e83e05391'],
+      ['Zero to Hero in Ollama: Create Local LLM Applications','Oct. 2026','UC-3ad3f0a3-08bf-4562-982f-f4738077455e'],
+      ['Base de Datos SQLite','','UC-b13cee2c-cf2d-4786-8b54-9c411f884f9e'],
+      ['Aprende a detectar y defenderte del Phishing','','UC-e2a35338-4d30-4756-87f2-dab124fd434e'] ]},
+    { inst:'Capacítate para el empleo', icono:'🤖', items:[
+      ['Fundamentos de Inteligencia Artificial','Mar. 2026','25204712-f3d1-4584-9402-cfad4f6d0f8c'],
+      ['Fundamentos de Machine Learning','Mar. 2026','d71e706e-ce1c-41c5-b926-3f9a24f1f863'],
+      ['Fundamentos de Blockchain','Feb. 2026','4cb2aa96-9c60-437b-87b3-e36745dc4c1a'] ]},
+    { inst:'INFOP Virtual', icono:'📘', items:[
+      ['Programar en Python','Sep. 2026','06a1a5f1-ef7f-4b65-ac9b-fc98d01a3261'],
+      ['Trabajo en Equipo','Sep. 2026','2449763'],
+      ['Oratoria','Jul. 2024','2448247'],
+      ['Liderazgo','Jul. 2024','2444684'] ]},
+    { inst:'Smart Campus AI', icono:'🌐', items:[
+      ['Digital Immersion','','201250404-910'] ]},
+    { inst:'Metodologías Ágiles', icono:'🔄', items:[
+      ['Introducción a la Agilidad y Scrum','2025',''] ]},
+  ];
 
-  // ============================================================
-  //  GALERÍA — imágenes en la carpeta sistemas/. Para agregar una,
-  //  copia el archivo y añade su ruta a este arreglo.
-  // ============================================================
-  const IMAGENES = [
+  const GALERIA = [
     'sistemas/petshop/Lucaspet.png',
     'sistemas/gestion/sistemaGestion.png',
     'sistemas/kanban/sistemaKanban.png',
@@ -584,16 +438,159 @@
     'sistemas/redes_wifi/wifi-3.png',
   ];
 
-  const grid = document.getElementById('gallery-grid');
-  IMAGENES.forEach((src) => {
-    const a = document.createElement('a');
-    a.className = 'gallery-item';
-    a.href = src;
-    a.target = '_blank';
-    a.rel = 'noopener';
-    a.innerHTML = `<img src="${src}" alt="Captura de proyecto" loading="lazy">`;
-    grid.appendChild(a);
+  // ============================================================
+  //  PROYECTOS — lista estilo mensajería + detalle
+  // ============================================================
+  const buddy = document.getElementById('buddy');
+  const detail = document.getElementById('proj-detail');
+  const thumb = (p) => p.img
+    ? `<img class="bthumb" src="${p.img}" alt="" loading="lazy">`
+    : `<div class="bthumb" style="background:${p.color}">${p.nombre.split(' ').map(w => w[0]).join('').slice(0,3)}</div>`;
+  const estadoTxt = (p) => p.estado === 'on'
+    ? '<span class="dot on"></span>Público'
+    : '<span class="dot lock"></span>🔒 Privado';
+
+  function mostrarProyecto(i){
+    const p = PROYECTOS[i];
+    buddy.querySelectorAll('.bitem').forEach((b, j) => b.classList.toggle('sel', i === j));
+    detail.innerHTML = `
+      ${p.img ? `<img class="shot" src="${p.img}" alt="Captura de ${p.titulo}">` : `<div class="shot ph" style="background:${p.color}">${p.nombre}</div>`}
+      <h3>${p.titulo}</h3>
+      <div class="sub">${p.sub}</div>
+      <p>${p.desc}</p>
+      <div class="tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
+      ${p.repo
+        ? `<div class="btn-row"><a class="btn primary" href="${p.repo}" target="_blank" rel="noopener">Ver código en GitHub</a></div>`
+        : `<div class="lockmsg">🔒 ${p.nota || 'Repositorio privado.'} El código está disponible bajo solicitud y puedo hacer una demo en vivo.
+             <div class="btn-row"><a class="btn" href="mailto:james.svelasquez@gmail.com?subject=Acceso%20a%20${encodeURIComponent(p.titulo)}">✉️ Solicitar acceso</a></div></div>`}`;
+  }
+  PROYECTOS.forEach((p, i) => {
+    const b = document.createElement('button');
+    b.className = 'bitem';
+    b.innerHTML = `${thumb(p)}<div><div class="bname">${p.nombre}</div><div class="bstatus">${estadoTxt(p)}</div></div>`;
+    b.addEventListener('click', () => {
+      mostrarProyecto(i);
+      if (esMovil()) detail.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+    buddy.appendChild(b);
   });
+  mostrarProyecto(0);
+
+  // ============================================================
+  //  CERTIFICADOS
+  // ============================================================
+  let totalCerts = 0;
+  document.getElementById('cert-list').innerHTML = CERTIFICADOS.map(g => {
+    totalCerts += g.items.length;
+    return `<div class="label">${g.icono} ${g.inst}</div><div class="sunk cert-group">${
+      g.items.map(([n, f, id]) => `<div class="cert"><span class="seal">🏅</span><div><b>${n}</b><small>${[f, id && 'ID: ' + id].filter(Boolean).join(' · ') || g.inst}</small></div></div>`).join('')
+    }</div>`;
+  }).join('');
+  document.getElementById('cert-count').textContent = totalCerts;
+
+  // ============================================================
+  //  GALERÍA + VISOR
+  // ============================================================
+  const visorImg = document.getElementById('viewer-img');
+  document.getElementById('gallery').innerHTML = GALERIA.map(src => `<button data-src="${src}"><img src="${src}" alt="Captura de proyecto" loading="lazy"></button>`).join('');
+  document.getElementById('gallery').addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-src]');
+    if (!b) return;
+    visorImg.src = b.dataset.src;
+    abrir('visor');
+  });
+
+  // ============================================================
+  //  GESTOR DE VENTANAS — abrir, cerrar, minimizar, arrastrar
+  // ============================================================
+  const esMovil = () => window.matchMedia('(max-width:760px)').matches;
+  const ventanas = [...document.querySelectorAll('.win')];
+  const tasks = document.getElementById('tasks');
+  let z = 10;
+
+  function enfocar(w){
+    ventanas.forEach(v => v.classList.toggle('active', v === w));
+    w.style.zIndex = ++z;
+    renderTasks();
+  }
+  function abrir(id){
+    const w = document.getElementById('w-' + id);
+    w.hidden = false;
+    w.dataset.min = '';
+    enfocar(w);
+    if (esMovil()) w.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+  function cerrar(w){ w.hidden = true; w.classList.remove('active'); renderTasks(); }
+  function minimizar(w){ w.hidden = true; w.dataset.min = '1'; w.classList.remove('active'); renderTasks(); }
+
+  function renderTasks(){
+    tasks.innerHTML = '';
+    ventanas.filter(w => !w.hidden || w.dataset.min).forEach(w => {
+      const t = document.createElement('button');
+      t.className = 'task' + (w.classList.contains('active') && !w.hidden ? ' active' : '');
+      t.textContent = w.querySelector('.tico').textContent + ' ' + w.getAttribute('aria-label');
+      t.addEventListener('click', () => {
+        if (w.hidden) { w.hidden = false; w.dataset.min = ''; enfocar(w); }
+        else if (w.classList.contains('active')) minimizar(w);
+        else enfocar(w);
+      });
+      tasks.appendChild(t);
+    });
+  }
+
+  function colocar(w){
+    if (esMovil()) return;
+    const area = document.getElementById('desktop').getBoundingClientRect();
+    const ancho = Math.min(+w.dataset.w || 420, area.width - 20);
+    w.style.width = ancho + 'px';
+    if (w.dataset.h) w.style.height = Math.min(+w.dataset.h, area.height - 20) + 'px';
+    w.style.left = Math.max(10, Math.min(+w.dataset.x || 40, area.width - ancho - 10)) + 'px';
+    w.style.top = Math.max(10, Math.min(+w.dataset.y || 40, area.height - 120)) + 'px';
+  }
+
+  ventanas.forEach(w => {
+    colocar(w);
+    w.addEventListener('pointerdown', () => enfocar(w));
+    w.querySelector('.close').addEventListener('click', (e) => { e.stopPropagation(); cerrar(w); });
+    w.querySelector('.min').addEventListener('click', (e) => { e.stopPropagation(); minimizar(w); });
+
+    const bar = w.querySelector('.titlebar');
+    bar.addEventListener('pointerdown', (e) => {
+      if (esMovil() || e.target.closest('.tbtn')) return;
+      const sx = e.clientX - w.offsetLeft, sy = e.clientY - w.offsetTop;
+      const area = document.getElementById('desktop');
+      bar.setPointerCapture(e.pointerId);
+      bar.style.cursor = 'grabbing';
+      const mover = (ev) => {
+        const x = Math.max(-w.offsetWidth + 80, Math.min(ev.clientX - sx, area.clientWidth - 80));
+        const y = Math.max(0, Math.min(ev.clientY - sy, area.clientHeight - 30));
+        w.style.left = x + 'px'; w.style.top = y + 'px';
+      };
+      const soltar = () => { bar.removeEventListener('pointermove', mover); bar.style.cursor = ''; };
+      bar.addEventListener('pointermove', mover);
+      bar.addEventListener('pointerup', soltar, { once:true });
+    });
+  });
+  window.addEventListener('resize', () => ventanas.forEach(colocar));
+
+  // Iconos y menú Inicio
+  const menu = document.getElementById('startmenu');
+  const startBtn = document.getElementById('start-btn');
+  document.addEventListener('click', (e) => {
+    const op = e.target.closest('[data-open]');
+    if (op) { abrir(op.dataset.open); menu.hidden = true; startBtn.classList.remove('open'); return; }
+    if (e.target.closest('#start-btn')) { menu.hidden = !menu.hidden; startBtn.classList.toggle('open', !menu.hidden); return; }
+    if (!e.target.closest('#startmenu')) { menu.hidden = true; startBtn.classList.remove('open'); }
+  });
+
+  // Enlace directo: index.html#proyectos, #certs, #historial, ...
+  const hash = location.hash.slice(1);
+  if (document.getElementById('w-' + hash)) abrir(hash); else enfocar(document.getElementById('w-proyectos'));
+
+  // Reloj
+  const clock = document.getElementById('clock');
+  const tick = () => clock.textContent = new Date().toLocaleTimeString('es-HN', { hour:'2-digit', minute:'2-digit' });
+  tick(); setInterval(tick, 30000);
 </script>
 </body>
 </html>
