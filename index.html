@@ -159,6 +159,30 @@
   .gallery-note{ font-family:var(--mono); font-size:11px; color:var(--ink-dim); line-height:1.7; margin-top:16px; padding-top:14px; border-top:1px solid var(--bp-line-strong);}
   .gallery-note b{ color:var(--amber); }
 
+  /* ---- Proyectos ---- */
+  .proj-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr)); gap:16px;}
+  .proj{ border:1px solid var(--bp-line-strong); border-radius:6px; background:rgba(255,255,255,.035); overflow:hidden; display:flex; flex-direction:column; transition:.15s;}
+  .proj:hover{ border-color:var(--amber); transform:translateY(-2px);}
+  .proj .shot{ aspect-ratio:16/9; background:#062338; border-bottom:1px solid var(--bp-line-strong); overflow:hidden; display:flex; align-items:center; justify-content:center;}
+  .proj .shot img{ width:100%; height:100%; object-fit:cover; object-position:top; display:block;}
+  .proj .shot .ph{ font-family:var(--display); font-size:30px; font-weight:700; color:var(--amber); opacity:.8;}
+  .proj .body{ padding:14px 16px 16px; display:flex; flex-direction:column; flex:1;}
+  .proj h3{ font-family:var(--display); font-size:16.5px; margin:0 0 3px;}
+  .proj .meta{ font-family:var(--mono); font-size:11px; color:var(--amber); margin:0 0 8px;}
+  .proj p{ font-size:13px; color:var(--ink-dim); line-height:1.55; margin:0 0 10px;}
+  .tags{ display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px;}
+  .tags span{ font-family:var(--mono); font-size:10.5px; border:1px solid var(--bp-line-strong); padding:2px 7px; border-radius:3px; color:var(--ink);}
+  .proj .links{ margin-top:auto; display:flex; flex-wrap:wrap; gap:8px; align-items:center;}
+  a.lnk{ font-family:var(--mono); font-size:11.5px; text-decoration:none; color:var(--bp-bg); background:var(--amber); padding:6px 11px; border-radius:4px; font-weight:600;}
+  a.lnk:hover{ background:#f0b654;}
+  a.lnk.ghost{ background:transparent; color:var(--ink); border:1px solid var(--bp-line-strong); font-weight:500;}
+  a.lnk.ghost:hover{ border-color:var(--amber); color:var(--amber);}
+  .priv{ font-family:var(--mono); font-size:10.5px; color:var(--ink-dim); border:1px dashed var(--bp-line-strong); padding:5px 9px; border-radius:4px;}
+  .priv b{ color:var(--rust);}
+  .cta-row{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:0 0 18px;}
+  table.ref a{ color:var(--ink); text-decoration:none; border-bottom:1px dotted var(--bp-line-strong);}
+  table.ref a:hover{ color:var(--amber); border-color:var(--amber);}
+
   .titleblock{
     position:absolute; right:14px; bottom:14px; width:270px;
     border:1px solid var(--bp-line-strong); background:rgba(6,35,56,.75); font-family:var(--mono); font-size:10px; color:var(--ink-dim);
@@ -176,6 +200,11 @@
     main{ padding:20px 18px 10px;}
     nav.tabbar{ padding:12px 18px 0;}
   }
+  @media (max-width:520px){
+    body{ padding:8px;}
+    .stamp{ display:none;}
+    .sub{ word-break:break-word;}
+  }
 </style>
 </head>
 <body>
@@ -183,13 +212,10 @@
 
   <header class="top">
     <div class="photo-frame">
-      <img id="foto-img" src="assets/foto.jpg" alt="Foto de James Velásquez" onerror="this.style.display='none'; document.getElementById('foto-fallback').style.display='flex';">
+      <img id="foto-img" src="imagenes/james.png" alt="Foto de James Velásquez" onerror="this.style.display='none'; document.getElementById('foto-fallback').style.display='flex';">
       <div class="photo-fallback" id="foto-fallback">
         <div class="ini">JV</div>
-        <div class="lbl">Sin foto aún</div>
       </div>
-      <label class="photo-upload" for="input-foto">cambiar foto</label>
-      <input type="file" id="input-foto" accept="image/*">
     </div>
     <div class="head-text">
       <div class="stamp">EN CURSO<br>UNAH</div>
@@ -198,7 +224,8 @@
       <p class="sub">
         <a href="mailto:james.svelasquez@gmail.com">james.svelasquez@gmail.com</a> ·
         +504 9666-6914 ·
-        <a href="https://linkedin.com/in/james-velasquez-8150b6383" target="_blank" rel="noopener">linkedin.com/in/james-velasquez-8150b6383</a> ·
+        <a href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/" target="_blank" rel="noopener">LinkedIn</a> ·
+        <a href="https://github.com/Dio77799" target="_blank" rel="noopener">GitHub</a> ·
         Honduras
       </p>
     </div>
@@ -206,58 +233,166 @@
 
   <nav class="tabbar" id="tabbar">
     <button class="tab active" data-tab="perfil">00 · Perfil</button>
-    <button class="tab" data-tab="formacion">01 · Formación</button>
-    <button class="tab" data-tab="experiencia">02 · Experiencia</button>
-    <button class="tab" data-tab="liderazgo">03 · Liderazgo</button>
-    <button class="tab" data-tab="certificaciones">04 · Certificaciones</button>
-    <button class="tab" data-tab="competencias">05 · Competencias</button>
-    <button class="tab" data-tab="galeria">06 · Galería</button>
+    <button class="tab" data-tab="proyectos">01 · Proyectos</button>
+    <button class="tab" data-tab="formacion">02 · Formación</button>
+    <button class="tab" data-tab="experiencia">03 · Experiencia</button>
+    <button class="tab" data-tab="liderazgo">04 · Liderazgo</button>
+    <button class="tab" data-tab="certificaciones">05 · Certificaciones</button>
+    <button class="tab" data-tab="competencias">06 · Competencias</button>
+    <button class="tab" data-tab="galeria">07 · Galería</button>
   </nav>
 
   <main>
 
     <!-- ============ PERFIL ============ -->
     <section class="panel active" id="panel-perfil">
-      <div class="panel-head"><span class="sheet-no">HOJA 00/06</span><h2>Perfil profesional</h2></div>
+      <div class="panel-head"><span class="sheet-no">HOJA 00/07</span><h2>Perfil profesional</h2></div>
       <p class="def">Estudiante de Informática en la UNAH con formación en desarrollo de software, <b>ciberseguridad</b> y sistemas de gestión. Con certificaciones vigentes de Cisco en redes, ciberseguridad y hacking ético, complementadas por formación especializada en inteligencia artificial, blockchain y metodologías ágiles. Experiencia práctica en proyectos reales de sistemas administrativos y financieros, así como en implementaciones de seguridad informática con hardware embebido (Raspberry Pi, ESP32 y Cowrie Honeypot). Comunicador efectivo, analítico y proactivo, con trayectoria en liderazgo estudiantil y trabajo colaborativo en equipos multidisciplinarios.</p>
 
       <div class="resumen-grid" id="resumen-grid">
-        <div class="area-card" data-tab="formacion">
+        <div class="area-card" data-tab="proyectos">
           <div class="num">01</div>
+          <h4>Proyectos</h4>
+          <p>ERP multi-tenant en .NET, sistema Lucas Pet Shop, auditoría de redes, apps Flutter y más.</p>
+        </div>
+        <div class="area-card" data-tab="formacion">
+          <div class="num">02</div>
           <h4>Formación</h4>
-          <p>Desarrollo de Software, UNAH .</p>
+          <p>Informática, UNAH — en curso.</p>
         </div>
         <div class="area-card" data-tab="experiencia">
-          <div class="num">02</div>
+          <div class="num">03</div>
           <h4>Experiencia</h4>
-          <p>Algunos proyectos: seguridad embebida, sistema de gestión, sistema kan-ban y gestión veterinaria.</p>
+          <p>Seguridad embebida, sistemas de facturación, investigación y gestión veterinaria.</p>
         </div>
         <div class="area-card" data-tab="liderazgo">
-          <div class="num">03</div>
+          <div class="num">04</div>
           <h4>Liderazgo</h4>
           <p>Secretario de Acción Social y cofundador de la Cinemateca UNAH.</p>
         </div>
         <div class="area-card" data-tab="certificaciones">
-          <div class="num">04</div>
+          <div class="num">05</div>
           <h4>Certificaciones</h4>
-          <p>10 certificaciones vigentes: Cisco, IA, blockchain, ágiles y más.</p>
+          <p>10 certificaciones: Cisco, IA, blockchain, ágiles y más — verificables en LinkedIn.</p>
         </div>
         <div class="area-card" data-tab="competencias">
-          <div class="num">05</div>
+          <div class="num">06</div>
           <h4>Competencias</h4>
           <p>Ciberseguridad, redes, sistemas embebidos, desarrollo e idiomas.</p>
         </div>
         <div class="area-card" data-tab="galeria">
-          <div class="num">06</div>
+          <div class="num">07</div>
           <h4>Galería</h4>
-          <p>Capturas y fotos de proyectos realizados.</p>
+          <p>Capturas de los sistemas desarrollados.</p>
         </div>
+      </div>
+    </section>
+
+    <!-- ============ PROYECTOS ============ -->
+    <section class="panel" id="panel-proyectos">
+      <div class="panel-head"><span class="sheet-no">HOJA 01/07</span><h2>Proyectos</h2></div>
+      <p class="def">Selección de sistemas que he desarrollado. Varios repositorios son <b>privados</b> por pertenecer a clientes o proyectos académicos en equipo: el código está disponible bajo solicitud y puedo hacer una demostración en vivo.</p>
+      <div class="cta-row">
+        <a class="lnk" href="https://github.com/Dio77799" target="_blank" rel="noopener">Ver mi GitHub</a>
+        <a class="lnk ghost" href="mailto:james.svelasquez@gmail.com?subject=Solicitud%20de%20acceso%20a%20repositorio">Solicitar acceso a un repo privado</a>
+      </div>
+
+      <div class="proj-grid">
+
+        <article class="proj">
+          <div class="shot"><span class="ph">ERP</span></div>
+          <div class="body">
+            <h3>ERP Multi-tenant — Azisto</h3>
+            <p class="meta">Full-stack · 2026 · En desarrollo</p>
+            <p>Plataforma ERP multiempresa con módulos de Organización, Contabilidad, Facturación e Inventario. API REST con Clean Architecture, cliente PWA y app híbrida de escritorio/móvil que comparten componentes.</p>
+            <div class="tags"><span>.NET 8</span><span>C#</span><span>Clean Architecture</span><span>PostgreSQL / Neon</span><span>Blazor WASM</span><span>MAUI</span><span>JWT</span><span>EF Core</span></div>
+            <div class="links"><span class="priv"><b>●</b> Repo privado · código bajo solicitud</span></div>
+          </div>
+        </article>
+
+        <article class="proj">
+          <div class="shot"><img src="sistemas/petshop/Lucaspet.png" alt="Sistema Lucas Pet Shop" loading="lazy"></div>
+          <div class="body">
+            <h3>Lucas Pet Shop — Sistema de gestión y facturación</h3>
+            <p class="meta">Full-stack · UNAH · 2024 - 2025</p>
+            <p>Sistema administrativo para pet shop: facturación con PDF, inventario, clientes, reportes con gráficas, notificaciones por correo y WhatsApp, y tareas programadas. Rol: analista y desarrollador del módulo de gestión.</p>
+            <div class="tags"><span>React 19</span><span>Vite</span><span>Node.js</span><span>Express 5</span><span>MySQL</span><span>JWT / Argon2</span><span>PrimeReact</span><span>Chart.js</span></div>
+            <div class="links"><span class="priv"><b>●</b> Repo privado (equipo) · demo bajo solicitud</span></div>
+          </div>
+        </article>
+
+        <article class="proj">
+          <div class="shot"><img src="sistemas/redes_wifi/wifi-1.png" alt="WiFi Audit Lab" loading="lazy"></div>
+          <div class="body">
+            <h3>WiFi Audit Lab</h3>
+            <p class="meta">Ciberseguridad · 2026</p>
+            <p>Sistema de auditoría de red y seguridad de endpoints: escaneo de puertos y servicios expuestos, detección de dispositivos y reportes. Diseñado para uso ético y autorizado.</p>
+            <div class="tags"><span>Python</span><span>nmap</span><span>Raspberry Pi</span><span>Linux</span><span>Bash</span><span>Redes</span></div>
+            <div class="links"><span class="priv"><b>●</b> Repo privado · código bajo solicitud</span></div>
+          </div>
+        </article>
+
+        <article class="proj">
+          <div class="shot"><img src="sistemas/gestion/sistemaGestion.png" alt="Sistema de gestión de productos" loading="lazy"></div>
+          <div class="body">
+            <h3>Product Management System</h3>
+            <p class="meta">Full-stack · 2025</p>
+            <p>Gestor de producción y productos con panel administrativo, CRUD completo y API propia.</p>
+            <div class="tags"><span>React</span><span>TypeScript</span><span>Tailwind</span><span>shadcn/ui</span><span>Python Flask</span><span>MySQL</span></div>
+            <div class="links"><span class="priv"><b>●</b> Repo privado · código bajo solicitud</span></div>
+          </div>
+        </article>
+
+        <article class="proj">
+          <div class="shot"><img src="sistemas/kanban/sistemaKanban.png" alt="Sistema Kanban" loading="lazy"></div>
+          <div class="body">
+            <h3>Kanban — Gestión de tareas</h3>
+            <p class="meta">Full-stack · 2025</p>
+            <p>Tablero kanban con autenticación, columnas y tarjetas arrastrables, persistencia en la nube.</p>
+            <div class="tags"><span>React</span><span>Node.js</span><span>Express</span><span>MongoDB Atlas</span></div>
+            <div class="links"><span class="priv"><b>●</b> Código bajo solicitud</span></div>
+          </div>
+        </article>
+
+        <article class="proj">
+          <div class="shot"><img src="sistemas/belleza/webBelleza.png" alt="Sitio y app para salón de belleza" loading="lazy"></div>
+          <div class="body">
+            <h3>Salón de Belleza — Web y App</h3>
+            <p class="meta">Freelance · Web + Móvil</p>
+            <p>Sitio web y aplicación móvil para un salón de belleza: catálogo de servicios, información de contacto y reservas.</p>
+            <div class="tags"><span>Flutter</span><span>Dart</span><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            <div class="links"><span class="priv"><b>●</b> Proyecto de cliente</span></div>
+          </div>
+        </article>
+
+        <article class="proj">
+          <div class="shot"><span class="ph">INV</span></div>
+          <div class="body">
+            <h3>Inventario Personal</h3>
+            <p class="meta">App móvil · Flutter</p>
+            <p>App multiplataforma para controlar inventario personal con almacenamiento local offline y gestión de estado.</p>
+            <div class="tags"><span>Flutter</span><span>Dart</span><span>Hive</span><span>Provider</span></div>
+            <div class="links"><span class="priv"><b>●</b> Código bajo solicitud</span></div>
+          </div>
+        </article>
+
+        <article class="proj">
+          <div class="shot"><span class="ph">MP3</span></div>
+          <div class="body">
+            <h3>Reproductor MP3</h3>
+            <p class="meta">Web + Móvil · 2026</p>
+            <p>Reproductor de música con lista de reproducción y controles personalizados, en versión web y versión Android con Flutter.</p>
+            <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Flutter</span></div>
+            <div class="links"><a class="lnk" href="https://github.com/Dio77799/MP3" target="_blank" rel="noopener">Ver código</a></div>
+          </div>
+        </article>
+
       </div>
     </section>
 
     <!-- ============ FORMACIÓN ============ -->
     <section class="panel" id="panel-formacion">
-      <div class="panel-head"><span class="sheet-no">HOJA 01/06</span><h2>Formación académica</h2></div>
+      <div class="panel-head"><span class="sheet-no">HOJA 02/07</span><h2>Formación académica</h2></div>
       <div class="card">
         <h3> Informática </h3>
         <p class="meta">Universidad Nacional Autónoma de Honduras (UNAH) — En curso</p>
@@ -270,7 +405,7 @@
 
     <!-- ============ EXPERIENCIA ============ -->
     <section class="panel" id="panel-experiencia">
-      <div class="panel-head"><span class="sheet-no">HOJA 02/06</span><h2>Experiencia y proyectos</h2></div>
+      <div class="panel-head"><span class="sheet-no">HOJA 03/07</span><h2>Experiencia y proyectos</h2></div>
 
       <div class="card">
         <h3>Proyectos de Seguridad con Hardware Embebido</h3>
@@ -312,7 +447,7 @@
 
     <!-- ============ LIDERAZGO ============ -->
     <section class="panel" id="panel-liderazgo">
-      <div class="panel-head"><span class="sheet-no">HOJA 03/06</span><h2>Liderazgo y actividades estudiantiles</h2></div>
+      <div class="panel-head"><span class="sheet-no">HOJA 04/07</span><h2>Liderazgo y actividades estudiantiles</h2></div>
 
       <div class="card">
         <h3>Secretario de Acción Social</h3>
@@ -335,9 +470,14 @@
 
     <!-- ============ CERTIFICACIONES ============ -->
     <section class="panel" id="panel-certificaciones">
-      <div class="panel-head"><span class="sheet-no">HOJA 04/06</span><h2>Certificaciones</h2></div>
-      <div class="card">
-        <table class="ref">
+      <div class="panel-head"><span class="sheet-no">HOJA 05/07</span><h2>Certificaciones</h2></div>
+      <p class="def">Todas las credenciales están publicadas y son verificables en mi perfil de LinkedIn.</p>
+      <div class="cta-row">
+        <a class="lnk" href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/details/certifications/" target="_blank" rel="noopener">Ver certificados en LinkedIn →</a>
+        <a class="lnk ghost" href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/" target="_blank" rel="noopener">Perfil completo</a>
+      </div>
+      <div class="card" style="overflow-x:auto;">
+        <table class="ref" id="tabla-certs">
           <tr><th>Certificación</th><th>Institución</th><th>Fecha</th></tr>
           <tr><td>Ethical Hacker</td><td class="small">Cisco Networking Academy</td><td class="small">Jun. 2026</td></tr>
           <tr><td>Introduction to Cybersecurity</td><td class="small">Cisco Networking Academy</td><td class="small">May. 2026</td></tr>
@@ -355,7 +495,7 @@
 
     <!-- ============ COMPETENCIAS ============ -->
     <section class="panel" id="panel-competencias">
-      <div class="panel-head"><span class="sheet-no">HOJA 05/06</span><h2>Competencias técnicas y blandas</h2></div>
+      <div class="panel-head"><span class="sheet-no">HOJA 06/07</span><h2>Competencias técnicas y blandas</h2></div>
 
       <div class="chip-grid">
         <div class="chip-card"><h4>Ciberseguridad</h4><p>Ethical Hacking, Cowrie, Phishing</p></div>
@@ -378,24 +518,10 @@
 
     <!-- ============ GALERÍA ============ -->
     <section class="panel" id="panel-galeria">
-      <div class="panel-head"><span class="sheet-no">HOJA 06/06</span><h2>Galería de proyectos</h2></div>
-      <p class="def">Imágenes de proyectos realizados — sin descripciones, solo el resultado visual.</p>
+      <div class="panel-head"><span class="sheet-no">HOJA 07/07</span><h2>Galería de proyectos</h2></div>
+      <p class="def">Capturas de los sistemas desarrollados. Haz clic en una imagen para verla en tamaño completo.</p>
 
-      <div class="upload-zone" id="drop-zone">
-        <p>Arrastra imágenes aquí o súbelas manualmente</p>
-        <button class="btn" id="btn-subir">Subir imágenes</button>
-        <input type="file" id="input-galeria" accept="image/*" multiple>
-      </div>
-
-      <div class="gallery-grid" id="gallery-grid">
-        <p class="gallery-empty" id="gallery-empty">— Aún no hay imágenes. Súbelas con el botón de arriba —</p>
-      </div>
-
-      <div class="gallery-note">
-        <b>Nota:</b> las imágenes que subas aquí se guardan solo en este navegador (localStorage), para que puedas previsualizar cómo se vería tu galería.
-        Para que se vean en tu página <b>pública</b> en GitHub Pages (visibles para cualquiera que la visite), copia los archivos reales dentro de la carpeta
-        <b>assets/proyectos/</b> del proyecto y súbelos a GitHub junto con el resto de archivos — el navegador de cada visitante no comparte su localStorage con el tuyo.
-      </div>
+      <div class="gallery-grid" id="gallery-grid"></div>
     </section>
 
   </main>
@@ -406,7 +532,7 @@
       <div class="tb-cell"><span class="tb-label">Ubicación</span>Honduras</div>
     </div>
     <div class="tb-row">
-      <div class="tb-cell"><span class="tb-label">Hoja</span><span id="tb-hoja">00/06</span></div>
+      <div class="tb-cell"><span class="tb-label">Hoja</span><span id="tb-hoja">00/07</span></div>
       <div class="tb-cell"><span class="tb-label">Contacto</span>+504 9666-6914</div>
     </div>
   </div>
@@ -417,12 +543,12 @@
   // ============================================================
   //  NAVEGACIÓN entre hojas (tabs)
   // ============================================================
-  const NUMEROS = { perfil:'00', formacion:'01', experiencia:'02', liderazgo:'03', certificaciones:'04', competencias:'05', galeria:'06' };
+  const NUMEROS = { perfil:'00', proyectos:'01', formacion:'02', experiencia:'03', liderazgo:'04', certificaciones:'05', competencias:'06', galeria:'07' };
 
   function activarTab(id){
     document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === id));
     document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + id));
-    document.getElementById('tb-hoja').textContent = NUMEROS[id] + '/06';
+    document.getElementById('tb-hoja').textContent = NUMEROS[id] + '/07';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   document.getElementById('tabbar').addEventListener('click', (e) => {
@@ -433,121 +559,34 @@
     const card = e.target.closest('.area-card');
     if (card) activarTab(card.dataset.tab);
   });
+  // Enlace directo a una hoja: index.html#proyectos, #certificaciones, ...
+  const hashInicial = location.hash.slice(1);
+  if (NUMEROS[hashInicial]) activarTab(hashInicial);
 
   // ============================================================
-  //  FOTO DE PERFIL — guardada localmente (localStorage) como
-  //  vista previa. Para publicarla de forma permanente, reemplaza
-  //  el archivo assets/foto.jpg por tu foto real antes de subir
-  //  el proyecto a GitHub.
+  //  GALERÍA — imágenes en la carpeta sistemas/. Para agregar una,
+  //  copia el archivo y añade su ruta a este arreglo.
   // ============================================================
-  const fotoImg = document.getElementById('foto-img');
-  const fotoFallback = document.getElementById('foto-fallback');
-  const inputFoto = document.getElementById('input-foto');
-
-  function cargarFotoGuardada(){
-    const guardada = localStorage.getItem('foto-perfil');
-    if (guardada){
-      fotoImg.src = guardada;
-      fotoImg.style.display = 'block';
-      fotoFallback.style.display = 'none';
-    }
-  }
-  inputFoto.addEventListener('change', () => {
-    const file = inputFoto.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      localStorage.setItem('foto-perfil', e.target.result);
-      fotoImg.src = e.target.result;
-      fotoImg.style.display = 'block';
-      fotoFallback.style.display = 'none';
-    };
-    reader.readAsDataURL(file);
-  });
-  cargarFotoGuardada();
-
-  // ============================================================
-  //  GALERÍA DE PROYECTOS — solo imágenes, sin texto.
-  //  1) IMAGENES_ESTATICAS: edita este arreglo con rutas dentro de
-  //     assets/proyectos/ para que las imágenes se vean SIEMPRE,
-  //     para cualquier visitante de tu página publicada.
-  //  2) Además, el botón "Subir imágenes" guarda una vista previa
-  //     en este navegador (localStorage) mientras armas tu galería.
-  // ============================================================
-  const IMAGENES_ESTATICAS = [
-    // Ejemplo: 'assets/proyectos/proyecto-1.jpg',
-    // 'assets/proyectos/proyecto-2.jpg',
+  const IMAGENES = [
+    'sistemas/petshop/Lucaspet.png',
+    'sistemas/gestion/sistemaGestion.png',
+    'sistemas/kanban/sistemaKanban.png',
+    'sistemas/belleza/webBelleza.png',
+    'sistemas/redes_wifi/wifi-1.png',
+    'sistemas/redes_wifi/wifi-2.png',
+    'sistemas/redes_wifi/wifi-3.png',
   ];
 
   const grid = document.getElementById('gallery-grid');
-  const emptyMsg = document.getElementById('gallery-empty');
-
-  function getGaleriaLocal(){
-    try { return JSON.parse(localStorage.getItem('galeria-proyectos') || '[]'); }
-    catch (e) { return []; }
-  }
-  function guardarGaleriaLocal(arr){
-    localStorage.setItem('galeria-proyectos', JSON.stringify(arr));
-  }
-
-  function renderGaleria(){
-    const local = getGaleriaLocal();
-    grid.querySelectorAll('.gallery-item').forEach(n => n.remove());
-
-    const total = IMAGENES_ESTATICAS.length + local.length;
-    emptyMsg.style.display = total === 0 ? 'block' : 'none';
-
-    IMAGENES_ESTATICAS.forEach((src) => {
-      const item = document.createElement('div');
-      item.className = 'gallery-item';
-      item.innerHTML = `<img src="${src}" alt="Proyecto" loading="lazy">`;
-      grid.appendChild(item);
-    });
-
-    local.forEach((src, i) => {
-      const item = document.createElement('div');
-      item.className = 'gallery-item';
-      item.innerHTML = `<img src="${src}" alt="Proyecto"><button class="del" title="Quitar">×</button>`;
-      item.querySelector('.del').addEventListener('click', () => {
-        const arr = getGaleriaLocal();
-        arr.splice(i, 1);
-        guardarGaleriaLocal(arr);
-        renderGaleria();
-      });
-      grid.appendChild(item);
-    });
-  }
-
-  function agregarImagenes(files){
-    const arr = getGaleriaLocal();
-    let pendientes = files.length;
-    Array.from(files).forEach((file) => {
-      if (!file.type.startsWith('image/')) { pendientes--; return; }
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        arr.push(e.target.result);
-        pendientes--;
-        if (pendientes <= 0){ guardarGaleriaLocal(arr); renderGaleria(); }
-      };
-      reader.readAsDataURL(file);
-    });
-  }
-
-  const inputGaleria = document.getElementById('input-galeria');
-  document.getElementById('btn-subir').addEventListener('click', () => inputGaleria.click());
-  inputGaleria.addEventListener('change', () => {
-    if (inputGaleria.files.length) agregarImagenes(inputGaleria.files);
-    inputGaleria.value = '';
+  IMAGENES.forEach((src) => {
+    const a = document.createElement('a');
+    a.className = 'gallery-item';
+    a.href = src;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.innerHTML = `<img src="${src}" alt="Captura de proyecto" loading="lazy">`;
+    grid.appendChild(a);
   });
-
-  const dropZone = document.getElementById('drop-zone');
-  ['dragover','dragenter'].forEach(ev => dropZone.addEventListener(ev, (e) => { e.preventDefault(); dropZone.classList.add('drag'); }));
-  ['dragleave','drop'].forEach(ev => dropZone.addEventListener(ev, (e) => { e.preventDefault(); dropZone.classList.remove('drag'); }));
-  dropZone.addEventListener('drop', (e) => {
-    if (e.dataTransfer.files.length) agregarImagenes(e.dataTransfer.files);
-  });
-
-  renderGaleria();
 </script>
 </body>
 </html>
