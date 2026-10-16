@@ -78,11 +78,28 @@
   }
 
   /* ===== Visibilidad por modo (data-bg en #desktop) ===== */
-  /* Predeterminado: Windows (bliss) */
-  #desktop[data-bg="bliss"] .bliss, #desktop[data-bg="bliss"] .bliss-clouds, #desktop[data-bg="bliss"] .bliss-hill{ display:block; }
-  #desktop[data-bg="bliss"] .sky, #desktop[data-bg="bliss"] .stars,
-  #desktop[data-bg="bliss"] .astro, #desktop[data-bg="bliss"] .night-tint,
-  #desktop[data-bg="bliss"] .ground{ display:none; }
+  /* --- Modos Windows (bliss, bliss-dyn, bliss-night): muestran loma + cielo suave --- */
+  #desktop[data-bg="bliss"] .bliss, #desktop[data-bg="bliss-dyn"] .bliss, #desktop[data-bg="bliss-night"] .bliss,
+  #desktop[data-bg="bliss"] .bliss-hill, #desktop[data-bg="bliss-dyn"] .bliss-hill, #desktop[data-bg="bliss-night"] .bliss-hill{ display:block; }
+  #desktop[data-bg="bliss"] .sky, #desktop[data-bg="bliss-dyn"] .sky, #desktop[data-bg="bliss-night"] .sky,
+  #desktop[data-bg="bliss"] .ground, #desktop[data-bg="bliss-dyn"] .ground, #desktop[data-bg="bliss-night"] .ground{ display:none; }
+  #desktop[data-bg="bliss"] .astro, #desktop[data-bg="bliss-dyn"] .astro, #desktop[data-bg="bliss-night"] .astro{ display:none; }
+
+  /* Windows diurno (predeterminado) */
+  #desktop[data-bg="bliss"] .bliss-clouds{ display:block; }
+  #desktop[data-bg="bliss"] .astro, #desktop[data-bg="bliss"] .stars, #desktop[data-bg="bliss"] .night-tint{ display:none; }
+
+  /* Windows dinámico (ciclo día/noche sobre el paisaje) */
+  #desktop[data-bg="bliss-dyn"] .bliss{ animation:blissSky 60s linear infinite; }
+  #desktop[data-bg="bliss-dyn"] .bliss-clouds{ display:block; animation:cloudFade 60s linear infinite; }
+  #desktop[data-bg="bliss-dyn"] .stars{ animation:starsCycle 60s linear infinite; }
+  #desktop[data-bg="bliss-dyn"] .night-tint{ animation:nightTint 60s linear infinite; }
+
+  /* Windows nocturno (fijo) */
+  #desktop[data-bg="bliss-night"] .bliss{ background:linear-gradient(180deg,#0b1130 0%,#1a2347 55%,#2a3356 85%); }
+  #desktop[data-bg="bliss-night"] .bliss-clouds{ display:none; }
+  #desktop[data-bg="bliss-night"] .stars{ opacity:.9; }
+  #desktop[data-bg="bliss-night"] .night-tint{ opacity:.45; }
 
   /* Pixel — cielo dinámico (ciclo día/noche de 60s) */
   #desktop[data-bg="dyn"] .sky{ animation:skyCycle 60s linear infinite; }
@@ -131,6 +148,17 @@
   }
   @keyframes starsCycle{
     0%,46%{ opacity:0; } 60%{ opacity:.9; } 88%{ opacity:.9; } 96%,100%{ opacity:0; }
+  }
+  /* Cielo Windows (suave) recorriendo día → atardecer → noche → alba */
+  @keyframes blissSky{
+    0%,42% { background:linear-gradient(180deg,#2a6fd6 0%,#74b4ec 52%,#e4f2fb 80%); }
+    50%    { background:linear-gradient(180deg,#e8894a 0%,#f0a86a 50%,#f6cf9a 80%); }
+    60%,85%{ background:linear-gradient(180deg,#0b1130 0%,#1a2347 55%,#2a3356 85%); }
+    95%    { background:linear-gradient(180deg,#5a3a6a 0%,#b57a6a 55%,#e8c088 85%); }
+    100%   { background:linear-gradient(180deg,#2a6fd6 0%,#74b4ec 52%,#e4f2fb 80%); }
+  }
+  @keyframes cloudFade{
+    0%,42%{ opacity:.92; } 52%{ opacity:.55; } 60%,86%{ opacity:0; } 95%{ opacity:.45; } 100%{ opacity:.92; }
   }
   @keyframes nightTint{
     0%,46%{ opacity:0; } 64%{ opacity:.45; } 86%{ opacity:.45; } 96%,100%{ opacity:0; }
@@ -313,6 +341,12 @@
   .pv-bliss{ background:
       radial-gradient(130% 85% at 32% 168%, #8fce3a 0%, #4c8f1d 52%, transparent 56%),
       linear-gradient(180deg,#2a6fd6,#9fd0f5 75%); }
+  .pv-bliss-dyn{ background:
+      radial-gradient(130% 85% at 32% 172%, #4c8f1d 0 52%, transparent 56%),
+      linear-gradient(90deg,#15214a 0 36%,#2f74d0 36% 70%,#e8894a 70%); }
+  .pv-bliss-night{ background:
+      radial-gradient(130% 85% at 32% 172%, #2f5e14 0 52%, transparent 56%),
+      linear-gradient(180deg,#0b1130,#2a3356 85%); }
   .pv-dyn{ background:linear-gradient(90deg,#15214a 0 33%,#2f74d0 33% 66%,#e8894a 66% 100%); }
   .pv-day{ background:linear-gradient(180deg,#2f74d0,#bfe0ff 72%); position:relative; }
   .pv-night{ background:linear-gradient(180deg,#0b1130,#20264c 85%); }
@@ -376,19 +410,30 @@
   <svg class="bliss-hill" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
     <defs>
       <linearGradient id="bgrass" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#aadd49"/><stop offset=".35" stop-color="#83c531"/>
-        <stop offset=".7" stop-color="#579a22"/><stop offset="1" stop-color="#3a7415"/>
+        <stop offset="0" stop-color="#86b53f"/><stop offset=".4" stop-color="#5f962c"/>
+        <stop offset=".75" stop-color="#497e1f"/><stop offset="1" stop-color="#355e18"/>
       </linearGradient>
       <linearGradient id="bhaze" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#9fb98a"/><stop offset="1" stop-color="#6f9a4a"/>
+        <stop offset="0" stop-color="#9db58a"/><stop offset="1" stop-color="#7a9a5a"/>
       </linearGradient>
+      <clipPath id="hillclip"><path d="M0,60 L0,45 C12,41 24,34 37,32.5 C60,30 82,43 100,48 L100,60 Z"/></clipPath>
     </defs>
-    <!-- cerro lejano a la derecha (como el Bliss original) -->
-    <path fill="url(#bhaze)" opacity=".7" d="M62,47 C74,40 84,42 92,39 C96,38 100,40 100,40 L100,60 L58,60 Z"/>
-    <!-- loma principal: sube a la izquierda y baja suave a la derecha -->
-    <path fill="url(#bgrass)" d="M0,60 L0,45 C9,34 20,20 35,17.5 C57,14 80,37 100,46 L100,60 Z"/>
-    <!-- brillo del sol en la ladera izquierda -->
-    <path fill="#c6ea6a" opacity=".35" d="M0,45 C9,34 20,20 35,17.5 C33,22 24,30 14,40 C9,45 4,49 0,52 Z"/>
+    <!-- cerro lejano a la derecha (tenue) -->
+    <path fill="url(#bhaze)" opacity=".55" d="M66,49 C76,44 86,46 93,44 C97,43 100,45 100,45 L100,60 L62,60 Z"/>
+    <!-- loma principal: más baja, sube a la izquierda y baja suave a la derecha -->
+    <path fill="url(#bgrass)" d="M0,60 L0,45 C12,41 24,34 37,32.5 C60,30 82,43 100,48 L100,60 Z"/>
+    <g clip-path="url(#hillclip)">
+      <!-- luz suave (sin brillo fuerte) en la ladera iluminada -->
+      <ellipse cx="34" cy="34" rx="34" ry="11" fill="#a6cc62" opacity=".16"/>
+      <!-- bandas tenues tipo campo/pradera -->
+      <ellipse cx="36" cy="78" rx="88" ry="40" fill="none" stroke="#2f5613" stroke-width=".5" opacity=".10"/>
+      <ellipse cx="36" cy="86" rx="92" ry="44" fill="none" stroke="#2f5613" stroke-width=".5" opacity=".10"/>
+      <ellipse cx="36" cy="96" rx="96" ry="50" fill="none" stroke="#244510" stroke-width=".6" opacity=".10"/>
+      <!-- textura fina de pasto -->
+      <rect x="0" y="0" width="100" height="60" fill="url(#bgrass)" opacity="0"/>
+      <!-- sombra inferior para dar volumen -->
+      <rect x="0" y="52" width="100" height="8" fill="#23470f" opacity=".22"/>
+    </g>
   </svg>
   <div class="sky-layer bliss-clouds" aria-hidden="true"></div>
   <div class="sky-layer sky" aria-hidden="true"></div>
@@ -644,12 +689,18 @@
   <section class="win" id="w-personalizar" data-x="360" data-y="90" data-w="430" hidden aria-label="Personalizar">
     <div class="titlebar"><span class="tico">🎨</span><h2>Personalización — Fondo</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
     <div class="wbody">
-      <p style="margin:0 0 10px; font-size:12.5px;">Elige el fondo del escritorio. Tu elección se guarda en este navegador.</p>
+      <p style="margin:0 0 6px; font-size:12.5px;">Elige el fondo del escritorio. Tu elección se guarda en este navegador.</p>
+      <div class="label">🪟 Windows</div>
       <div class="bg-opts" id="bg-opts">
-        <button class="bg-opt" data-set="bliss"><span class="prev pv-bliss"></span><b>Windows</b><small>Clásico (predeterminado)</small></button>
-        <button class="bg-opt" data-set="dyn"><span class="prev pv-dyn"></span><b>Pixel · Dinámico</b><small>Ciclo día/noche (1 min)</small></button>
-        <button class="bg-opt" data-set="day"><span class="prev pv-day"></span><b>Pixel · Diurno</b><small>Cielo de día fijo</small></button>
-        <button class="bg-opt" data-set="night"><span class="prev pv-night"></span><b>Pixel · Nocturno</b><small>Cielo de noche fijo</small></button>
+        <button class="bg-opt" data-set="bliss"><span class="prev pv-bliss"></span><b>Diurno</b><small>Clásico (predeterminado)</small></button>
+        <button class="bg-opt" data-set="bliss-dyn"><span class="prev pv-bliss-dyn"></span><b>Dinámico</b><small>Ciclo día/noche (1 min)</small></button>
+        <button class="bg-opt" data-set="bliss-night"><span class="prev pv-bliss-night"></span><b>Nocturno</b><small>Cielo de noche fijo</small></button>
+      </div>
+      <div class="label">🟩 Pixel</div>
+      <div class="bg-opts">
+        <button class="bg-opt" data-set="dyn"><span class="prev pv-dyn"></span><b>Dinámico</b><small>Ciclo día/noche (1 min)</small></button>
+        <button class="bg-opt" data-set="day"><span class="prev pv-day"></span><b>Diurno</b><small>Cielo de día fijo</small></button>
+        <button class="bg-opt" data-set="night"><span class="prev pv-night"></span><b>Nocturno</b><small>Cielo de noche fijo</small></button>
       </div>
     </div>
   </section>
@@ -909,16 +960,16 @@
   // ============================================================
   //  PERSONALIZACIÓN DE FONDO (guardado en localStorage)
   // ============================================================
-  const FONDOS = ['bliss','dyn','day','night'];
+  const FONDOS = ['bliss','bliss-dyn','bliss-night','dyn','day','night'];
   const desktopEl = document.getElementById('desktop');
-  const bgOpts = document.getElementById('bg-opts');
+  const winPers = document.getElementById('w-personalizar');
   function aplicarFondo(id){
     if (!FONDOS.includes(id)) id = 'bliss';
     desktopEl.dataset.bg = id;
-    bgOpts.querySelectorAll('.bg-opt').forEach(b => b.classList.toggle('sel', b.dataset.set === id));
+    winPers.querySelectorAll('.bg-opt').forEach(b => b.classList.toggle('sel', b.dataset.set === id));
     try { localStorage.setItem('fondo', id); } catch (e) {}
   }
-  bgOpts.addEventListener('click', (e) => {
+  winPers.addEventListener('click', (e) => {
     const b = e.target.closest('[data-set]'); if (b) aplicarFondo(b.dataset.set);
   });
   let fondoGuardado = 'bliss';
