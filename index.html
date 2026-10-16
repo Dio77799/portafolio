@@ -65,13 +65,7 @@
   .bliss{ display:none;
     background:linear-gradient(180deg,#2a6fd6 0%,#3f8ae0 28%,#74b4ec 52%,#b7ddf6 70%,#e4f2fb 80%);
   }
-  .bliss-hill{ display:none; position:absolute; left:-12%; right:-12%; bottom:0; height:44%;
-    background:linear-gradient(180deg,#9ad63f 0%,#7cc02f 26%,#5aa022 52%,#3f7d17 100%);
-    border-radius:52% 48% 0 0 / 100% 100% 0 0;
-    box-shadow:inset 0 10px 30px rgba(255,255,255,.35);
-  }
-  .bliss-hill::after{ content:""; position:absolute; inset:0; border-radius:inherit; image-rendering:pixelated; opacity:.25;
-    background-image:repeating-linear-gradient(95deg, rgba(0,0,0,.05) 0 10px, rgba(255,255,255,.05) 10px 20px); }
+  .bliss-hill{ display:none; position:absolute; inset:0; width:100%; height:100%; }
   .bliss-clouds{ display:none; opacity:.92;
     background-repeat:no-repeat;
     background-image:
@@ -317,7 +311,7 @@
   .bg-opt b{ display:block; font-family:var(--pixel); font-weight:600; font-size:13.5px; padding:5px 8px 0; }
   .bg-opt small{ display:block; color:var(--ink-dim); font-size:10.5px; padding:0 8px 7px; }
   .pv-bliss{ background:
-      radial-gradient(120% 70% at 42% 150%, #8fce3a 0%, #4c8f1d 48%, transparent 52%),
+      radial-gradient(130% 85% at 32% 168%, #8fce3a 0%, #4c8f1d 52%, transparent 56%),
       linear-gradient(180deg,#2a6fd6,#9fd0f5 75%); }
   .pv-dyn{ background:linear-gradient(90deg,#15214a 0 33%,#2f74d0 33% 66%,#e8894a 66% 100%); }
   .pv-day{ background:linear-gradient(180deg,#2f74d0,#bfe0ff 72%); position:relative; }
@@ -379,7 +373,23 @@
 
 <div class="desktop" id="desktop" data-bg="bliss">
   <div class="sky-layer bliss" aria-hidden="true"></div>
-  <div class="bliss-hill" aria-hidden="true"></div>
+  <svg class="bliss-hill" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="bgrass" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#aadd49"/><stop offset=".35" stop-color="#83c531"/>
+        <stop offset=".7" stop-color="#579a22"/><stop offset="1" stop-color="#3a7415"/>
+      </linearGradient>
+      <linearGradient id="bhaze" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#9fb98a"/><stop offset="1" stop-color="#6f9a4a"/>
+      </linearGradient>
+    </defs>
+    <!-- cerro lejano a la derecha (como el Bliss original) -->
+    <path fill="url(#bhaze)" opacity=".7" d="M62,47 C74,40 84,42 92,39 C96,38 100,40 100,40 L100,60 L58,60 Z"/>
+    <!-- loma principal: sube a la izquierda y baja suave a la derecha -->
+    <path fill="url(#bgrass)" d="M0,60 L0,45 C9,34 20,20 35,17.5 C57,14 80,37 100,46 L100,60 Z"/>
+    <!-- brillo del sol en la ladera izquierda -->
+    <path fill="#c6ea6a" opacity=".35" d="M0,45 C9,34 20,20 35,17.5 C33,22 24,30 14,40 C9,45 4,49 0,52 Z"/>
+  </svg>
   <div class="sky-layer bliss-clouds" aria-hidden="true"></div>
   <div class="sky-layer sky" aria-hidden="true"></div>
   <div class="sky-layer stars" aria-hidden="true"></div>
