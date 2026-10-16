@@ -33,27 +33,99 @@
   body{ font-family:var(--ui); color:var(--ink); background:#5b9be6; overflow:hidden; font-size:13px; }
 
   /* ---------- Fondo: cielo + nubes + pradera ---------- */
-  .desktop{
-    position:fixed; inset:0 0 44px 0; overflow:hidden;
-    background:
-      radial-gradient(ellipse 18% 7% at 22% 20%, rgba(255,255,255,.95), rgba(255,255,255,0) 70%),
-      radial-gradient(ellipse 12% 5% at 30% 17%, rgba(255,255,255,.9), rgba(255,255,255,0) 70%),
-      radial-gradient(ellipse 22% 8% at 72% 28%, rgba(255,255,255,.85), rgba(255,255,255,0) 70%),
-      radial-gradient(ellipse 14% 5% at 83% 24%, rgba(255,255,255,.9), rgba(255,255,255,0) 70%),
-      radial-gradient(ellipse 30% 10% at 55% 48%, rgba(255,236,246,.75), rgba(255,255,255,0) 70%),
-      radial-gradient(ellipse 25% 18% at 40% 40%, rgba(255,255,255,.55), rgba(255,255,255,0) 70%),
-      linear-gradient(180deg, #2f6fd0 0%, #5b9be6 28%, #9cc9f2 52%, #dcefff 66%);
+  /* ===== Escritorio con ciclo día/noche pixel (1 minuto) ===== */
+  .desktop{ position:fixed; inset:0 0 44px 0; overflow:hidden; background:#0b1020; }
+  .sky-layer{ position:absolute; inset:0; pointer-events:none; }
+  /* Cielo: color que recorre amanecer → día → atardecer → noche en 60s */
+  .sky{ animation:skyCycle 60s linear infinite; }
+  /* Estrellas (solo visibles de noche) */
+  .stars{
+    opacity:0; animation:starsCycle 60s linear infinite;
+    background-image:
+      radial-gradient(1.5px 1.5px at 12% 18%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 28% 32%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 44% 12%, #cfe3ff, transparent),
+      radial-gradient(1.5px 1.5px at 62% 26%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 78% 14%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 88% 34%, #cfe3ff, transparent),
+      radial-gradient(1.5px 1.5px at 20% 42%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 54% 40%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 70% 46%, #cfe3ff, transparent),
+      radial-gradient(1.5px 1.5px at 36% 22%, #fff, transparent);
+    background-repeat:no-repeat; image-rendering:pixelated;
   }
-  .hills{ position:absolute; left:0; right:0; bottom:0; width:100%; height:48%; display:block; }
-  .flowers{ position:absolute; inset:auto 0 0 0; height:30%; pointer-events:none;
-    background:
-      radial-gradient(circle 2px at 12% 70%, #b79be8 98%, transparent),
-      radial-gradient(circle 2px at 18% 82%, #fff3a6 98%, transparent),
-      radial-gradient(circle 2px at 64% 76%, #b79be8 98%, transparent),
-      radial-gradient(circle 2px at 71% 88%, #fff3a6 98%, transparent),
-      radial-gradient(circle 2px at 86% 72%, #c7a6f0 98%, transparent),
-      radial-gradient(circle 2px at 40% 90%, #fff3a6 98%, transparent);
-    background-size:260px 120px; opacity:.85; }
+  /* Astros */
+  .astro{ position:absolute; width:52px; height:52px; margin:-26px 0 0 -26px; image-rendering:pixelated; filter:drop-shadow(0 0 10px rgba(255,220,120,.0)); }
+  .sun{ animation:sunPath 60s linear infinite; filter:drop-shadow(0 0 14px rgba(255,210,80,.55)); }
+  .moon{ width:46px; height:46px; margin:-23px 0 0 -23px; animation:moonPath 60s linear infinite; filter:drop-shadow(0 0 10px rgba(200,220,255,.5)); }
+  /* Tinte nocturno que oscurece todo el escritorio */
+  .night-tint{ background:#0a1430; opacity:0; animation:nightTint 60s linear infinite; }
+
+  /* Suelo pixelado */
+  .ground{
+    position:absolute; left:0; right:0; bottom:0; height:30%;
+    background:#3c7a2e;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(0,0,0,.07) 0 10px, rgba(255,255,255,.04) 10px 20px),
+      repeating-linear-gradient(0deg, rgba(0,0,0,.05) 0 10px, transparent 10px 20px),
+      linear-gradient(180deg, #4f9a3a 0%, #3c7a2e 22%, #2f6425 100%);
+    image-rendering:pixelated;
+  }
+  .ground::before{ /* borde superior de pasto en bloques */
+    content:""; position:absolute; left:0; right:0; top:-10px; height:10px;
+    background:repeating-linear-gradient(90deg, #4f9a3a 0 10px, #58a83f 10px 20px);
+  }
+  .ground::after{ /* flores/puntos pixel */
+    content:""; position:absolute; inset:0;
+    background-image:
+      radial-gradient(2px 2px at 14% 40%, #ffe24a, transparent),
+      radial-gradient(2px 2px at 33% 64%, #e98ad6, transparent),
+      radial-gradient(2px 2px at 58% 48%, #ffe24a, transparent),
+      radial-gradient(2px 2px at 76% 70%, #bb8cf0, transparent),
+      radial-gradient(2px 2px at 90% 44%, #ffe24a, transparent);
+    background-repeat:no-repeat; image-rendering:pixelated; opacity:.9;
+  }
+
+  @keyframes skyCycle{
+    0%   { background:linear-gradient(180deg,#f7b46b 0%,#f4d9a6 45%,#dfe9c9 70%); } /* amanecer */
+    18%  { background:linear-gradient(180deg,#4c8fd6 0%,#8fc3ef 45%,#cfe8ff 72%); } /* mañana */
+    30%  { background:linear-gradient(180deg,#2f74d0 0%,#69a8e6 45%,#bfe0ff 72%); } /* mediodía */
+    44%  { background:linear-gradient(180deg,#3f82cf 0%,#86b7e3 48%,#d8ddc0 74%); } /* tarde */
+    50%  { background:linear-gradient(180deg,#e8894a 0%,#f0a86a 40%,#f3c892 72%); } /* atardecer */
+    58%  { background:linear-gradient(180deg,#6a4a86 0%,#9a6a8e 45%,#caa6a0 75%); } /* crepúsculo */
+    68%  { background:linear-gradient(180deg,#15214a 0%,#26305e 50%,#3a3a5a 80%); } /* anochecer */
+    84%  { background:linear-gradient(180deg,#0b1130 0%,#141a3e 55%,#20264c 85%); } /* noche */
+    94%  { background:linear-gradient(180deg,#3a2a56 0%,#7a5a76 55%,#c88a6a 90%); } /* previo al alba */
+    100% { background:linear-gradient(180deg,#f7b46b 0%,#f4d9a6 45%,#dfe9c9 70%); }
+  }
+  @keyframes starsCycle{
+    0%,46%{ opacity:0; } 60%{ opacity:.9; } 88%{ opacity:.9; } 96%,100%{ opacity:0; }
+  }
+  @keyframes nightTint{
+    0%,46%{ opacity:0; } 64%{ opacity:.45; } 86%{ opacity:.45; } 96%,100%{ opacity:0; }
+  }
+  /* Sol: arco visible durante el día (0-50%), oculto de noche */
+  @keyframes sunPath{
+    0%   { left:-6%;  top:90%; opacity:1; }
+    10%  { left:8%;   top:58%; opacity:1; }
+    25%  { left:50%;  top:14%; opacity:1; }
+    40%  { left:92%;  top:58%; opacity:1; }
+    50%  { left:106%; top:90%; opacity:1; }
+    50.01%,100% { opacity:0; left:106%; top:90%; }
+  }
+  /* Luna: arco visible durante la noche (50-100%) */
+  @keyframes moonPath{
+    0%,50% { opacity:0; left:-6%; top:90%; }
+    50.01% { opacity:1; left:-6%; top:90%; }
+    60%  { left:8%;   top:58%; opacity:1; }
+    75%  { left:50%;  top:16%; opacity:1; }
+    90%  { left:92%;  top:58%; opacity:1; }
+    100% { left:106%; top:90%; opacity:1; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .sky,.stars,.sun,.moon,.night-tint{ animation:none; }
+    .stars{ opacity:.9; } .sky{ background:linear-gradient(180deg,#2f74d0,#bfe0ff 72%); }
+  }
 
   /* ---------- Iconos del escritorio ---------- */
   /* capa de iconos: cada icono se coloca y arrastra libremente */
@@ -234,9 +306,9 @@
   /* ---------- Móvil: ventanas apiladas ---------- */
   @media (max-width:760px){
     body{ overflow:auto; }
-    .desktop{ position:relative; inset:auto; min-height:100vh; padding:12px 12px 70px; overflow:visible; }
-    .hills{ position:fixed; height:40%; }
-    .flowers{ position:fixed; }
+    .desktop{ position:relative; inset:auto; min-height:100vh; padding:12px 12px 70px; overflow:hidden; }
+    .sky-layer, .ground, .astro{ position:fixed; }
+    .ground{ height:26%; }
     .icons{ position:relative; inset:auto; display:grid; grid-template-columns:repeat(4, 1fr); gap:4px; pointer-events:auto; margin-bottom:12px; }
     .dicon{ position:relative; width:auto; left:auto !important; top:auto !important; }
     .wbody.flush .frame{ height:70vh; flex:none; }
@@ -251,15 +323,28 @@
 <body>
 
 <div class="desktop" id="desktop">
-  <svg class="hills" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
-    <defs>
-      <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd06a"/><stop offset="1" stop-color="#4f8f2f"/></linearGradient>
-      <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7cbd4b"/><stop offset="1" stop-color="#2f6a22"/></linearGradient>
-    </defs>
-    <path d="M0,170 C220,90 420,120 640,150 C860,180 1020,110 1200,130 L1200,400 L0,400 Z" fill="url(#g1)" opacity=".9"/>
-    <path d="M0,250 C260,170 560,210 760,240 C960,270 1100,220 1200,230 L1200,400 L0,400 Z" fill="url(#g2)"/>
+  <div class="sky-layer sky" aria-hidden="true"></div>
+  <div class="sky-layer stars" aria-hidden="true"></div>
+  <svg class="astro sun" viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true">
+    <g fill="#ffd23f">
+      <rect x="4" y="0" width="1" height="1"/><rect x="4" y="8" width="1" height="1"/>
+      <rect x="0" y="4" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/>
+      <rect x="3" y="1" width="3" height="1"/><rect x="2" y="2" width="5" height="1"/>
+      <rect x="1" y="3" width="7" height="3"/><rect x="2" y="6" width="5" height="1"/>
+      <rect x="3" y="7" width="3" height="1"/>
+    </g>
+    <g fill="#ffe98a"><rect x="3" y="3" width="2" height="2"/></g>
   </svg>
-  <div class="flowers"></div>
+  <svg class="astro moon" viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true">
+    <g fill="#e8ecf2">
+      <rect x="3" y="1" width="3" height="1"/><rect x="2" y="2" width="5" height="1"/>
+      <rect x="1" y="3" width="7" height="3"/><rect x="2" y="6" width="5" height="1"/>
+      <rect x="3" y="7" width="3" height="1"/>
+    </g>
+    <g fill="#c3c9d6"><rect x="3" y="3" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/></g>
+  </svg>
+  <div class="ground" aria-hidden="true"></div>
+  <div class="sky-layer night-tint" aria-hidden="true"></div>
 
   <nav class="icons" aria-label="Accesos del escritorio">
     <button class="dicon" data-id="perfil" data-open="perfil"><div class="ic">🙂</div><span>Mi perfil</span></button>
