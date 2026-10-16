@@ -155,7 +155,7 @@ function reset() {
   // Reset position and score
   playerAngleMoved = 0;
   score = 0;
-  scoreElement.innerText = "Press UP";
+  scoreElement.innerText = "Presiona ↑";
 
   // Remove other vehicles
   otherVehicles.forEach((vehicle) => {
