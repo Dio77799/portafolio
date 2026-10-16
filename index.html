@@ -56,8 +56,12 @@
     background-size:260px 120px; opacity:.85; }
 
   /* ---------- Iconos del escritorio ---------- */
-  .icons{ position:absolute; top:14px; right:14px; display:grid; grid-template-columns:repeat(2, 86px); gap:6px; z-index:1; }
-  .dicon{ width:86px; padding:6px 4px; text-align:center; cursor:pointer; border:1px dotted transparent; background:none; font:inherit; color:#fff; }
+  /* capa de iconos: cada icono se coloca y arrastra libremente */
+  .icons{ position:absolute; inset:0; z-index:1; pointer-events:none; }
+  .dicon{ position:absolute; pointer-events:auto; touch-action:none; user-select:none;
+    width:86px; padding:6px 4px; text-align:center; cursor:pointer; border:1px dotted transparent; background:none; font:inherit; color:#fff; text-decoration:none; }
+  .dicon.dragging{ opacity:.75; cursor:grabbing; z-index:5; }
+  body.dragging iframe{ pointer-events:none; }
   .dicon:hover, .dicon:focus-visible{ border-color:rgba(255,255,255,.8); background:rgba(47,111,214,.35); outline:none; }
   .dicon .ic{ width:42px; height:42px; margin:0 auto 4px; display:flex; align-items:center; justify-content:center; font-size:24px;
     background:var(--chrome); border:2px solid; border-color:var(--hi) var(--lo) var(--lo) var(--hi); box-shadow:2px 2px 0 rgba(0,0,0,.25); }
@@ -162,6 +166,43 @@
   .gallery img{ width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
   #viewer-img{ max-width:100%; display:block; margin:0 auto; border:2px solid; border-color:var(--lo) var(--hi) var(--hi) var(--lo); }
 
+  /* Laboratorios */
+  .labs{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:10px; }
+  .lab{ display:flex; flex-direction:column; }
+  .lab .limg{ width:100%; aspect-ratio:16/10; object-fit:cover; display:block; cursor:zoom-in; border-bottom:2px solid var(--lo); background:#16324a; }
+  .lab .lbody{ padding:8px 9px 10px; display:flex; flex-direction:column; flex:1; }
+  .lab h3{ font-family:var(--pixel); font-weight:600; font-size:15px; margin:0 0 3px; }
+  .lab p{ margin:0 0 7px; font-size:12px; line-height:1.45; color:#333b35; }
+  .lab .btn-row{ margin-top:auto; padding-top:6px; }
+  .lab .btn{ padding:4px 9px; font-size:11.5px; }
+  .banner{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:space-between; margin-bottom:10px; padding:8px 10px; background:#fff6d9; border:1px dashed #b58f2a; font-size:12.5px; }
+
+  /* Juegos */
+  .games{ display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:10px; }
+  .game{ padding:10px 6px; text-align:center; cursor:pointer; font:inherit; color:inherit; }
+  .game:hover{ background:#e2e8e1; }
+  .game .gic{ font-size:38px; line-height:1.2; }
+  .game b{ display:block; font-family:var(--pixel); font-weight:600; font-size:14px; margin-top:4px; }
+  .game small{ display:block; color:var(--ink-dim); font-size:11px; margin-top:2px; }
+  .frame{ width:100%; height:100%; border:2px solid; border-color:var(--lo) var(--hi) var(--hi) var(--lo); background:#000; display:block; }
+  .wbody.flush{ padding:4px; display:flex; flex-direction:column; gap:4px; }
+  .wbody.flush .frame{ flex:1; min-height:0; }
+  .frame-bar{ display:flex; justify-content:space-between; align-items:center; gap:6px; font-size:11.5px; color:var(--ink-dim); padding:0 2px; flex-wrap:wrap; }
+
+  /* Credenciales */
+  .creds{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; }
+  .cred{ padding:6px; text-align:center; cursor:zoom-in; font:inherit; color:inherit; }
+  .cred img{ width:100%; aspect-ratio:3/4; object-fit:cover; object-position:top; display:block; border:1px solid #8a948b; }
+  .cred b{ display:block; font-family:var(--pixel); font-weight:600; font-size:13.5px; margin-top:6px; }
+  .cred small{ display:block; color:var(--ink-dim); font-size:11px; }
+
+  /* Asistente IA (próximamente) */
+  .chat{ display:flex; flex-direction:column; gap:6px; }
+  .msg{ max-width:85%; padding:6px 9px; font-size:12.5px; line-height:1.45; border:1px solid #8a948b; background:#fff; }
+  .msg.me{ align-self:flex-end; background:#cfdcf2; }
+  .chat-input{ display:flex; gap:6px; margin-top:8px; }
+  .chat-input input{ flex:1; font:12.5px var(--ui); padding:5px 7px; border:2px solid; border-color:var(--lo) var(--hi) var(--hi) var(--lo); background:#eef1ed; }
+
   /* ---------- Barra de tareas ---------- */
   .taskbar{ position:fixed; left:0; right:0; bottom:0; height:44px; display:flex; align-items:center; gap:6px; padding:4px 6px calc(4px + env(safe-area-inset-bottom,0px));
     background:linear-gradient(180deg, #b7d3c9, var(--task)); border-top:2px solid #e9f3ef; z-index:9000; }
@@ -196,8 +237,9 @@
     .desktop{ position:relative; inset:auto; min-height:100vh; padding:12px 12px 70px; overflow:visible; }
     .hills{ position:fixed; height:40%; }
     .flowers{ position:fixed; }
-    .icons{ position:relative; top:auto; right:auto; grid-template-columns:repeat(4, 1fr); margin-bottom:12px; }
-    .dicon{ width:auto; }
+    .icons{ position:relative; inset:auto; display:grid; grid-template-columns:repeat(4, 1fr); gap:4px; pointer-events:auto; margin-bottom:12px; }
+    .dicon{ position:relative; width:auto; left:auto !important; top:auto !important; }
+    .wbody.flush .frame{ height:70vh; flex:none; }
     .win{ position:relative !important; left:auto !important; top:auto !important; width:auto !important; height:auto !important; max-height:none; margin-bottom:14px; }
     .titlebar{ cursor:default; }
     .proj-layout{ grid-template-columns:1fr; }
@@ -220,14 +262,19 @@
   <div class="flowers"></div>
 
   <nav class="icons" aria-label="Accesos del escritorio">
-    <button class="dicon" data-open="perfil"><div class="ic">🙂</div><span>Mi perfil</span></button>
-    <button class="dicon" data-open="proyectos"><div class="ic">📁</div><span>Proyectos</span></button>
-    <button class="dicon" data-open="certs"><div class="ic">🏆</div><span>Certificados</span></button>
-    <button class="dicon" data-open="historial"><div class="ic">📜</div><span>Historial</span></button>
-    <button class="dicon" data-open="skills"><div class="ic">🛠️</div><span>Habilidades</span></button>
-    <button class="dicon" data-open="galeria"><div class="ic">🖼️</div><span>Galería</span></button>
-    <a class="dicon" href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/" target="_blank" rel="noopener" style="text-decoration:none"><div class="ic in">in</div><span>LinkedIn</span></a>
-    <a class="dicon" href="https://github.com/Dio77799" target="_blank" rel="noopener" style="text-decoration:none"><div class="ic">💻</div><span>GitHub</span></a>
+    <button class="dicon" data-id="perfil" data-open="perfil"><div class="ic">🙂</div><span>Mi perfil</span></button>
+    <button class="dicon" data-id="proyectos" data-open="proyectos"><div class="ic">📁</div><span>Proyectos</span></button>
+    <button class="dicon" data-id="labs" data-open="labs"><div class="ic">🧪</div><span>Laboratorios</span></button>
+    <button class="dicon" data-id="juegos" data-open="juegos"><div class="ic">🎮</div><span>Juegos</span></button>
+    <button class="dicon" data-id="certs" data-open="certs"><div class="ic">🏆</div><span>Certificados</span></button>
+    <button class="dicon" data-id="credenciales" data-open="credenciales"><div class="ic">🪪</div><span>Credenciales</span></button>
+    <button class="dicon" data-id="historial" data-open="historial"><div class="ic">📜</div><span>Historial</span></button>
+    <button class="dicon" data-id="skills" data-open="skills"><div class="ic">🛠️</div><span>Habilidades</span></button>
+    <button class="dicon" data-id="galeria" data-open="galeria"><div class="ic">🖼️</div><span>Galería</span></button>
+    <button class="dicon" data-id="comunidad" data-open="comunidad"><div class="ic">👥</div><span>Comunidad</span></button>
+    <button class="dicon" data-id="ia" data-open="ia"><div class="ic">🤖</div><span>Asistente IA</span></button>
+    <a class="dicon" data-id="linkedin" href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/" target="_blank" rel="noopener"><div class="ic in">in</div><span>LinkedIn</span></a>
+    <a class="dicon" data-id="github" href="https://github.com/Dio77799" target="_blank" rel="noopener"><div class="ic">💻</div><span>GitHub</span></a>
   </nav>
 
   <!-- ============ PERFIL ============ -->
@@ -294,7 +341,8 @@
     <div class="wbody">
       <div class="label">🎓 Formación</div>
       <div class="sunk">
-        <div class="entry"><span class="when">En curso</span><b>Informática — UNAH</b><p>Desarrollo de software, sistemas de gestión, bases de datos y seguridad informática.</p></div>
+        <div class="entry"><span class="when">En curso</span><b>Informática Administrativa — UNAH</b><p>Desarrollo de software, sistemas de gestión, bases de datos y seguridad informática.</p></div>
+        <div class="entry"><span class="when">Feb. 2026</span><b>Beca por Desempeño Estudiantil — VOAE UNAH</b><p>Beneficiario, desempeñándome en el Área de Desarrollo Humano de la Vicerrectoría de Orientación y Asuntos Estudiantiles. <a href="#" data-open="credenciales">Ver constancia</a></p></div>
       </div>
       <div class="label">💼 Experiencia</div>
       <div class="sunk">
@@ -305,6 +353,8 @@
       </div>
       <div class="label">⭐ Liderazgo</div>
       <div class="sunk">
+        <div class="entry"><span class="when">2026</span><b>Secretaría de Relaciones — Asociación de Estudiantes de Informática Administrativa</b><p>Miembro acreditado del Comité Ejecutivo, Facultad de Ciencias Económicas, Administrativas y Contables. <a href="#" data-open="credenciales">Ver credencial</a></p></div>
+        <div class="entry"><span class="when">2024</span><b>Secretaría de Publicidad — Asociación de Estudiantes de Informática Administrativa</b><p>Miembro acreditado del Comité Ejecutivo, UNAH-CU. <a href="#" data-open="credenciales">Ver credencial</a></p></div>
         <div class="entry"><span class="when">2023 – 2025</span><b>Secretario de Acción Social — Asociación de Estudiantes UNAH</b><p>Organización de actividades académicas y sociales; liderazgo de equipos.</p></div>
         <div class="entry"><span class="when">2024</span><b>Cofundador — Cinemateca UNAH</b><p>Gestión de proyectos culturales, oratoria y comunicación institucional.</p></div>
       </div>
@@ -338,6 +388,83 @@
     <div class="wbody"><div class="gallery" id="gallery"></div></div>
   </section>
 
+  <!-- ============ LABORATORIOS ============ -->
+  <section class="win" id="w-labs" data-x="90" data-y="16" data-w="760" data-h="560" hidden aria-label="Laboratorios">
+    <div class="titlebar"><span class="tico">🧪</span><h2>Laboratorios y pruebas</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody">
+      <div class="banner">
+        <span>🔐 Labs personales de ciberseguridad, siempre en entornos propios o autorizados (HTB, TryHackMe, hardware propio). Esta es una muestra: hay muchos más en mi comunidad.</span>
+        <button class="btn primary" data-open="comunidad">👥 Ver comunidad</button>
+      </div>
+      <div class="labs" id="labs"></div>
+    </div>
+  </section>
+
+  <!-- ============ JUEGOS ============ -->
+  <section class="win" id="w-juegos" data-x="260" data-y="60" data-w="500" hidden aria-label="Juegos">
+    <div class="titlebar"><span class="tico">🎮</span><h2>Juegos</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody">
+      <p style="margin:0 0 10px; font-size:12.5px;">Minijuegos web con los que practiqué JavaScript, Canvas y Three.js. Haz doble clic (o toca) para jugar.</p>
+      <div class="games" id="games"></div>
+    </div>
+  </section>
+
+  <section class="win" id="w-game" data-x="160" data-y="20" data-w="820" data-h="580" hidden aria-label="Juego">
+    <div class="titlebar"><span class="tico">🕹️</span><h2 id="game-title">Juego</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody flush">
+      <iframe class="frame" id="game-frame" title="Juego" allow="autoplay; fullscreen"></iframe>
+      <div class="frame-bar"><span id="game-help"></span><a class="btn" id="game-open" target="_blank" rel="noopener">⛶ Pantalla completa</a></div>
+    </div>
+  </section>
+
+  <!-- ============ VISOR DE DOCUMENTOS ============ -->
+  <section class="win" id="w-doc" data-x="140" data-y="14" data-w="760" data-h="600" hidden aria-label="Documento">
+    <div class="titlebar"><span class="tico">📄</span><h2 id="doc-title">Documento</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody flush">
+      <iframe class="frame" id="doc-frame" title="Documento PDF" style="background:#fff"></iframe>
+      <div class="frame-bar"><span>Si el documento no carga en tu dispositivo, ábrelo en una pestaña nueva.</span><a class="btn" id="doc-open" target="_blank" rel="noopener">↗ Abrir PDF</a></div>
+    </div>
+  </section>
+
+  <!-- ============ CREDENCIALES ============ -->
+  <section class="win" id="w-credenciales" data-x="200" data-y="40" data-w="560" hidden aria-label="Credenciales">
+    <div class="titlebar"><span class="tico">🪪</span><h2>Credenciales — Asociación y beca</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody">
+      <div class="creds" id="creds"></div>
+      <div class="btn-row"><button class="btn primary" data-doc="credenciales/credenciales-unah.pdf" data-doc-title="Credenciales UNAH">📄 Ver documento completo (PDF)</button></div>
+    </div>
+  </section>
+
+  <!-- ============ COMUNIDAD ============ -->
+  <section class="win" id="w-comunidad" data-x="320" data-y="80" data-w="440" hidden aria-label="Comunidad">
+    <div class="titlebar"><span class="tico">👥</span><h2>Mi comunidad</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody">
+      <div class="who" style="margin-bottom:8px;"><div class="avatar" style="width:64px;height:64px;flex-basis:64px;display:flex;align-items:center;justify-content:center;font-size:34px;background:#2f4f7d;">👥</div>
+        <div><h1 style="font-size:18px;" id="com-nombre">Comunidad de ciberseguridad</h1><div class="meta"><div>Labs · Proyectos · Contenido</div></div></div></div>
+      <div class="sunk">
+        <ul class="notes">
+          <li>Compartimos laboratorios, write-ups y apuntes de ciberseguridad.</li>
+          <li>Hacemos proyectos en conjunto: hardware, redes, desarrollo e IA.</li>
+          <li>Ahí publico el resto de mis labs y pruebas que no caben aquí.</li>
+        </ul>
+      </div>
+      <div class="btn-row" id="com-link"></div>
+    </div>
+  </section>
+
+  <!-- ============ ASISTENTE IA ============ -->
+  <section class="win" id="w-ia" data-x="380" data-y="110" data-w="380" hidden aria-label="Asistente IA">
+    <div class="titlebar"><span class="tico">🤖</span><h2>Asistente IA</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
+    <div class="wbody">
+      <div class="sunk chat">
+        <div class="msg">👋 ¡Hola! Soy el asistente de James, impulsado por un modelo local en <b>Ollama</b>.</div>
+        <div class="msg me">¿Qué podrás hacer?</div>
+        <div class="msg">Pronto podré responder preguntas sobre sus proyectos, labs y experiencia. 🚧 En construcción.</div>
+      </div>
+      <div class="chat-input"><input type="text" placeholder="Próximamente…" disabled aria-label="Mensaje"><button class="btn" disabled>Enviar</button></div>
+    </div>
+  </section>
+
   <!-- ============ VISOR DE IMAGEN ============ -->
   <section class="win" id="w-visor" data-x="200" data-y="30" data-w="760" hidden aria-label="Visor de imágenes">
     <div class="titlebar"><span class="tico">🔍</span><h2>Visor de imágenes</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
@@ -354,6 +481,11 @@
     <li><button data-open="historial"><span class="em">📜</span>Historial</button></li>
     <li><button data-open="skills"><span class="em">🛠️</span>Habilidades</button></li>
     <li><button data-open="galeria"><span class="em">🖼️</span>Galería</button></li>
+    <li><button data-open="labs"><span class="em">🧪</span>Laboratorios</button></li>
+    <li><button data-open="juegos"><span class="em">🎮</span>Juegos</button></li>
+    <li><button data-open="credenciales"><span class="em">🪪</span>Credenciales</button></li>
+    <li><button data-open="comunidad"><span class="em">👥</span>Comunidad</button></li>
+    <li><button data-open="ia"><span class="em">🤖</span>Asistente IA</button></li>
     <li><hr></li>
     <li><a href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/" target="_blank" rel="noopener"><span class="em">🔗</span>LinkedIn</a></li>
     <li><a href="https://github.com/Dio77799" target="_blank" rel="noopener"><span class="em">💻</span>GitHub</a></li>
@@ -438,6 +570,34 @@
     'sistemas/redes_wifi/wifi-3.png',
   ];
 
+  const JUEGOS = [
+    { id:'traffic', nombre:'Traffic Run', emoji:'🚗', tec:'Three.js', ayuda:'Flechas ↑ / ↓ para acelerar y frenar.' },
+    { id:'tower',   nombre:'Tower Blocks', emoji:'🧱', tec:'Three.js + GSAP', ayuda:'Clic o barra espaciadora para apilar.' },
+    { id:'snake',   nombre:'Snake', emoji:'🐍', tec:'JS + CSS', ayuda:'Flechas para moverte.' },
+    { id:'pong',    nombre:'Pong Tennis', emoji:'🎾', tec:'p5.js', ayuda:'Mueve el ratón para jugar.' },
+  ];
+
+  const LABS = [
+    { img:'labs/img/cowrie-logs.jpg', titulo:'Honeypot Cowrie en Raspberry Pi', desc:'Instalación de Cowrie (SSH/Telnet) en una Raspberry Pi para capturar ataques reales y analizar sus logs.', doc:'labs/docs/cowrie-tutorial.pdf' },
+    { img:'labs/img/cowrie-ssh.jpg', titulo:'Análisis de sesiones SSH', desc:'Pruebas de conexión al honeypot y revisión de intentos de login y comandos registrados.', doc:'labs/docs/bitacora-laboratorio.pdf' },
+    { img:'labs/img/wifi-audit.jpg', titulo:'WiFi Audit Lab', desc:'Auditoría de red y endpoints con nmap, lynis, rkhunter y chkrootkit. Solo uso ético y autorizado.', doc:null },
+    { img:'labs/img/htb-redis.png', titulo:'HTB — Flag en base de datos Redis', desc:'Reconocimiento con nmap y extracción de una flag desde un servidor Redis expuesto sin contraseña.', doc:'labs/docs/htb-redis.pdf' },
+    { img:'labs/img/phishing-lab.jpg', titulo:'Laboratorio de phishing (defensivo)', desc:'Estudio de técnicas de phishing en entorno controlado para aprender a detectarlas y defenderse.', doc:'labs/docs/apuntes-pentesting.pdf' },
+    { img:'labs/img/rpi-kit.jpg', titulo:'Mini laboratorio — Raspberry Pi 4', desc:'Montaje del lab de hardware: Raspberry Pi 4, periféricos y guía oficial para pruebas de seguridad.', doc:'labs/docs/cheatsheet-raspberry.pdf' },
+    { img:'labs/img/esp32.jpg', titulo:'Microcontrolador ESP32', desc:'Experimentos con ESP32 para monitoreo de red y proyectos de hardware embebido.', doc:'labs/docs/bitacora-laboratorio.pdf' },
+    { img:'labs/img/minilab-carcasa.jpg', titulo:'Carcasa del mini lab (SOC casero)', desc:'Armado de la carcasa y cableado del mini-SOC: conmutación de video, alimentación y periféricos.', doc:'labs/docs/mini-lab-soc.pdf' },
+    { img:'labs/img/minilab-pantalla.jpg', titulo:'Mini-SOC en funcionamiento', desc:'El laboratorio encendido con varias sesiones SSH activas hacia las Raspberry Pi vía MobaXterm.', doc:'labs/docs/apuntes-ciberseguridad.pdf' },
+  ];
+
+  const CREDENCIALES = [
+    { img:'credenciales/beca-voae-2026.jpg', titulo:'Beca por Desempeño', inst:'VOAE UNAH · Feb. 2026' },
+    { img:'credenciales/asociacion-relaciones-2026.jpg', titulo:'Secretaría de Relaciones', inst:'Asoc. Estudiantes · 2026' },
+    { img:'credenciales/asociacion-publicidad-2024.jpg', titulo:'Secretaría de Publicidad', inst:'Asoc. Estudiantes · 2024' },
+  ];
+
+  // Enlace a tu comunidad (cámbialo por el enlace real cuando lo tengas)
+  const COMUNIDAD_URL = '';
+
   // ============================================================
   //  PROYECTOS — lista estilo mensajería + detalle
   // ============================================================
@@ -493,11 +653,67 @@
   // ============================================================
   const visorImg = document.getElementById('viewer-img');
   document.getElementById('gallery').innerHTML = GALERIA.map(src => `<button data-src="${src}"><img src="${src}" alt="Captura de proyecto" loading="lazy"></button>`).join('');
-  document.getElementById('gallery').addEventListener('click', (e) => {
-    const b = e.target.closest('button[data-src]');
+  // Visor de imágenes global: galería, laboratorios y credenciales
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-src]');
     if (!b) return;
     visorImg.src = b.dataset.src;
     abrir('visor');
+  });
+
+  // ============================================================
+  //  JUEGOS
+  // ============================================================
+  document.getElementById('games').innerHTML = JUEGOS.map(g =>
+    `<button class="game" data-game="${g.id}"><div class="gic">${g.emoji}</div><b>${g.nombre}</b><small>${g.tec}</small></button>`).join('');
+  const gameFrame = document.getElementById('game-frame');
+  function jugar(id){
+    const g = JUEGOS.find(j => j.id === id);
+    const src = `juegos/${id}/index.html`;
+    document.getElementById('game-title').textContent = g.nombre;
+    document.getElementById('game-help').textContent = g.ayuda;
+    document.getElementById('game-open').href = src;
+    gameFrame.src = src;
+    abrir('game');
+  }
+  document.getElementById('games').addEventListener('click', e => {
+    const b = e.target.closest('[data-game]'); if (b) jugar(b.dataset.game);
+  });
+
+  // ============================================================
+  //  LABORATORIOS
+  // ============================================================
+  document.getElementById('labs').innerHTML = LABS.map(l =>
+    `<div class="lab raised"><img class="limg" src="${l.img}" alt="${l.titulo}" data-src="${l.img}" loading="lazy">
+      <div class="lbody"><h3>${l.titulo}</h3><p>${l.desc}</p>
+      <div class="btn-row">${l.doc ? `<button class="btn primary" data-doc="${l.doc}" data-doc-title="${l.titulo}">📄 Ver apuntes</button>` : '<span style="font-size:11px;color:var(--ink-dim)">Solo captura</span>'}</div></div></div>`).join('');
+
+  // ============================================================
+  //  CREDENCIALES
+  // ============================================================
+  document.getElementById('creds').innerHTML = CREDENCIALES.map(c =>
+    `<button class="cred" data-src="${c.img}"><img src="${c.img}" alt="${c.titulo}" loading="lazy"><b>${c.titulo}</b><small>${c.inst}</small></button>`).join('');
+
+  // ============================================================
+  //  COMUNIDAD
+  // ============================================================
+  document.getElementById('com-link').innerHTML = COMUNIDAD_URL
+    ? `<a class="btn primary" href="${COMUNIDAD_URL}" target="_blank" rel="noopener">👥 Entrar a la comunidad</a>`
+    : `<span style="font-size:11.5px;color:var(--ink-dim)">🔗 Enlace de la comunidad: próximamente.</span>`;
+
+  // ============================================================
+  //  VISOR DE DOCUMENTOS (PDF)
+  // ============================================================
+  const docFrame = document.getElementById('doc-frame');
+  function verDoc(src, titulo){
+    document.getElementById('doc-title').textContent = titulo || 'Documento';
+    document.getElementById('doc-open').href = src;
+    docFrame.src = src;
+    abrir('doc');
+  }
+  document.addEventListener('click', e => {
+    const d = e.target.closest('[data-doc]');
+    if (d) { e.preventDefault(); verDoc(d.dataset.doc, d.dataset.docTitle); }
   });
 
   // ============================================================
@@ -520,7 +736,12 @@
     enfocar(w);
     if (esMovil()) w.scrollIntoView({ behavior:'smooth', block:'start' });
   }
-  function cerrar(w){ w.hidden = true; w.classList.remove('active'); renderTasks(); }
+  function cerrar(w){
+    w.hidden = true; w.classList.remove('active');
+    // Al cerrar un juego o documento, descarga el iframe para detenerlo
+    const f = w.querySelector('iframe'); if (f) f.removeAttribute('src');
+    renderTasks();
+  }
   function minimizar(w){ w.hidden = true; w.dataset.min = '1'; w.classList.remove('active'); renderTasks(); }
 
   function renderTasks(){
@@ -583,7 +804,50 @@
     if (!e.target.closest('#startmenu')) { menu.hidden = true; startBtn.classList.remove('open'); }
   });
 
-  // Enlace directo: index.html#proyectos, #certs, #historial, ...
+  // ============================================================
+  //  ICONOS DEL ESCRITORIO — rejilla a la derecha + arrastrables
+  // ============================================================
+  const iconos = [...document.querySelectorAll('.dicon')];
+  function colocarIconos(){
+    if (esMovil()) { iconos.forEach(i => { i.style.left = ''; i.style.top = ''; }); return; }
+    const area = document.getElementById('desktop').getBoundingClientRect();
+    const colW = 94, rowH = 78, cols = 2, startX = area.width - colW * cols - 8;
+    iconos.forEach((ic, k) => {
+      if (ic.dataset.px) { ic.style.left = ic.dataset.px + 'px'; ic.style.top = ic.dataset.py + 'px'; return; }
+      ic.style.left = (startX + (Math.floor(k / 7)) * colW) + 'px';
+      ic.style.top = (14 + (k % 7) * rowH) + 'px';
+    });
+  }
+  colocarIconos();
+  window.addEventListener('resize', colocarIconos);
+
+  iconos.forEach(ic => {
+    let moved = false, sx, sy, ox, oy;
+    ic.addEventListener('pointerdown', (e) => {
+      if (esMovil()) return;
+      moved = false; sx = e.clientX; sy = e.clientY; ox = ic.offsetLeft; oy = ic.offsetTop;
+      ic.setPointerCapture(e.pointerId);
+      const area = document.getElementById('desktop');
+      const mover = (ev) => {
+        if (Math.abs(ev.clientX - sx) + Math.abs(ev.clientY - sy) > 4) { moved = true; ic.classList.add('dragging'); document.body.classList.add('dragging'); }
+        if (!moved) return;
+        const x = Math.max(0, Math.min(ox + ev.clientX - sx, area.clientWidth - ic.offsetWidth));
+        const y = Math.max(0, Math.min(oy + ev.clientY - sy, area.clientHeight - ic.offsetHeight));
+        ic.style.left = x + 'px'; ic.style.top = y + 'px';
+        ic.dataset.px = x; ic.dataset.py = y;
+      };
+      ic.addEventListener('pointermove', mover);
+      ic.addEventListener('pointerup', () => {
+        ic.removeEventListener('pointermove', mover);
+        ic.classList.remove('dragging'); document.body.classList.remove('dragging');
+        setTimeout(() => { moved = false; }, 0);
+      }, { once:true });
+    });
+    // Si se arrastró, no abrir la ventana al soltar
+    ic.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopImmediatePropagation(); } }, true);
+  });
+
+  // Enlace directo: index.html#proyectos, #certs, #juegos, #labs, ...
   const hash = location.hash.slice(1);
   if (document.getElementById('w-' + hash)) abrir(hash); else enfocar(document.getElementById('w-proyectos'));
 
