@@ -508,7 +508,7 @@
           <li>Desarrollo sistemas de gestión full-stack: .NET, React, Node.js y Flutter.</li>
           <li>4 certificaciones Cisco: Ethical Hacker, Cybersecurity, CCNA ITN e IT Essentials.</li>
           <li>Seguridad con hardware embebido: honeypot Cowrie en Raspberry Pi y ESP32.</li>
-          <li>Formación en IA, LLMs locales (Ollama) e ISO/IEC 42001.</li>
+          <li>IA aplicada con LLMs locales (Ollama): resumidor-videos (open source) y Eva, mi asistente local. Formación en ISO/IEC 42001.</li>
           <li>Gestión de proyectos (PM), análisis de sistemas y metodologías ágiles (Scrum).</li>
           <li>Líder estudiantil, cofundador de la Cinemateca UNAH. Español nativo, inglés avanzado, francés básico.</li>
         </ul>
@@ -749,6 +749,12 @@
   //  DATOS — edita aquí proyectos y certificaciones
   // ============================================================
   const PROYECTOS = [
+    { nombre:'resumidor-videos', titulo:'resumidor-videos — Apuntes con IA local', img:null, color:'#1f6feb', sub:'IA aplicada · Open source · 2026', estado:'on', repo:'https://github.com/Dio77799/resumidor-videos',
+      desc:'Convierte videos, audios o transcripciones en apuntes Markdown: resumen, puntos clave, notas por sección y preguntas de repaso. Corre 100 % local y gratis con Ollama + faster-whisper, o con una API key propia.',
+      tags:['Python','Ollama','faster-whisper','LLMs locales','CLI','MIT'] },
+    { nombre:'Eva', titulo:'Eva — Asistente personal local', img:null, color:'#1f6b42', sub:'IA agéntica · 2026 · En desarrollo', estado:'lock',
+      desc:'Asistente personal que corre en mi equipo: chat con un LLM local que usa herramientas, panel web propio, un equipo de agentes (planner, developer, QA, reviewer) con revisión independiente, auditoría de seguridad y medición del consumo de energía. Todo local, enfocado en privacidad.',
+      tags:['Python (solo stdlib)','Ollama','Tool calling','Agentes de IA','DDD-lite','Seguridad'] },
     { nombre:'ERP Azisto', titulo:'ERP Multi-tenant — Azisto', img:null, color:'#2f4f7d', sub:'Full-stack · 2026 · En desarrollo', estado:'lock',
       desc:'Plataforma ERP multiempresa con módulos de Organización, Contabilidad, Facturación e Inventario. API REST con Clean Architecture, cliente PWA y app híbrida de escritorio/móvil que comparten componentes.',
       tags:['.NET 8','C#','Clean Architecture','PostgreSQL / Neon','Blazor WASM','MAUI','JWT','EF Core'] },
@@ -787,9 +793,9 @@
       ['Base de Datos SQLite','','UC-b13cee2c-cf2d-4786-8b54-9c411f884f9e'],
       ['Aprende a detectar y defenderte del Phishing','Ene. 2025','UC-e2a35338-4d30-4756-87f2-dab124fd434e'] ]},
     { inst:'Capacítate para el empleo', icono:'🤖', items:[
-      ['Fundamentos de Inteligencia Artificial','Mar. 2026','25204712-f3d1-4584-9402-cfad4f6d0f8c'],
-      ['Fundamentos de Machine Learning','Mar. 2026','d71e706e-ce1c-41c5-b926-3f9a24f1f863'],
-      ['Fundamentos de Blockchain','Feb. 2026','4cb2aa96-9c60-437b-87b3-e36745dc4c1a'] ]},
+      ['Fundamentos de Blockchain','Feb. 2026','4cb2aa96-9c60-437b-87b3-e36745dc4c1a'],
+      ['Fundamentos de Inteligencia Artificial','En curso',''],
+      ['Fundamentos de Machine Learning','En curso',''] ]},
     { inst:'INFOP Virtual', icono:'📘', items:[
       ['Programar en Python','Sep. 2026','06a1a5f1-ef7f-4b65-ac9b-fc98d01a3261'],
       ['Trabajo en Equipo','Sep. 2026','2449763'],
@@ -797,8 +803,9 @@
       ['Liderazgo','Jul. 2024','2444684'] ]},
     { inst:'Smart Campus AI', icono:'🌐', items:[
       ['Digital Immersion','','201250404-910'] ]},
-    { inst:'Metodologías Ágiles', icono:'🔄', items:[
-      ['Introducción a la Agilidad y Scrum','2025',''] ]},
+    { inst:'Líderes Digitales', icono:'🔄', items:[
+      ['Introducción a la Agilidad','Jun. 2026','33866F3A2397F4B156ED5A31F5BA7964'],
+      ['Introducción a Scrum','Jun. 2026','45017F6511F91BE700FDA3D118034994'] ]},
   ];
 
   const GALERIA = [
@@ -881,7 +888,7 @@
   // ============================================================
   let totalCerts = 0;
   document.getElementById('cert-list').innerHTML = CERTIFICADOS.map(g => {
-    totalCerts += g.items.length;
+    totalCerts += g.items.filter(([, f]) => f !== 'En curso').length;
     return `<div class="label">${g.icono} ${g.inst}</div><div class="sunk cert-group">${
       g.items.map(([n, f, id]) => `<div class="cert"><span class="seal">🏅</span><div><b>${n}</b><small>${[f, id && 'ID: ' + id].filter(Boolean).join(' · ') || g.inst}</small></div></div>`).join('')
     }</div>`;
