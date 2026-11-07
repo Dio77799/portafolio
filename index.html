@@ -6,7 +6,7 @@
 <title>James Velásquez — Portafolio</title>
 <meta name="description" content="Portafolio de James Velásquez — desarrollo de software, IA aplicada y ciberseguridad defensiva.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=Special+Elite&family=VT323&display=swap" rel="stylesheet">
 <style>
   :root{
     --chrome:#d4dbd3;        /* cuerpo de ventana */
@@ -330,6 +330,43 @@
   .cred small{ display:block; color:var(--ink-dim); font-size:11px; }
 
   /* Personalización */
+  /* ===== Tema TERROR (estilo propio: sepia sucio, grano, viñeta, luz roja) ===== */
+  .pv-terror{ background:radial-gradient(circle at 50% 40%,#5a1a12 0%,#1e0e0b 55%,#070505 100%); }
+  .desktop[data-bg="terror"]{ background:radial-gradient(ellipse at 50% 35%,#3a1d16 0%,#170d0b 55%,#050303 100%); }
+    .desktop[data-bg="terror"] .sky-layer, .desktop[data-bg="terror"] .astro, .desktop[data-bg="terror"] .ground,
+  .desktop[data-bg="terror"] .bliss-hill, .desktop[data-bg="terror"] .hills, .desktop[data-bg="terror"] .flowers{ display:none !important; }
+  .terror-fx{ display:none; }
+  body.terror .terror-fx{ display:block; position:fixed; inset:0 0 44px 0; pointer-events:none; z-index:1; }
+  body.terror .terror-fx::before{ content:""; position:absolute; inset:-50%; pointer-events:none; z-index:0; opacity:.22;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:grano .35s steps(3) infinite; }
+  body.terror .terror-fx::after{ content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
+    background:radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,.85) 100%),
+      repeating-linear-gradient(90deg, transparent 0 140px, rgba(255,230,200,.035) 140px 141px, transparent 141px 380px);
+    animation:parpadeo 7s infinite; }
+  @keyframes grano{ 0%{transform:translate(0,0)} 33%{transform:translate(-4%,3%)} 66%{transform:translate(3%,-5%)} 100%{transform:translate(0,0)} }
+  @keyframes parpadeo{ 0%,91%,100%{opacity:1} 92%{opacity:.55} 93%{opacity:1} 95%{opacity:.35} 96%{opacity:1} }
+  body.terror{ --chrome:#1b1513; --chrome-2:#120e0c; --title-1:#4a1410; --title-2:#24090a; --title-off:#2a2220;
+    --hi:#4a3a33; --lo:#000; --ink:#d8c9b4; --ink-dim:#8f7e6c; --accent:#a3261c; --accent-2:#b98a4a; --task:#140f0d;
+    --pixel:'Special Elite','Courier New',monospace; background:#050303; }
+  body.terror .win{ box-shadow:0 0 0 1px #000, 0 18px 50px rgba(0,0,0,.8), 0 0 30px rgba(120,20,10,.15); }
+  body.terror .win .titlebar{ letter-spacing:.06em; }
+  body.terror .win.active .titlebar{ text-shadow:0 0 6px rgba(255,40,20,.6); }
+  body.terror .sunk, body.terror .raised, body.terror .tags span, body.terror .btn, body.terror .bitem, body.terror .bg-opt{ background-color:#0f0b0a; color:var(--ink); }
+  body.terror .btn.primary, body.terror .btn.blue{ background:#5c1610; color:#f1e2cc; }
+  body.terror .dicon span{ color:#e9dccb; text-shadow:0 0 4px #000, 0 0 8px rgba(160,20,10,.7); }
+  body.terror .taskbar{ background:linear-gradient(180deg,#1c1311,#0b0707); border-top:1px solid #3a1a14; color:var(--ink); }
+  body.terror .mission b{ color:#c23a2c; }
+  body.terror img.avatar, body.terror .shot, body.terror .limg, body.terror .gallery img{ filter:sepia(.55) contrast(1.1) brightness(.8); }
+  body.terror a{ color:#d0563f; }
+  body.terror .label{ color:#b23a2b; }
+  body.terror .label::after{ background:linear-gradient(90deg,#5c1610,transparent); }
+  body.terror .mission span{ color:#a8957f; }
+  body.terror .tray, body.terror .task, body.terror .task.active, body.terror .start{ background:#0f0b0a; color:#c9b8a2; }
+  body.terror .titlebar{ color:#8f7e6c; }
+  body.terror .startmenu{ background:var(--chrome); }
+  body.terror .startmenu li button, body.terror .startmenu li a{ color:var(--ink); }
+  @media (prefers-reduced-motion: reduce){ body.terror .terror-fx::before, body.terror .terror-fx::after{ animation:none; } }
   .bg-opts{ display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:10px; }
   .bg-opt{ padding:0; cursor:pointer; text-align:left; font:inherit; color:inherit; overflow:hidden;
     background:var(--chrome); border:2px solid; border-color:var(--hi) var(--lo) var(--lo) var(--hi); }
@@ -405,6 +442,7 @@
 </head>
 <body>
 
+<div class="terror-fx" aria-hidden="true"></div>
 <div class="desktop" id="desktop" data-bg="bliss">
   <div class="sky-layer bliss" aria-hidden="true"></div>
   <svg class="bliss-hill" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
@@ -508,7 +546,7 @@
           <li>Seguridad con hardware embebido: honeypot Cowrie en Raspberry Pi y ESP32.</li>
           <li>IA aplicada con LLMs locales (Ollama): resumidor-videos (open source) y Eva, mi asistente local. Formación en ISO/IEC 42001.</li>
           <li>Práctica en IA agéntica y automatización: agentes, RAG e integraciones con sistemas empresariales.</li>
-          <li>Publico artículos técnicos con enfoque defensivo en LinkedIn y daily.dev. Inglés avanzado.</li>
+          <li>Publico artículos técnicos con enfoque defensivo en LinkedIn y daily.dev. Inglés avanzado, francés básico.</li>
         </ul>
       </div>
       <div class="label">⭐ Aptitudes</div>
@@ -543,7 +581,7 @@
     <div class="titlebar"><span class="tico">🏆</span><h2>Certificados</h2><button class="tbtn min" title="Minimizar">_</button><button class="tbtn close" title="Cerrar">✕</button></div>
     <div class="wbody">
       <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;">
-        <div><span class="counter" id="cert-count">0</span> cursos completados · verificables en LinkedIn</div>
+        <div><span class="counter" id="cert-count">0</span> cursos técnicos · más de 12 verificables en LinkedIn</div>
         <a class="btn blue" href="https://www.linkedin.com/in/james-vel%C3%A1squez-8150b6383/details/certifications/" target="_blank" rel="noopener">Ver en LinkedIn →</a>
       </div>
       <div id="cert-list"></div>
@@ -585,6 +623,7 @@
       <div class="label">🌐 Idiomas</div>
       <div>Español — Nativo<div class="bar"><i style="width:100%"></i></div></div>
       <div>Inglés — Avanzado<div class="bar"><i style="width:80%"></i></div></div>
+      <div>Francés — Básico<div class="bar"><i style="width:25%"></i></div></div>
     </div>
   </section>
 
@@ -654,6 +693,10 @@
         <button class="bg-opt" data-set="bliss"><span class="prev pv-bliss"></span><b>Diurno</b><small>Clásico (predeterminado)</small></button>
         <button class="bg-opt" data-set="bliss-dyn"><span class="prev pv-bliss-dyn"></span><b>Dinámico</b><small>Ciclo día/noche (1 min)</small></button>
         <button class="bg-opt" data-set="bliss-night"><span class="prev pv-bliss-night"></span><b>Nocturno</b><small>Cielo de noche fijo</small></button>
+      </div>
+      <div class="label">🩸 Terror</div>
+      <div class="bg-opts">
+        <button class="bg-opt" data-set="terror"><span class="prev pv-terror"></span><b>Pesadilla</b><small>Sepia, grano y luz roja</small></button>
       </div>
       <div class="label">🟩 Pixel</div>
       <div class="bg-opts">
@@ -743,14 +786,20 @@
       ['Ethical Hacker',''],
       ['Introduction to Cybersecurity',''],
       ['CCNA: Introduction to Networks',''],
-      ['IT Essentials',''] ]},
+      ['IT Essentials',''],
+      ['Networking Basics',''],
+      ['Python Essentials 1',''] ]},
     { inst:'Udemy', icono:'🎓', items:[
       ['Zero to Hero in Ollama: Create Local LLM Applications','UC-3ad3f0a3-08bf-4562-982f-f4738077455e'],
       ['Mastering ISO/IEC 42001: Cybersecurity Business Essentials','UC-f0703fb6-29a6-42cb-b792-251e83e05391'],
       ['Aprende a detectar y defenderte del Phishing','UC-e2a35338-4d30-4756-87f2-dab124fd434e'],
       ['Base de Datos SQLite','UC-b13cee2c-cf2d-4786-8b54-9c411f884f9e'] ]},
-    { inst:'INFOP Virtual', icono:'📘', items:[
-      ['Programar en Python','06a1a5f1-ef7f-4b65-ac9b-fc98d01a3261'] ]},
+    { inst:'INFOP', icono:'📘', items:[
+      ['Programar en Python','06a1a5f1-ef7f-4b65-ac9b-fc98d01a3261'],
+      ['Base de Datos MySQL','2596379'],
+      ['Administración de Centros de Cómputo','2612189'],
+      ['Programar en Arduino','2502616'],
+      ['Diseño Web HTML5 y WordPress','2406969'] ]},
     { inst:'Capacítate para el empleo', icono:'⛓️', items:[
       ['Fundamentos de Blockchain','4cb2aa96-9c60-437b-87b3-e36745dc4c1a'] ]},
     { inst:'Líderes Digitales', icono:'🔄', items:[
@@ -898,12 +947,13 @@
   // ============================================================
   //  PERSONALIZACIÓN DE FONDO (guardado en localStorage)
   // ============================================================
-  const FONDOS = ['bliss','bliss-dyn','bliss-night','dyn','day','night'];
+  const FONDOS = ['bliss','bliss-dyn','bliss-night','dyn','day','night','terror'];
   const desktopEl = document.getElementById('desktop');
   const winPers = document.getElementById('w-personalizar');
   function aplicarFondo(id){
     if (!FONDOS.includes(id)) id = 'bliss';
     desktopEl.dataset.bg = id;
+    document.body.classList.toggle('terror', id === 'terror');
     winPers.querySelectorAll('.bg-opt').forEach(b => b.classList.toggle('sel', b.dataset.set === id));
     try { localStorage.setItem('fondo', id); } catch (e) {}
   }
