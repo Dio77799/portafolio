@@ -24,3 +24,7 @@ Proyectos, cursos, galería y laboratorios están en los arreglos `PROYECTOS`,
 ## Ver en local
 
 Abre `index.html` en el navegador.
+
+## Derechos
+
+© 2026 James V (Dio77799). Todos los derechos reservados. Ver [LICENSE](LICENSE).
