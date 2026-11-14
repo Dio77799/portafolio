@@ -1,4 +1,4 @@
-# Portafolio — James Velásquez
+# Portafolio de James Velásquez
 
 Portafolio personal en HTML, CSS y JavaScript puro (sin frameworks), con interfaz de
 escritorio estilo Windows y publicado en GitHub Pages.
